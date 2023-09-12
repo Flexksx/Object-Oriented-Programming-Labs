@@ -1,4 +1,4 @@
-public class laboratory1 {
+public class BankAccountLab {
     public static void main(String[] args) {
         BankAccount ba1 = new BankAccount("Vaniusha", 10, "694201337");
         ba1.deposit(100);
