@@ -39,7 +39,7 @@ public class BankAccount {
     }
 
     public void showBalance() {
-        System.out.println("Current balance: " + getBalance());
+        System.out.println("Current balance of " + getOwnerName() + ": " + getBalance());
     }
 
     public void showOwnerName() {
