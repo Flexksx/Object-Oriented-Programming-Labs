@@ -1,17 +1,4 @@
-public class BankAccountLab {
-    public static void main(String[] args) {
-        BankAccount ba1 = new BankAccount("Vaniusha", 10, "694201337");
-        ba1.deposit(100);
-        ba1.showBalance();
-        BankAccount ba2 = new BankAccount("Jora", 20, "42992323");
-        ba2.deposit(50);
-        ba2.blockAccount();
-        ba1.transferFunds(ba2, 20);
-
-    }
-}
-
-class BankAccount {
+public class BankAccount {
     private float Balance;
     private String AccountNumber;
     private String OwnerName;
