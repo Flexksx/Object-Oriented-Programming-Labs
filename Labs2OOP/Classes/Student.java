@@ -1,4 +1,4 @@
-package Labs2OOP;
+package Labs2OOP.Classes;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,12 @@ public class Student {
     this.Speciality = spec;
   }
 
+  public void addMark(String date, float value){
+    this.Marks.add(new Mark(value, date));
+  }
+  public void addAbsence(String date){
+    this.Marks.add(new Mark(date));
+  }
   public void setDateOfBirth(String dateOfBirth) {
     this.DateOfBirth = dateOfBirth;
   }
@@ -37,5 +43,23 @@ public class Student {
 
   public void setStudentID(String studentID) {
     this.StudentID = studentID;
+  }
+  public String getDateOfBirth() {
+      return this.DateOfBirth;
+  }
+  public String getFaculty() {
+      return this.Faculty;
+  }
+  public ArrayList<Mark> getMarks() {
+      return this.Marks;
+  }
+  public String getName() {
+      return this.Name;
+  }
+  public String getSpeciality() {
+      return this.Speciality;
+  }
+  public String getStudentID() {
+      return this.StudentID;
   }
 }

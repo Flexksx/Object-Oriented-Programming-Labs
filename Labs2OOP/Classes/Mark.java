@@ -1,4 +1,4 @@
-package Labs2OOP;
+package Labs2OOP.Classes;
 
 public class Mark {
 
