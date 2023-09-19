@@ -5,7 +5,7 @@ public class Mark {
   private float Value;
   private String Date;
   private boolean ModifyPermission = false;
-  private boolean Absent;
+  private boolean Absent=false;
 
   public Mark(float value, String date) {
     this.Value = value;
