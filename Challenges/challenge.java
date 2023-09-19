@@ -17,7 +17,11 @@ public class challenge {
         // Multiples Challenge
         // MathUtils math = new MathUtils();
         // math.SumOfMultiples(10);
+
+        //Find next perfect square
         // math.FindNextPerfect(143);
+        
+        //Find if number is narcissistic
         // math.isNarcissistic(1634);
     }
 }
