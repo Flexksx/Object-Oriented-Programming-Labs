@@ -1,4 +1,4 @@
-public class BA_labMain {
+public class BankApplicationMain {
     public static void main(String[] args) {
         BankAccount ba1 = new BankAccount("Vaniusha", 10, "694201337");
         BankAccount ba2 = new BankAccount("Jora", 20, "42992323");
