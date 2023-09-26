@@ -3,62 +3,72 @@ package Project.Classes;
 import java.util.ArrayList;
 
 public class StudentGroup {
-    private String Name;
-    private ArrayList<Student> Students = new ArrayList<Student>();
-    private String Faculty;
-    private String Speciality;
+    private String name;
+    private ArrayList<Student> students = new ArrayList<Student>();
+    private String faculty;
+    private String specialtity;
 
     public StudentGroup(String name, ArrayList<Student> students, String faculty, String speciality) {
-        this.Name = name;
-        this.Students = students;
-        this.Faculty = faculty;
-        this.Speciality = speciality;
+        this.name = name;
+        this.students = students;
+        this.faculty = faculty;
+        this.specialtity = speciality;
     }
 
     public StudentGroup(String name, String faculty, String speciality) {
-        this.Name = name;
-        this.Faculty = faculty;
-        this.Speciality = speciality;
+        this.name = name;
+        this.faculty = faculty;
+        this.specialtity = speciality;
     }
 
     public void addStudent(Student student){
-        this.Students.add(student);
+        this.students.add(student);
     }
 
     public void addNewStudent(String studentid, String name, String dob, String status) {
-        Students.add(new Student(studentid, name, dob, this.getFaculty(), this.getSpeciality(),status));
+        students.add(new Student(studentid, name, dob, this.getFaculty(), this.getSpecialtity(),status));
     }
 
     public String getName() {
-        return this.Name;
+        return this.name;
     }
 
     public ArrayList<Student> getStudents() {
-        return this.Students;
+        return this.students;
     }
 
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
     public void setStudents(ArrayList<Student> students) {
-        this.Students = students;
+        this.students = students;
     }
 
     public void setFaculty(String faculty) {
-        this.Faculty = faculty;
+        this.faculty = faculty;
     }
 
-    public void setSpeciality(String speciality) {
-        this.Speciality = speciality;
+    public void setSpecialtity(String specialtity) {
+        this.specialtity = specialtity;
     }
 
     public String getFaculty() {
-        return this.Faculty;
+        return this.faculty;
     }
 
-    public String getSpeciality() {
-        return this.Speciality;
+    public String getSpecialtity() {
+        return this.specialtity;
+    }
+
+    public Student getStudentByName(String name){
+        for(Student student : this.students){
+            if(name.equals(student.getName())){
+                return student;
+            }
+        }
+        System.err.println("Could not find student "+name+" in group" + this.name);
+        return null;
     }
 
 }

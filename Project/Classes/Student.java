@@ -4,71 +4,71 @@ import java.util.ArrayList;
 
 public class Student {
 
-  private String StudentID;
-  private String Name;
-  private String DateOfBirth;
-  private String Faculty;
-  private String Speciality;
-  private String DateOfEnrollment;
-  private ArrayList<Mark> Marks = new ArrayList<Mark>();
+  private String studentID;
+  private String name;
+  private String dateOfBirth;
+  private String faculty;
+  private String speciality;
+  private String dateOfEnrollment;
+  private ArrayList<Mark> marks = new ArrayList<>();
 
   private  String Status;
 
   public Student(String id, String name, String dob, String fac, String spec, String status) {
-    this.StudentID = id;
-    this.Name = name;
-    this.DateOfBirth = dob;
-    this.Faculty = fac;
-    this.Speciality = spec;
+    this.studentID = id;
+    this.name = name;
+    this.dateOfBirth = dob;
+    this.faculty = fac;
+    this.speciality = spec;
     this.Status=status;
   }
 
   public void addMark(String date, float value){
-    this.Marks.add(new Mark(value, date));
+    this.marks.add(new Mark(value, date));
   }
   public void addAbsence(String date){
-    this.Marks.add(new Mark(date));
+    this.marks.add(new Mark(date));
   }
   public void setDateOfBirth(String dateOfBirth) {
-    this.DateOfBirth = dateOfBirth;
+    this.dateOfBirth = dateOfBirth;
   }
 
   public void setFaculty(String faculty) {
-    this.Faculty = faculty;
+    this.faculty = faculty;
   }
 
   public void setName(String name) {
-    this.Name = name;
+    this.name = name;
   }
 
   public void setSpeciality(String speciality) {
-    this.Speciality = speciality;
+    this.speciality = speciality;
   }
 
   public void setStudentID(String studentID) {
-    this.StudentID = studentID;
+    this.studentID = studentID;
   }
   public String getDateOfBirth() {
-      return this.DateOfBirth;
+      return this.dateOfBirth;
   }
   public String getFaculty() {
-      return this.Faculty;
+      return this.faculty;
   }
   public ArrayList<Mark> getMarks() {
-      return this.Marks;
+      return this.marks;
   }
   public String getName() {
-      return this.Name;
+      return this.name;
   }
   public String getSpeciality() {
-      return this.Speciality;
+      return this.speciality;
   }
   public String getStudentID() {
-      return this.StudentID;
+      return this.studentID;
   }
 
   public void setDateOfEnrollment(String dateOfEnrollment) {
-    this.DateOfEnrollment = dateOfEnrollment;
+    this.dateOfEnrollment = dateOfEnrollment;
   }
 
   public void setStatus(String status) {
@@ -76,11 +76,11 @@ public class Student {
   }
 
   public void setMarks(ArrayList<Mark> marks) {
-    this.Marks = marks;
+    this.marks = marks;
   }
 
   public String getDateOfEnrollment() {
-    return this.DateOfEnrollment;
+    return this.dateOfEnrollment;
   }
 }
 

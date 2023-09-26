@@ -3,45 +3,59 @@ package Project.Classes;
 import java.util.ArrayList;
 
 public class Faculty {
-    private String Name;
-    private String ShortName;
-    private ArrayList<Speciality> Specialties = new ArrayList<Speciality>();
+    private String name;
+    private String shortName;
+    // TODO lowercase
+    private ArrayList<Speciality> specialities = new ArrayList<>();
+
+    // TODO
+//    private FieldStudy fieldStudy;
+
     public Faculty(String name, String shortname, ArrayList<Speciality> specialties){
-        this.Name=name;
-        this.ShortName=shortname;
-        this.Specialties=specialties;
+        this.name =name;
+        this.shortName =shortname;
+        this.specialities =specialties;
     }
     public Faculty(String name, String shortname){
-        this.Name=name;
-        this.ShortName=shortname;
+        this.name =name;
+        this.shortName =shortname;
     }
 
     public void addSpeciality(Speciality spec){
-        this.Specialties.add(spec);
+        this.specialities.add(spec);
     }
 
     public void addNewSpeciality(String name, String shortname){
-        this.Specialties.add(new Speciality(name, shortname));
+        this.specialities.add(new Speciality(name, shortname));
     }
     public void addNewSpeciality(String name, String shortname, ArrayList<StudentGroup> groups){
-        this.Specialties.add(new Speciality(name, shortname, groups));
+        this.specialities.add(new Speciality(name, shortname, groups));
     }
     public String getName() {
-        return Name;
+        return name;
     }
     public String getShortName() {
-        return ShortName;
+        return shortName;
     }
-    public ArrayList<Speciality> getSpecialties() {
-        return Specialties;
+    public ArrayList<Speciality> getSpecialities() {
+        return specialities;
     }
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
     public void setShortName(String shortName) {
-        ShortName = shortName;
+        this.shortName = shortName;
     }
-    public void setSpecialties(ArrayList<Speciality> specialties) {
-        Specialties = specialties;
+    public void setSpecialities(ArrayList<Speciality> specialities) {
+        this.specialities = specialities;
+    }
+
+    public Speciality getSpecialityByShortName(String shname){
+        for (Speciality specialty : this.specialities) {
+            if (shname.equals(specialty.getGroupNaming())) {
+                return specialty;
+            }
+        }
+        return null;
     }
 }
