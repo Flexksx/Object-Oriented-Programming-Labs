@@ -9,6 +9,7 @@ public class Student {
   private String DateOfBirth;
   private String Faculty;
   private String Speciality;
+  private String DateOfEnrollment;
   private ArrayList<Mark> Marks = new ArrayList<Mark>();
 
   public Student(String id, String name, String dob, String fac, String spec) {

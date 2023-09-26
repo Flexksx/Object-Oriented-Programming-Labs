@@ -1,11 +1,15 @@
 package Project;
 
 import Project.Classes.StudentGroup;
+import Project.Classes.Faculty;
+import Project.Classes.Speciality;
+import Project.Classes.Mark;
+import Project.Classes.Student;
+import Project.Classes.Date;
 
 public class StudentManagerMain {
     public static void main(String[] args) {
-        StudentGroup faf223 = new StudentGroup("FAF-223","FCIM","Software Engineering");
-        faf223.addStudent("123213123", "John Doe", "23/09/2003");
-        
+        Date data=new Date("12.9.2009");
+        System.out.println(data.getDay());
     }
 }

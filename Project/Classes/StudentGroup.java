@@ -21,7 +21,11 @@ public class StudentGroup {
         this.Speciality = speciality;
     }
 
-    public void addStudent(String studentid, String name, String dob) {
+    public void addStudent(Student student){
+        this.Students.add(student);
+    }
+
+    public void addNewStudent(String studentid, String name, String dob) {
         Students.add(new Student(studentid, name, dob, this.getFaculty(), this.getSpeciality()));
     }
 
