@@ -12,12 +12,15 @@ public class Student {
   private String DateOfEnrollment;
   private ArrayList<Mark> Marks = new ArrayList<Mark>();
 
-  public Student(String id, String name, String dob, String fac, String spec) {
+  private  String Status;
+
+  public Student(String id, String name, String dob, String fac, String spec, String status) {
     this.StudentID = id;
     this.Name = name;
     this.DateOfBirth = dob;
     this.Faculty = fac;
     this.Speciality = spec;
+    this.Status=status;
   }
 
   public void addMark(String date, float value){
@@ -63,4 +66,21 @@ public class Student {
   public String getStudentID() {
       return this.StudentID;
   }
+
+  public void setDateOfEnrollment(String dateOfEnrollment) {
+    this.DateOfEnrollment = dateOfEnrollment;
+  }
+
+  public void setStatus(String status) {
+    this.Status = status;
+  }
+
+  public void setMarks(ArrayList<Mark> marks) {
+    this.Marks = marks;
+  }
+
+  public String getDateOfEnrollment() {
+    return this.DateOfEnrollment;
+  }
 }
+
