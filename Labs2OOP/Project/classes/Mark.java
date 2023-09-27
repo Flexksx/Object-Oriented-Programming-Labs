@@ -1,42 +1,42 @@
-package Labs2OOP.Classes;
+package Project.classes;
 
 public class Mark {
 
-  private float Value;
-  private String Date;
-  private boolean ModifyPermission = false;
-  private boolean Absent;
+  private float value;
+  private String date;
+  private boolean modifyPermission = false;
+  private boolean absent =false;
 
   public Mark(float value, String date) {
-    this.Value = value;
-    this.Date = date;
+    this.value = value;
+    this.date = date;
   }
 
   public Mark(String date) {
-    this.Absent = true;
-    this.Value = 0;
-    this.Date = date;
+    this.absent = true;
+    this.value = 0;
+    this.date = date;
   }
 
   public String getDate() {
-    return this.Date;
+    return this.date;
   }
 
   public float getValue() {
-    return this.Value;
+    return this.value;
   }
 
   public boolean canBeModified() {
-    return this.ModifyPermission;
+    return this.modifyPermission;
   }
 
   public boolean isAbsent() {
-    return this.Absent;
+    return this.absent;
   }
 
   public void setDate(String date) {
     if (canBeModified()) {
-      this.Date = date;
+      this.date = date;
     } else {
       System.err.println("This mark's date cannot be modified.");
     }
@@ -44,7 +44,7 @@ public class Mark {
 
   public void setValue(float value) {
     if (canBeModified()) {
-      this.Value = value;
+      this.value = value;
     } else {
       System.err.println("This mark's value cannot be modified");
     }
@@ -52,7 +52,7 @@ public class Mark {
 
   public void setAbsence(boolean absent) {
     if (canBeModified()) {
-      this.Absent = absent;
+      this.absent = absent;
     } else {
       System.err.println("You cannot put an absence here.");
     }
