@@ -1,13 +1,14 @@
-package Project.Classes;
+package Project.classes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentGroup {
     private String name;
     private ArrayList<Student> students = new ArrayList<Student>();
     private String faculty;
 
-    public StudentGroup(String name, ArrayList<Student> students, String faculty, String speciality) {
+    public StudentGroup(String name, ArrayList<Student> students, String faculty) {
         this.name = name;
         this.students = students;
         this.faculty = faculty;
@@ -47,17 +48,11 @@ public class StudentGroup {
         this.faculty = faculty;
     }
 
-    public void setSpecialtity(String specialtity) {
-        this.specialtity = specialtity;
-    }
 
     public String getFaculty() {
         return this.faculty;
     }
 
-    public String getSpecialtity() {
-        return this.specialtity;
-    }
 
     public Student getStudentByName(String name){
         for(Student student : this.students){

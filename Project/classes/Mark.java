@@ -1,4 +1,4 @@
-package Project.Classes;
+package Project.classes;
 
 public class Mark {
 

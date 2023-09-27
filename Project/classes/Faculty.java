@@ -1,11 +1,13 @@
-package Project.Classes;
+package Project.classes;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Faculty {
     private String name;
     private String groupNaming;
-
+    private String studyField;
     // fields lowercase
     private ArrayList<StudentGroup> groups = new ArrayList<StudentGroup>();
 

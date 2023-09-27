@@ -1,4 +1,4 @@
-package Project.Classes;
+package Project.classes;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class Student {
 
   private  String Status;
 
-  public Student(String id, String name, String dob, String fac, String spec, String status) {
+  public Student(String id, String name, String dob, String fac, String status) {
     this.studentID = id;
     this.name = name;
     this.dateOfBirth = dob;
