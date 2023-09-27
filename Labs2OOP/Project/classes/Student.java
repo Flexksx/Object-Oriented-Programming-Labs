@@ -10,15 +10,14 @@ public class Student {
   private String faculty;
   private String dateOfEnrollment;
   private ArrayList<Mark> marks = new ArrayList<>();
-
-  private  String Status;
+  private  String status;
 
   public Student(String id, String name, String dob, String fac, String status) {
     this.studentID = id;
     this.name = name;
     this.dateOfBirth = dob;
     this.faculty = fac;
-    this.Status=status;
+    this.status=status;
   }
 
   public void addMark(String date, float value){
@@ -73,6 +72,12 @@ public class Student {
 
   public String getDateOfEnrollment() {
     return this.dateOfEnrollment;
+  }
+  public String getStatus() {
+      return this.status;
+  }
+  public void setStatus(String status){
+    this.status=status;
   }
 }
 
