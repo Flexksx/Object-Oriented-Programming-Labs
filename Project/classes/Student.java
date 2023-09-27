@@ -8,7 +8,6 @@ public class Student {
   private String name;
   private String dateOfBirth;
   private String faculty;
-  private String speciality;
   private String dateOfEnrollment;
   private ArrayList<Mark> marks = new ArrayList<>();
 
@@ -19,7 +18,6 @@ public class Student {
     this.name = name;
     this.dateOfBirth = dob;
     this.faculty = fac;
-    this.speciality = spec;
     this.Status=status;
   }
 
@@ -41,9 +39,6 @@ public class Student {
     this.name = name;
   }
 
-  public void setSpeciality(String speciality) {
-    this.speciality = speciality;
-  }
 
   public void setStudentID(String studentID) {
     this.studentID = studentID;
@@ -59,9 +54,6 @@ public class Student {
   }
   public String getName() {
       return this.name;
-  }
-  public String getSpeciality() {
-      return this.speciality;
   }
   public String getStudentID() {
       return this.studentID;

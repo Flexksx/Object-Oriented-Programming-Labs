@@ -6,27 +6,25 @@ public class StudentGroup {
     private String name;
     private ArrayList<Student> students = new ArrayList<Student>();
     private String faculty;
-    private String specialtity;
 
     public StudentGroup(String name, ArrayList<Student> students, String faculty, String speciality) {
         this.name = name;
         this.students = students;
         this.faculty = faculty;
-        this.specialtity = speciality;
     }
 
-    public StudentGroup(String name, String faculty, String speciality) {
+    public StudentGroup(String name, String faculty) {
         this.name = name;
         this.faculty = faculty;
-        this.specialtity = speciality;
     }
+
 
     public void addStudent(Student student){
         this.students.add(student);
     }
 
     public void addNewStudent(String studentid, String name, String dob, String status) {
-        students.add(new Student(studentid, name, dob, this.getFaculty(), this.getSpecialtity(),status));
+        students.add(new Student(studentid, name, dob, this.getFaculty(), status));
     }
 
     public String getName() {

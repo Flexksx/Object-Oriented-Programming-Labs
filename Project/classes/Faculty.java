@@ -2,20 +2,19 @@ package Project.Classes;
 
 import java.util.ArrayList;
 
-public class Speciality {
+public class Faculty {
     private String name;
     private String groupNaming;
-    private String faculty;
 
     // fields lowercase
     private ArrayList<StudentGroup> groups = new ArrayList<StudentGroup>();
 
-    public Speciality(String name, String groupNaming, ArrayList<StudentGroup> groups) {
+    public Faculty(String name, String groupNaming, ArrayList<StudentGroup> groups) {
         this.name = name;
         this.groupNaming = groupNaming;
         this.groups = groups;
     }
-    public Speciality(String name, String groupnaming){
+    public Faculty(String name, String groupnaming){
         this.name =name;
         this.groupNaming =groupnaming;
     }
@@ -23,26 +22,20 @@ public class Speciality {
         this.groups.add(group);
     }
     public void addNewGroup(String number){
-        this.groups.add(new StudentGroup((groupNaming +"-"+number), this.faculty, this.name));
+        this.groups.add(new StudentGroup((groupNaming +"-"+number), this.name));
     }
     public void addNewGroup(int number){
-        this.groups.add(new StudentGroup((groupNaming +"-"+Integer.toString(number)), this.faculty, this.name));
+        this.groups.add(new StudentGroup((groupNaming +"-"+Integer.toString(number)), this.name));
     }
     public void addNewGroup(String number, ArrayList<Student> students){
-        this.groups.add(new StudentGroup((groupNaming +"-"+number),students, this.faculty, this.name));
+        this.groups.add(new StudentGroup((groupNaming +"-"+number),students, this.name));
     }
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
     public void setGroupNaming(String groupNaming) {
         this.groupNaming = groupNaming;
     }
     public void setGroups(ArrayList<StudentGroup> groups) {
         this.groups = groups;
-    }
-    public String getFaculty() {
-        return this.faculty;
     }
     public String getGroupNaming() {
         return this.groupNaming;
