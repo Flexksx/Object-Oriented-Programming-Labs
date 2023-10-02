@@ -9,27 +9,36 @@ public class MainMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
     private Scanner scanner = new Scanner(System.in);
 
+    public void mainLoop() {
+        String option = this.scanner.nextLine();
+        while (option != "q") {
+            displayMenu();
+        }
+    }
+
     public MainMenu(ArrayList<Faculty> faculties, Scanner scanner) {
         this.faculties = faculties;
         this.scanner = scanner;
     }
-    public void navigateToPrevious(){
-        System.out.println("Goodbye!");
+
+    public void navigateToPrevious() {
+        return;
     }
+
     public void displayMenu() {
         System.out.println("1. Faculty Menu.");
         System.out.println("2. Student Groups Menu");
         System.out.println("3. Students Menu.");
+        System.out.println("q. Quit.");
         System.err.println("===========================");
-
-        handleCommand();
+        handleOption();
     }
 
-    public void handleCommand() {
-        String command = this.scanner.nextLine();
-        switch (command) {
+    public void handleOption() {
+        String option = this.scanner.nextLine();
+        switch (option) {
             case "1":
-                FacultyMenu facultyMenu = new FacultyMenu(faculties, scanner,this);
+                FacultyMenu facultyMenu = new FacultyMenu(faculties, scanner, this);
                 facultyMenu.displayMenu();
                 break;
             case "q":

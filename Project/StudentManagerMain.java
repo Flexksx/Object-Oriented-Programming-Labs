@@ -12,7 +12,7 @@ public class StudentManagerMain {
         System.out.println("Hello, this is a University Manager project made by Cretu Cristian as a OOP project");
         Scanner scanner = new Scanner(System.in);
         MainMenu menu = new MainMenu(faculties,scanner);
-        menu.displayMenu();
+        menu.mainLoop();
     }
 
-}
+}z

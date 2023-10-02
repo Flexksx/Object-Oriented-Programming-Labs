@@ -10,28 +10,39 @@ public class FacultyMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
     private Scanner scanner;
     private MenuInterface previousMenu;
+
     public FacultyMenu(ArrayList<Faculty> faculties, Scanner scanner, MenuInterface previous) {
         this.faculties = faculties;
         this.scanner = scanner;
         this.previousMenu = previous;
     }
-    public void navigateToPrevious(){
+
+    public void navigateToPrevious() {
         previousMenu.displayMenu();
     }
+
+    public void mainLoop() {
+        String option = "";
+        while(option!="q"){
+            displayMenu();
+        }
+    }
+
     public void displayMenu() {
         System.out.println("===========================");
         System.out.println("1. Add new Faculty.");
         System.out.println("2. Edit existing Faculty.");
         System.out.println("3. Print existing Faculties.");
-        System.out.println("q. Go back to the previous Menu.");
+        System.out.println("b. Go back to the previous Menu.");
+        System.out.println("q. Quit.");
         System.out.println("===========================");
 
-        handleCommand();
+        handleOption();
     }
 
-    public void handleCommand() {
-        String command = this.scanner.nextLine();
-        switch (command) {
+    public void handleOption() {
+        String option = this.scanner.nextLine();
+        switch (option) {
             case "1":
                 addNewFaculty();
                 displayMenu();
@@ -39,7 +50,7 @@ public class FacultyMenu implements MenuInterface {
             case "3":
                 printFaculties();
                 displayMenu();
-            case "q":
+            case "b":
                 navigateToPrevious();
                 break;
         }
@@ -57,6 +68,10 @@ public class FacultyMenu implements MenuInterface {
             System.out.println(Integer.toString(i + 1) + ". " + fields[i]);
         }
         int option = this.scanner.nextInt();
+        while (option - 1 > fields.length) {
+            System.err.println("Invalid number. Please choose again.");
+            option = this.scanner.nextInt();
+        }
         StudyField field = fields[option - 1];
         faculties.add(new Faculty(name, shortName, field));
         System.out.println("===========================");
