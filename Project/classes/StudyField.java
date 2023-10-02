@@ -9,7 +9,7 @@ public enum StudyField {
 
     private final String name;
 
-    StudyField(String name){
-        this.name=name;
+    StudyField(String name) {
+        this.name = name;
     }
 }

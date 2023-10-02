@@ -1,31 +1,29 @@
 package Project.classes;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StudentGroup {
     private String name;
     private ArrayList<Student> students = new ArrayList<Student>();
-    private String faculty;
+    private Faculty faculty;
 
-    public StudentGroup(String name, ArrayList<Student> students, String faculty) {
+    public StudentGroup(String name, ArrayList<Student> students, Faculty faculty) {
         this.name = name;
         this.students = students;
         this.faculty = faculty;
     }
 
-    public StudentGroup(String name, String faculty) {
+    public StudentGroup(String name, Faculty faculty) {
         this.name = name;
         this.faculty = faculty;
     }
 
-
-    public void addStudent(Student student){
+    public void addStudent(Student student) {
         this.students.add(student);
     }
 
-    public void addNewStudent(String studentid, String name, String dob, String status) {
-        students.add(new Student(studentid, name, dob, this.getFaculty(), status));
+    public void addNewStudent(String studentid, String name, String dob, Status status, String doe) {
+        students.add(new Student(studentid, name, dob, this.getFaculty(), status, doe));
     }
 
     public String getName() {
@@ -44,23 +42,21 @@ public class StudentGroup {
         this.students = students;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
-
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return this.faculty;
     }
 
-
-    public Student getStudentByName(String name){
-        for(Student student : this.students){
-            if(name.equals(student.getName())){
+    public Student getStudentByName(String name) {
+        for (Student student : this.students) {
+            if (name.equals(student.getName())) {
                 return student;
             }
         }
-        System.err.println("Could not find student "+name+" in group" + this.name);
+        System.err.println("Could not find student " + name + " in group" + this.name);
         return null;
     }
 

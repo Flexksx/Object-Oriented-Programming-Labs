@@ -5,7 +5,7 @@ public class Mark {
   private float value;
   private String date;
   private boolean modifyPermission = false;
-  private boolean absent =false;
+  private boolean absent = false;
 
   public Mark(float value, String date) {
     this.value = value;
