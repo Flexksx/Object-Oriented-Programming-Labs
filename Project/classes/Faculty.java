@@ -6,7 +6,6 @@ public class Faculty {
     private String name;
     private String groupNaming;
     private StudyField studyField;
-    // fields lowercase
     private ArrayList<StudentGroup> groups = new ArrayList<StudentGroup>();
 
     public Faculty(String name, String groupNaming, ArrayList<StudentGroup> groups, StudyField field) {

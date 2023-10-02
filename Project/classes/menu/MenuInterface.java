@@ -5,4 +5,5 @@ import java.util.Scanner;
 public interface MenuInterface {
     void displayMenu();
     void handleCommand();
+    void navigateToPrevious();
 }
