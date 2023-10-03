@@ -19,7 +19,7 @@ public class FacultyMenu implements MenuInterface {
     }
 
     public void navigateToPrevious() {
-        previousMenu.handleOption();
+        previousMenu.switchOption();
     }
 
     public void displayMenu() {
@@ -31,7 +31,7 @@ public class FacultyMenu implements MenuInterface {
         System.out.println("===========================");
     }
 
-    public void handleOption() {
+    public void switchOption() {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -47,7 +47,6 @@ public class FacultyMenu implements MenuInterface {
                     printFaculties();
                     break;
                 case 0:
-                    navigateToPrevious();
                     return;
                 default:
                     System.err.println("Invalid option. Please choose a valid option.");
@@ -89,7 +88,7 @@ public class FacultyMenu implements MenuInterface {
             int option = safeSelect(this.faculties.size());
             Faculty chosenFaculty = this.faculties.get(option - 1);
             FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty, scanner,this);
-            facEditMenu.handleOption();
+            facEditMenu.switchOption();
         }
     }
 

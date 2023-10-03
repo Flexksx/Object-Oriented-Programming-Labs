@@ -5,9 +5,7 @@ import java.util.Scanner;
 public interface MenuInterface {
     void displayMenu();
 
-    void handleOption();
-
-    void navigateToPrevious();
+    void switchOption();
 
     int safeSelect(int options);
 }

@@ -9,12 +9,10 @@ import Project.classes.menu.MenuInterface;
 public class FacultyEditMenu implements MenuInterface {
     private Faculty faculty;
     private Scanner scanner;
-    private MenuInterface previousMenu;
 
     public FacultyEditMenu(Faculty faculty, Scanner scanner, MenuInterface previousMenu) {
         this.faculty = faculty;
         this.scanner=scanner;
-        this.previousMenu=previousMenu;
     }
 
     @Override
@@ -29,7 +27,7 @@ public class FacultyEditMenu implements MenuInterface {
     }
 
     @Override
-    public void handleOption() {
+    public void switchOption() {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -45,7 +43,6 @@ public class FacultyEditMenu implements MenuInterface {
                     // printFaculties();
                     break;
                 case 0:
-                    navigateToPrevious();
                     return;
                 default:
                     System.err.println("Invalid option. Please choose a valid option.");
@@ -53,10 +50,6 @@ public class FacultyEditMenu implements MenuInterface {
         }
     }
 
-    @Override
-    public void navigateToPrevious() {
-
-    }
 
     @Override
     public int safeSelect(int options) {
@@ -74,5 +67,4 @@ public class FacultyEditMenu implements MenuInterface {
         }
         return optionInt;
     }
-
 }
