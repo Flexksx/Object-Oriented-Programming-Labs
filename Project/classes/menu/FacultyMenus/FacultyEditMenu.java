@@ -1,47 +1,48 @@
-package Project.classes.menu;
+package Project.classes.menu.FacultyMenus;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.Faculty;
-import Project.classes.menu.FacultyMenus.FacultyMenu;
+import Project.classes.menu.MenuInterface;
 
-public class MainMenu implements MenuInterface {
-    private ArrayList<Faculty> faculties;
+public class FacultyEditMenu implements MenuInterface {
+    private Faculty faculty;
     private Scanner scanner;
+    private MenuInterface previousMenu;
 
-    public MainMenu(ArrayList<Faculty> faculties, Scanner scanner) {
-        this.faculties = faculties;
-        this.scanner = scanner;
+    public FacultyEditMenu(Faculty faculty, Scanner scanner, MenuInterface previousMenu) {
+        this.faculty = faculty;
+        this.scanner=scanner;
+        this.previousMenu=previousMenu;
     }
 
-    public void navigateToPrevious() {
-        System.out.println("Goodbye!");
-    }
-
+    @Override
     public void displayMenu() {
-        System.out.println("1. Faculty Menu.");
-        System.out.println("2. Student Groups Menu");
-        System.out.println("3. Students Menu.");
-        System.out.println("0. Quit.");
-        System.err.println("===========================");
+        System.out.println("What do you want to do with this Faculty?");
+        System.out.println("1. Print its' Students by Name.");
+        System.out.println("2. Print its' Students by ID.");
+        System.out.println("3. Print existing Student Groups.");
+        System.out.println("4. Add new Student Group.");
+        System.out.println("5. Add new Student.");
+        System.out.println("0. Go back to the Previous Menu.");
     }
 
+    @Override
     public void handleOption() {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
-            option = safeSelect(4);
+            option = safeSelect(6);
             switch (option) {
                 case 1:
-                    FacultyMenu facultyMenu = new FacultyMenu(faculties, this, scanner);
-                    facultyMenu.handleOption();
+                    // addNewFaculty();
                     break;
                 case 2:
-                    System.out.println("WIP");
+                    // editFaculty();
                     break;
                 case 3:
-                    System.out.println("WIP");
+                    // printFaculties();
                     break;
                 case 0:
                     navigateToPrevious();
@@ -52,6 +53,12 @@ public class MainMenu implements MenuInterface {
         }
     }
 
+    @Override
+    public void navigateToPrevious() {
+
+    }
+
+    @Override
     public int safeSelect(int options) {
         int optionInt = -1;
         while (optionInt < 0 || optionInt > options) {

@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public interface MenuInterface {
     void displayMenu();
+
     void handleOption();
+
     void navigateToPrevious();
-    void mainLoop();
+
+    int safeSelect(int options);
 }
