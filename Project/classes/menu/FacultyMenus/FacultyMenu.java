@@ -87,7 +87,7 @@ public class FacultyMenu implements MenuInterface {
             }
             int option = safeSelect(this.faculties.size());
             Faculty chosenFaculty = this.faculties.get(option - 1);
-            FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty, scanner,this);
+            FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty, scanner);
             facEditMenu.switchOption();
         }
     }

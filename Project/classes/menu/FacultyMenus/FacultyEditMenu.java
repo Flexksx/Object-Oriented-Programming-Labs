@@ -10,13 +10,14 @@ public class FacultyEditMenu implements MenuInterface {
     private Faculty faculty;
     private Scanner scanner;
 
-    public FacultyEditMenu(Faculty faculty, Scanner scanner, MenuInterface previousMenu) {
+    public FacultyEditMenu(Faculty faculty, Scanner scanner) {
         this.faculty = faculty;
-        this.scanner=scanner;
+        this.scanner = scanner;
     }
 
     @Override
     public void displayMenu() {
+        System.out.println("==========================================");
         System.out.println("What do you want to do with this Faculty?");
         System.out.println("1. Print its' Students by Name.");
         System.out.println("2. Print its' Students by ID.");
@@ -24,6 +25,7 @@ public class FacultyEditMenu implements MenuInterface {
         System.out.println("4. Add new Student Group.");
         System.out.println("5. Add new Student.");
         System.out.println("0. Go back to the Previous Menu.");
+        System.out.println("==========================================");
     }
 
     @Override
@@ -34,13 +36,18 @@ public class FacultyEditMenu implements MenuInterface {
             option = safeSelect(6);
             switch (option) {
                 case 1:
-                    // addNewFaculty();
+                    this.faculty.printStudentsbyName();
                     break;
                 case 2:
-                    // editFaculty();
+                    this.faculty.printStudentsbyID();
                     break;
                 case 3:
-                    // printFaculties();
+                    this.faculty.printStudentGroups();
+                    break;
+                case 4:
+                    addNewStudentGroup();
+                    break;
+                case 5:
                     break;
                 case 0:
                     return;
@@ -49,7 +56,6 @@ public class FacultyEditMenu implements MenuInterface {
             }
         }
     }
-
 
     @Override
     public int safeSelect(int options) {
@@ -66,5 +72,8 @@ public class FacultyEditMenu implements MenuInterface {
             }
         }
         return optionInt;
+    }
+    public void addNewStudentGroup(){
+
     }
 }
