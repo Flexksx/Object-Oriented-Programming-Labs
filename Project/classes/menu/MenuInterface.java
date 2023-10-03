@@ -5,7 +5,7 @@ import java.util.Scanner;
 public interface MenuInterface {
     void displayMenu();
 
-    void switchOption();
+    void mainLoop();
 
     int safeSelect(int options);
 }

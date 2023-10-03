@@ -58,19 +58,27 @@ public class Faculty {
     }
 
     public void printStudentGroups() {
-        for (StudentGroup group : this.groups) {
-            System.out.println(group.getName());
+        System.out.println("....................................");
+        if (this.groups.isEmpty()) {
+            System.err.println("There are no groups in this Faculty.");
+        } else {
+            for (StudentGroup group : this.groups) {
+                System.out.println(group.getName());
+            }
         }
     }
+
     public void setStudyField(StudyField studyField) {
         this.studyField = studyField;
     }
+
     public StudyField getStudyField() {
         return this.studyField;
     }
+
     public void printStudentsbyName() {
         if (this.groups.isEmpty()) {
-            System.err.println("There are no Students for this Specialty");
+            System.err.println("There are no Students for this Faculty.");
             return;
         } else {
             for (StudentGroup group : this.groups) {

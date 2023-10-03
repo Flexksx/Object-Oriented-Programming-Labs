@@ -28,7 +28,7 @@ public class MainMenu implements MenuInterface {
     }
 
     // give a more descriptive name
-    public void switchOption() {
+    public void mainLoop() {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -37,7 +37,7 @@ public class MainMenu implements MenuInterface {
                 case 1:
                     FacultyMenu facultyMenu = new FacultyMenu(faculties, this, scanner);
                     // fix infinite recursion
-                    facultyMenu.switchOption();
+                    facultyMenu.mainLoop();
                     break;
                 case 2:
                     System.out.println("WIP");

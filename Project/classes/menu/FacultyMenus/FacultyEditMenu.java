@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.Faculty;
+import Project.classes.Student;
+import Project.classes.StudentGroup;
 import Project.classes.menu.MenuInterface;
 
 public class FacultyEditMenu implements MenuInterface {
@@ -29,7 +31,7 @@ public class FacultyEditMenu implements MenuInterface {
     }
 
     @Override
-    public void switchOption() {
+    public void mainLoop() {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -73,7 +75,27 @@ public class FacultyEditMenu implements MenuInterface {
         }
         return optionInt;
     }
-    public void addNewStudentGroup(){
 
+    public void addNewStudentGroup() {
+        System.out.println("What is the number of the New Group?");
+        String number = this.scanner.nextLine();
+        if (this.faculty.getGroups().isEmpty()) {
+            this.faculty.addNewGroup(number);
+            System.out.println(".................................");
+            System.out.println("Student group added successfully.");
+            return;
+        } else {
+            String groupName = this.faculty.getGroupNaming() + "-" + number;
+            for (StudentGroup group : this.faculty.getGroups()){
+                if(group.getName().equals(groupName)){
+                    System.err.println("...................................................");
+                    System.err.println("Group "+groupName+" already exists in this Faculty.");
+                    return;
+                }
+            }
+            this.faculty.addNewGroup(number);
+            System.out.println(".................................");
+            System.out.println("Student group added successfully.");
+        }
     }
 }
