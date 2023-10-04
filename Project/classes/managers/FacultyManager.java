@@ -1,12 +1,13 @@
 package Project.classes.managers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.mainclasses.StudentGroup;
 import Project.classes.mainclasses.enums.StudyField;
 import Project.classes.utility.Reader;
 
-public class FacultyManager implements ManagerInterface {
+public class FacultyManager implements ManagerInterface,Serializable {
     private ArrayList<Faculty> faculties;
     private Faculty faculty = null;
 

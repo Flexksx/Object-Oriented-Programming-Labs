@@ -1,5 +1,6 @@
 package Project.classes.menu.FacultyMenus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ import Project.classes.managers.FacultyManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
-public class FacultyMenu implements MenuInterface {
+public class FacultyMenu implements MenuInterface, Serializable {
     private ArrayList<Faculty> faculties;
     private FacultyManager facultyManager;
 

@@ -1,5 +1,6 @@
 package Project.classes.menu.FacultyMenus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.managers.FacultyManager;
@@ -8,7 +9,7 @@ import Project.classes.menu.MenuInterface;
 import Project.classes.menu.StudentGroupMenus.SelectStudentGroupMenu;
 import Project.classes.utility.Reader;
 
-public class SelectFacultyMenu implements MenuInterface {
+public class SelectFacultyMenu implements MenuInterface,Serializable {
     private ArrayList<Faculty> faculties;
     private Faculty faculty;
 

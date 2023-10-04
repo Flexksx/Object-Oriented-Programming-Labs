@@ -1,10 +1,11 @@
 package Project.classes.mainclasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.enums.StudyField;
 
-public class Faculty {
+public class Faculty implements Serializable{
     private String name;
     private String groupNaming;
     private StudyField studyField;

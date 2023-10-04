@@ -1,10 +1,11 @@
 package Project.classes.mainclasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.enums.Status;
 
-public class StudentGroup {
+public class StudentGroup implements Serializable{
     private String name;
     private ArrayList<Student> students = new ArrayList<Student>();
     private Faculty faculty;

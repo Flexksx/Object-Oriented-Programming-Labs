@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 
 public class DataDeserializer {
     public static MainMenu deserialize() {
-        File serializedFile = new File("manager.ser");
+        File serializedFile = new File("Manager.ser");
         MainMenu manager = new MainMenu();
         if (serializedFile.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(serializedFile))) {
@@ -19,7 +19,7 @@ public class DataDeserializer {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Serialized file 'manager.ser' does not exist.");
+            System.out.println("Serialized file 'Manager.ser' does not exist.");
         }
         return manager;
     }

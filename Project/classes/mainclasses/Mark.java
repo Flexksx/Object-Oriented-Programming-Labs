@@ -1,6 +1,8 @@
 package Project.classes.mainclasses;
 
-public class Mark {
+import java.io.Serializable;
+
+public class Mark implements Serializable{
 
   private float value;
   private String date;

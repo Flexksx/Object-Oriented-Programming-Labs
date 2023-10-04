@@ -1,6 +1,8 @@
 package Project.classes.mainclasses.enums;
 
-public enum Status {
+import java.io.Serializable;
+
+public enum Status implements Serializable{
     ACTIVE("Active"),
     ENROLLED("Enrolled"),
     EXPELLED("Expelled"),

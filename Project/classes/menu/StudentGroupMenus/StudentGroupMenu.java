@@ -1,12 +1,13 @@
 package Project.classes.menu.StudentGroupMenus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.managers.StudentGroupManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
-public class StudentGroupMenu implements MenuInterface {
+public class StudentGroupMenu implements MenuInterface, Serializable {
     private ArrayList<Faculty> faculties;
     private StudentGroupManager studentGroupManager;
 

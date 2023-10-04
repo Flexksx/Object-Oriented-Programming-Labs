@@ -1,5 +1,6 @@
 package Project.classes.managers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.Faculty;
@@ -8,7 +9,7 @@ import Project.classes.mainclasses.StudentGroup;
 import Project.classes.mainclasses.enums.Status;
 import Project.classes.utility.Reader;
 
-public class StudentGroupManager implements ManagerInterface {
+public class StudentGroupManager implements ManagerInterface,Serializable {
     private StudentGroup studentGroup;
     private Faculty faculty;
     private ArrayList<Faculty> faculties;

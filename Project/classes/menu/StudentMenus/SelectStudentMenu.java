@@ -1,11 +1,13 @@
 package Project.classes.menu.StudentMenus;
 
+import java.io.Serializable;
+
 import Project.classes.mainclasses.Student;
 import Project.classes.mainclasses.enums.Status;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
-public class SelectStudentMenu implements MenuInterface {
+public class SelectStudentMenu implements MenuInterface,Serializable {
     private Student student;
     public SelectStudentMenu(Student student) {
         this.student = student;

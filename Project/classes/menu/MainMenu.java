@@ -1,5 +1,6 @@
 package Project.classes.menu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,14 +11,11 @@ import Project.classes.menu.StudentMenus.StudentMenu;
 import Project.classes.serialization.DataSerializer;
 import Project.classes.utility.Reader;
 
-public class MainMenu implements MenuInterface {
+public class MainMenu implements MenuInterface, Serializable {
     private ArrayList<Faculty> faculties;
 
-    public MainMenu(ArrayList<Faculty> faculties) {
-        this.faculties = faculties;
-    }
-
     public MainMenu() {
+        this.faculties = new ArrayList<Faculty>();
     }
 
     public void navigateToPrevious() {
@@ -28,7 +26,7 @@ public class MainMenu implements MenuInterface {
         System.out.println("1. Faculty Menu.");
         System.out.println("2. Student Groups Menu");
         System.out.println("3. Students Menu.");
-        System.out.println("4. Save Data.");
+        System.out.println("4. Save and Quit.");
         System.out.println("0. Quit.");
         System.out.println("==========================================");
     }
@@ -53,7 +51,7 @@ public class MainMenu implements MenuInterface {
                     break;
                 case 4:
                     DataSerializer.serialize(this);
-                    break;
+                    return;
                 case 0:
                     navigateToPrevious();
                     return;
@@ -61,6 +59,9 @@ public class MainMenu implements MenuInterface {
                     System.err.println("Invalid option. Please choose a valid option.");
             }
         }
+    }
+
+    public void setFaculties(ArrayList<Faculty> faculties2) {
     }
 
 }

@@ -1,10 +1,11 @@
 package Project.classes.mainclasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.enums.Status;
 
-public class Student {
+public class Student implements Serializable{
 
   private int studentID;
   private String name;
