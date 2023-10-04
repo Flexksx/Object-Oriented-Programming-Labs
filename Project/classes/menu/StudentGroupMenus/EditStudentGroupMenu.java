@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
+import Project.classes.managers.StudentGroup.StudentGroupManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
 public class EditStudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
+    private StudentGroupManager studentGroupManager;
 
-    public EditStudentGroupMenu(ArrayList<Faculty> faculties) {
+    public EditStudentGroupMenu(ArrayList<Faculty> faculties, StudentGroupManager studentGroupManager) {
         this.faculties = faculties;
+        this.studentGroupManager = studentGroupManager;
     }
 
     @Override
@@ -28,16 +31,20 @@ public class EditStudentGroupMenu implements MenuInterface {
 
     @Override
     public void mainLoop() {
+        studentGroupManager.selectStudentGroup();
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
             option = Reader.safeSelect(4);
             switch (option) {
                 case 1:
+                    studentGroupManager.printAllSubordinates();
                     break;
                 case 2:
+                    studentGroupManager.addNewSubordinate();
                     break;
                 case 3:
+
                     break;
                 case 4:
                     break;
