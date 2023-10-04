@@ -2,7 +2,7 @@ package Project.classes.menu.StudentGroupMenus;
 
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
-import Project.classes.managers.StudentGroup.StudentGroupManager;
+import Project.classes.managers.StudentGroupManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
@@ -41,6 +41,7 @@ public class StudentGroupMenu implements MenuInterface {
                     break;
                 case 3:
                     studentGroupManager.printAll();
+                    break;
                 case 0:
                     return;
                 default:

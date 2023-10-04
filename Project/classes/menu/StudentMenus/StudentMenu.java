@@ -3,9 +3,9 @@ package Project.classes.menu.StudentMenus;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.managers.Faculty.FacultyManager;
-import Project.classes.managers.Student.StudentManager;
-import Project.classes.managers.StudentGroup.StudentGroupManager;
+import Project.classes.managers.FacultyManager;
+import Project.classes.managers.StudentGroupManager;
+import Project.classes.managers.StudentManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
@@ -14,6 +14,7 @@ public class StudentMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
     private StudentGroupManager studentGroupManager;
     private FacultyManager facultyManager;
+
     public StudentMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
         this.facultyManager = new FacultyManager(faculties);
@@ -28,6 +29,7 @@ public class StudentMenu implements MenuInterface {
         System.out.println("2. Print All Students.");
         System.out.println("3. Find Student by ID.");
         System.out.println("4. Find Students by Name.");
+        System.out.println("5. Select Student.");
         System.out.println("0. Go back to the previous Menu.");
         System.out.println("==========================================");
     }
@@ -37,7 +39,7 @@ public class StudentMenu implements MenuInterface {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
-            option = Reader.safeSelect(4);
+            option = Reader.safeSelect(6);
             switch (option) {
                 case 1:
                     studentManager.addNew();
@@ -51,6 +53,9 @@ public class StudentMenu implements MenuInterface {
                 case 4:
                     studentManager.findStudentByName();
                     break;
+                case 5:
+                    selectStudent();
+                    break;
                 case 0:
                     return;
                 default:
@@ -58,5 +63,9 @@ public class StudentMenu implements MenuInterface {
             }
         }
     }
-
+    private void selectStudent(){
+        studentManager.selectOne();
+        SelectStudentMenu selectStudentMenu = new SelectStudentMenu(studentManager.getStudent());
+        selectStudentMenu.mainLoop();
+    }
 }

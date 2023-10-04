@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.managers.Faculty.FacultyManager;
+import Project.classes.managers.FacultyManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 

@@ -93,7 +93,7 @@ public class Faculty {
                     System.err.println("There are no Students in this group");
                 } else {
                     for (Student student : group.getStudents()) {
-                        System.out.println(student.getName());
+                        System.out.println(student.getName()+", ID: " + student.getStudentID() + ", Status: "+ student.getStatus());
                     }
                 }
             }

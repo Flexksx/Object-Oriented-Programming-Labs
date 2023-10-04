@@ -1,4 +1,4 @@
-package Project.classes.managers.StudentGroup;
+package Project.classes.managers;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,6 @@ import Project.classes.mainclasses.Faculty;
 import Project.classes.mainclasses.Student;
 import Project.classes.mainclasses.StudentGroup;
 import Project.classes.mainclasses.enums.Status;
-import Project.classes.managers.ManagerInterface;
-import Project.classes.managers.Faculty.FacultyManager;
 import Project.classes.utility.Reader;
 
 public class StudentGroupManager implements ManagerInterface {
@@ -44,7 +42,7 @@ public class StudentGroupManager implements ManagerInterface {
                 System.out.println("Please give the group number: ");
                 String number = Reader.readln();
                 for (StudentGroup group : chosenFaculty.getGroups()) {
-                    if (chosenFaculty.getGroupNaming() + "-" + number == group.getName()) {
+                    if ((chosenFaculty.getGroupNaming() + "-" + number).equals(group.getName())) {
                         System.err.println("This group already exists in this Faculty.");
                         return;
                     }
@@ -90,7 +88,7 @@ public class StudentGroupManager implements ManagerInterface {
             String dob = Reader.readln();
             System.out.println("Student's Date of Enrollment: ");
             String dateOfEnrollment = Reader.readln();
-            Status[] statuses = { Status.ACTIVE, Status.ENROLLED, Status.ERASMUS,
+            Status[] statuses = { Status.ACTIVE, Status.ENROLLED, Status.EXCHANGE,
                     Status.EXPELLED, Status.GRADUATED };
             for (int i = 0; i < statuses.length; i++) {
                 System.out.println(Integer.toString(i + 1) + ". " + statuses[i]);
@@ -225,6 +223,10 @@ public class StudentGroupManager implements ManagerInterface {
 
     public void setSelectedStudent(Student selectedStudent) {
         this.selectedStudent = selectedStudent;
+    }
+
+    public StudentGroup getGroup() {
+        return this.studentGroup;
     }
 
 }

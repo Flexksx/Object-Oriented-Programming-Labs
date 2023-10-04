@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.managers.StudentGroup.StudentGroupManager;
+import Project.classes.mainclasses.Student;
+import Project.classes.mainclasses.StudentGroup;
+import Project.classes.managers.StudentGroupManager;
+import Project.classes.managers.StudentManager;
 import Project.classes.menu.MenuInterface;
+import Project.classes.menu.StudentMenus.SelectStudentMenu;
 import Project.classes.utility.Reader;
 
 public class SelectStudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
     private StudentGroupManager studentGroupManager;
+    private StudentGroup studentGroup;
+    private Faculty faculty;
 
     public SelectStudentGroupMenu(ArrayList<Faculty> faculties, StudentGroupManager studentGroupManager) {
         this.faculties = faculties;
         this.studentGroupManager = studentGroupManager;
+        this.faculty = studentGroupManager.getFaculty();
         studentGroupManager.selectOne();
+        this.studentGroup = studentGroupManager.getStudentGroup();
     }
 
     @Override
@@ -47,7 +55,7 @@ public class SelectStudentGroupMenu implements MenuInterface {
                     studentGroupManager.moveStudentToAnotherGroup();
                     break;
                 case 4:
-                    studentGroupManager.selectSubordinate();
+                    navigateToStudent();
                     break;
                 case 0:
                     return;
@@ -55,5 +63,13 @@ public class SelectStudentGroupMenu implements MenuInterface {
                     System.err.println("Invalid option. Please choose a valid option.");
             }
         }
+    }
+
+    private void navigateToStudent() {
+        StudentManager studentManager = new StudentManager(this.faculties, this.faculty, this.studentGroup);
+        studentManager.selectOne();
+        Student student = studentManager.getStudent();
+        SelectStudentMenu selectStudentMenu = new SelectStudentMenu(student);
+        selectStudentMenu.mainLoop();
     }
 }

@@ -1,10 +1,9 @@
-package Project.classes.managers.Faculty;
+package Project.classes.managers;
 
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.mainclasses.StudentGroup;
 import Project.classes.mainclasses.enums.StudyField;
-import Project.classes.managers.ManagerInterface;
 import Project.classes.utility.Reader;
 
 public class FacultyManager implements ManagerInterface {
@@ -82,6 +81,7 @@ public class FacultyManager implements ManagerInterface {
         if (this.faculty.getGroups().isEmpty()) {
             System.err.println("This Faculty has no Student Groups.");
         } else {
+            System.out.println("Student Groups in " + this.faculty.getName() + ":");
             for (StudentGroup group : this.faculty.getGroups()) {
                 System.out.println(group.getName());
             }

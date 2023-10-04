@@ -5,7 +5,7 @@ public enum Status {
     ENROLLED("Enrolled"),
     EXPELLED("Expelled"),
     GRADUATED("Graduated"),
-    ERASMUS("On Erasmus Programme");
+    EXCHANGE("On Exchange Programme");
 
     private String statString;
 
