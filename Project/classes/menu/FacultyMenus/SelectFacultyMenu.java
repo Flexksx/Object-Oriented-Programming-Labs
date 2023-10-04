@@ -6,10 +6,10 @@ import Project.classes.managers.Faculty.FacultyManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
-public class FacultyEditMenu implements MenuInterface {
+public class SelectFacultyMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
 
-    public FacultyEditMenu(ArrayList<Faculty> faculties) {
+    public SelectFacultyMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
     }
 

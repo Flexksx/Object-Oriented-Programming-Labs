@@ -8,11 +8,11 @@ import Project.classes.managers.StudentGroup.StudentGroupManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
-public class EditStudentGroupMenu implements MenuInterface {
+public class SelectStudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
     private StudentGroupManager studentGroupManager;
 
-    public EditStudentGroupMenu(ArrayList<Faculty> faculties, StudentGroupManager studentGroupManager) {
+    public SelectStudentGroupMenu(ArrayList<Faculty> faculties, StudentGroupManager studentGroupManager) {
         this.faculties = faculties;
         this.studentGroupManager = studentGroupManager;
     }

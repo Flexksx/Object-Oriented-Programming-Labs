@@ -50,7 +50,7 @@ public class StudentGroupMenu implements MenuInterface {
     }
 
     public void editStudentGroup() {
-        EditStudentGroupMenu editStudentGroupMenu = new EditStudentGroupMenu(faculties,studentGroupManager);
+        SelectStudentGroupMenu editStudentGroupMenu = new SelectStudentGroupMenu(faculties,studentGroupManager);
         editStudentGroupMenu.mainLoop();
     }
 }

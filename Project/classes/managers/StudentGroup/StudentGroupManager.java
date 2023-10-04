@@ -104,7 +104,7 @@ public class StudentGroupManager implements ManagerInterface {
             Status status = statuses[option - 1];
             Student newStudent = new Student(name, dob, this.faculty, status,
                     dateOfEnrollment);
-            choseStudentGroup.addStudent(newStudent);
+            this.studentGroup.addStudent(newStudent);
             System.out.println("..........................................");
             System.out.println("Student added Successfully!");
         }

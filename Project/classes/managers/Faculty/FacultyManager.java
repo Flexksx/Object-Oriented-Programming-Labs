@@ -77,8 +77,8 @@ public class FacultyManager implements ManagerInterface {
         }
     }
 
-    public void selectStudentGroup(){
-        if(this.faculty.getGroups().isEmpty()){
+    public void selectStudentGroup() {
+        if (this.faculty.getGroups().isEmpty()) {
             System.err.println("This Faculty has no Student Groups");
             return;
         }

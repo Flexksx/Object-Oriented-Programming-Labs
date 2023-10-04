@@ -50,7 +50,7 @@ public class FacultyMenu implements MenuInterface {
     }
 
     private void editFaculty() {
-        FacultyEditMenu facEditMenu = new FacultyEditMenu(faculties);
+        SelectFacultyMenu facEditMenu = new SelectFacultyMenu(faculties);
         facEditMenu.mainLoop();
     }
 }
