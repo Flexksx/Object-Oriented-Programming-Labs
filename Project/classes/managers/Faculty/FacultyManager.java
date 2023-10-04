@@ -77,16 +77,6 @@ public class FacultyManager implements ManagerInterface {
         }
     }
 
-    public void selectStudentGroup() {
-        if (this.faculty.getGroups().isEmpty()) {
-            System.err.println("This Faculty has no Student Groups");
-            return;
-        }
-        for (StudentGroup group : this.faculty.getGroups()) {
-
-        }
-    }
-
     @Override
     public void printAllSubordinates() {
         if (this.faculty.getGroups().isEmpty()) {
@@ -98,7 +88,7 @@ public class FacultyManager implements ManagerInterface {
         }
     }
 
-    public void selectFaculty() {
+    public void selectOne() {
         if (faculties.isEmpty()) {
             System.err.println("There are no Faculties in the record.");
             return;
@@ -114,5 +104,16 @@ public class FacultyManager implements ManagerInterface {
 
     public Faculty getFaculty() {
         return this.faculty;
+    }
+
+    @Override
+    public void selectSubordinate() {
+        if (this.faculty.getGroups().isEmpty()) {
+            System.err.println("This Faculty has no Student Groups");
+            return;
+        }
+        for (StudentGroup group : this.faculty.getGroups()) {
+
+        }
     }
 }

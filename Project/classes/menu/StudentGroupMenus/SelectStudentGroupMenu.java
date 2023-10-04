@@ -15,6 +15,7 @@ public class SelectStudentGroupMenu implements MenuInterface {
     public SelectStudentGroupMenu(ArrayList<Faculty> faculties, StudentGroupManager studentGroupManager) {
         this.faculties = faculties;
         this.studentGroupManager = studentGroupManager;
+        studentGroupManager.selectOne();
     }
 
     @Override
@@ -22,7 +23,7 @@ public class SelectStudentGroupMenu implements MenuInterface {
         System.out.println("==========================================");
         System.out.println("1. Print Students in this Group.");
         System.out.println("2. Add Student to Group.");
-        System.out.println("3. Remove Student from Group.");
+        System.out.println("3. Move Student to another Group.");
         System.out.println("4. Select Student.");
         System.out.println("0. Go back to the Previous Menu.");
         System.out.println("==========================================");
@@ -31,7 +32,6 @@ public class SelectStudentGroupMenu implements MenuInterface {
 
     @Override
     public void mainLoop() {
-        studentGroupManager.selectStudentGroup();
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -44,9 +44,10 @@ public class SelectStudentGroupMenu implements MenuInterface {
                     studentGroupManager.addNewSubordinate();
                     break;
                 case 3:
-
+                    studentGroupManager.moveStudentToAnotherGroup();
                     break;
                 case 4:
+                    studentGroupManager.selectSubordinate();
                     break;
                 case 0:
                     return;

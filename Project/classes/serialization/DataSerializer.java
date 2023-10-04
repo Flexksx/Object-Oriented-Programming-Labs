@@ -1,4 +1,4 @@
-package Project.classes.data;
+package Project.classes.serialization;
 
 import Project.classes.menu.MainMenu;
 

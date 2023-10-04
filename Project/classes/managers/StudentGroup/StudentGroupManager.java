@@ -14,6 +14,7 @@ public class StudentGroupManager implements ManagerInterface {
     private StudentGroup studentGroup;
     private Faculty faculty;
     private ArrayList<Faculty> faculties;
+    private Student selectedStudent;
 
     public StudentGroupManager(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
@@ -30,15 +31,9 @@ public class StudentGroupManager implements ManagerInterface {
             System.err.println("There are no Faculties in the record to add a Group.");
             System.err.println("Please go to the Faculty Menu and add one.");
         } else {
-            for (Faculty faculty : this.faculties) {
-                System.out.println("Choose a Faculty to add this group to: ");
-                System.out.println((this.faculties.indexOf(faculty) + 1) + faculty.getName() + ", " + "Shortname: "
-                        + faculty.getGroupNaming() + ", "
-                        + "Study Field: " + faculty.getStudyField());
-            }
-            int options = this.faculties.size();
-            int option = Reader.safeSelect(options);
-            Faculty chosenFaculty = this.faculties.get(option - 1);
+            FacultyManager facultyManager = new FacultyManager(faculties);
+            facultyManager.selectOne();
+            Faculty chosenFaculty = facultyManager.getFaculty();
             if (chosenFaculty.getGroups().isEmpty()) {
                 System.out.println("Please give the group number: ");
                 String number = Reader.readln();
@@ -113,20 +108,28 @@ public class StudentGroupManager implements ManagerInterface {
 
     @Override
     public void printAllSubordinates() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'printAllSubordinates'");
+        if (this.studentGroup.getStudents().isEmpty()) {
+            System.err.println("There are no Students in this Group.");
+        }
+        for (Student student : this.studentGroup.getStudents()) {
+            System.out.println(
+                    student.getName() + ", ID: " + student.getStudentID() + ", Status: " + student.getStatus());
+        }
     }
 
-    public void selectStudentGroup() {
+    @Override
+    public void selectOne() {
         if (this.faculties.isEmpty()) {
             System.err.println("There are no Faculties in the record.");
+            return;
         } else if (this.faculty == null) {
             FacultyManager facultyManager = new FacultyManager(this.faculties);
-            facultyManager.selectFaculty();
+            facultyManager.selectOne();
             this.faculty = facultyManager.getFaculty();
         }
         if (this.faculty.getGroups().isEmpty()) {
             System.err.println("There are no Student Groups in this Faculty.");
+            return;
         } else {
             System.out.println("Please choose a Student Group by index.");
             for (int i = 0; i < this.faculty.getGroups().size(); i++) {
@@ -140,4 +143,88 @@ public class StudentGroupManager implements ManagerInterface {
     public StudentGroup getStudentGroup() {
         return this.studentGroup;
     }
+
+    @Override
+    public void selectSubordinate() {
+        if (this.studentGroup.getStudents().isEmpty()) {
+            System.err.println("There are no Students in this Group.");
+            return;
+        }
+
+        System.out.println("Please choose a Student by index:");
+        for (int i = 0; i < this.studentGroup.getStudents().size(); i++) {
+            Student student = this.studentGroup.getStudents().get(i);
+            System.out.println(Integer.toString(i + 1) + ". " + student.getName() + ", ID: " + student.getStudentID());
+        }
+
+        int option = Reader.safeSelect(this.studentGroup.getStudents().size());
+        this.selectedStudent = this.studentGroup.getStudents().get(option - 1);
+    }
+
+    public void moveStudentToAnotherGroup() {
+        if (this.studentGroup.getStudents().isEmpty()) {
+            System.err.println("There are no Students in this Group.");
+            return;
+        }
+
+        System.out.println("Please choose a Student to move by index:");
+        for (int i = 0; i < this.studentGroup.getStudents().size(); i++) {
+            Student student = this.studentGroup.getStudents().get(i);
+            System.out.println(Integer.toString(i + 1) + ". " + student.getName() + ", ID: " + student.getStudentID());
+        }
+
+        int studentIndex = Reader.safeSelect(this.studentGroup.getStudents().size());
+        Student studentToMove = this.studentGroup.getStudents().get(studentIndex - 1);
+
+        System.out.println("Please choose a target Student Group by index:");
+        for (int i = 0; i < this.faculty.getGroups().size(); i++) {
+            StudentGroup targetGroup = this.faculty.getGroups().get(i);
+            System.out.println(Integer.toString(i + 1) + ". " + targetGroup.getName());
+        }
+
+        int groupIndex = Reader.safeSelect(this.faculty.getGroups().size());
+        StudentGroup targetGroup = this.faculty.getGroups().get(groupIndex - 1);
+
+        if (targetGroup.getStudents().contains(studentToMove)) {
+            System.err.println("The student is already in the target group.");
+            return;
+        }
+
+        boolean removed = this.studentGroup.removeStudent(studentToMove);
+        if (removed) {
+            targetGroup.addStudent(studentToMove);
+            System.out.println("Student moved successfully to the target group.");
+        } else {
+            System.err.println("Failed to move the student to the target group.");
+        }
+    }
+
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public ArrayList<Faculty> getFaculties() {
+        return faculties;
+    }
+
+    public void setFaculties(ArrayList<Faculty> faculties) {
+        this.faculties = faculties;
+    }
+
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
+    }
+
 }

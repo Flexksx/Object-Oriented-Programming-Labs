@@ -29,7 +29,7 @@ public class SelectFacultyMenu implements MenuInterface {
     @Override
     public void mainLoop() {
         FacultyManager facultyManager = new FacultyManager(this.faculties);
-        facultyManager.selectFaculty();
+        facultyManager.selectOne();
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -48,7 +48,7 @@ public class SelectFacultyMenu implements MenuInterface {
                     facultyManager.addNewSubordinate();
                     break;
                 case 5:
-                    facultyManager.selectStudentGroup();
+                    facultyManager.selectSubordinate();
                     break;
                 case 0:
                     return;

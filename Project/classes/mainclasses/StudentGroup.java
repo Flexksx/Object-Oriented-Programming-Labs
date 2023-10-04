@@ -62,4 +62,12 @@ public class StudentGroup {
         return null;
     }
 
+    public boolean removeStudent(Student studentToRemove) {
+        if (students.contains(studentToRemove)) {
+            students.remove(studentToRemove);
+            return true;
+        }
+        return false;
+    }
+
 }

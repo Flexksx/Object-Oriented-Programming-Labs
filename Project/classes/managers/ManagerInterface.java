@@ -8,4 +8,8 @@ public interface ManagerInterface {
     void addNewSubordinate();
 
     void printAllSubordinates();
+
+    void selectSubordinate();
+
+    void selectOne();
 }

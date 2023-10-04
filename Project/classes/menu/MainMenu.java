@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.menu.FacultyMenus.FacultyMenu;
 import Project.classes.menu.StudentGroupMenus.StudentGroupMenu;
+import Project.classes.menu.StudentMenus.StudentMenu;
 import Project.classes.serialization.DataSerializer;
 import Project.classes.utility.Reader;
 
@@ -47,7 +48,8 @@ public class MainMenu implements MenuInterface {
                     studentGroupMenu.mainLoop();
                     break;
                 case 3:
-                    System.out.println("WIP");
+                    StudentMenu studentMenu = new StudentMenu(faculties);
+                    studentMenu.mainLoop();
                     break;
                 case 4:
                     DataSerializer.serialize(this);
