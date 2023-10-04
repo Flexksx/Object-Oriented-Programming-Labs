@@ -2,6 +2,8 @@ package Project.classes.mainclasses;
 
 import java.util.ArrayList;
 
+import Project.classes.mainclasses.enums.Status;
+
 public class Student {
 
   private int studentID;

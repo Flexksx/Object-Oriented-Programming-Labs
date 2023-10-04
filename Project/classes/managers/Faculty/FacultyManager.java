@@ -3,7 +3,7 @@ package Project.classes.managers.Faculty;
 import java.util.ArrayList;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.mainclasses.StudentGroup;
-import Project.classes.mainclasses.StudyField;
+import Project.classes.mainclasses.enums.StudyField;
 import Project.classes.managers.ManagerInterface;
 import Project.classes.utility.Reader;
 

@@ -2,6 +2,8 @@ package Project.classes.mainclasses;
 
 import java.util.ArrayList;
 
+import Project.classes.mainclasses.enums.StudyField;
+
 public class Faculty {
     private String name;
     private String groupNaming;

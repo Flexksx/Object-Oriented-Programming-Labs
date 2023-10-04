@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Project.classes.mainclasses.Faculty;
 import Project.classes.menu.FacultyMenus.FacultyMenu;
 import Project.classes.menu.StudentGroupMenus.StudentGroupMenu;
+import Project.classes.serialization.DataSerializer;
 import Project.classes.utility.Reader;
 
 public class MainMenu implements MenuInterface {
@@ -13,6 +14,9 @@ public class MainMenu implements MenuInterface {
 
     public MainMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
+    }
+
+    public MainMenu() {
     }
 
     public void navigateToPrevious() {
@@ -23,6 +27,7 @@ public class MainMenu implements MenuInterface {
         System.out.println("1. Faculty Menu.");
         System.out.println("2. Student Groups Menu");
         System.out.println("3. Students Menu.");
+        System.out.println("4. Save Data.");
         System.out.println("0. Quit.");
         System.out.println("==========================================");
     }
@@ -44,6 +49,9 @@ public class MainMenu implements MenuInterface {
                 case 3:
                     System.out.println("WIP");
                     break;
+                case 4:
+                    DataSerializer.serialize(this);
+                    break;
                 case 0:
                     navigateToPrevious();
                     return;
@@ -52,6 +60,5 @@ public class MainMenu implements MenuInterface {
             }
         }
     }
-
 
 }

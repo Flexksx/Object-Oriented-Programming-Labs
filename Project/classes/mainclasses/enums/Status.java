@@ -1,4 +1,4 @@
-package Project.classes.mainclasses;
+package Project.classes.mainclasses.enums;
 
 public enum Status {
     ACTIVE("Active"),

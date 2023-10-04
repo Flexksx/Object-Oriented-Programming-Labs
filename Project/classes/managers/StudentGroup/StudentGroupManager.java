@@ -3,9 +3,9 @@ package Project.classes.managers.StudentGroup;
 import java.util.ArrayList;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.mainclasses.Status;
 import Project.classes.mainclasses.Student;
 import Project.classes.mainclasses.StudentGroup;
+import Project.classes.mainclasses.enums.Status;
 import Project.classes.managers.ManagerInterface;
 import Project.classes.managers.Faculty.FacultyManager;
 import Project.classes.utility.Reader;
