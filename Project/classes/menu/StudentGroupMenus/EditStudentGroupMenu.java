@@ -28,7 +28,6 @@ public class EditStudentGroupMenu implements MenuInterface {
 
     @Override
     public void mainLoop() {
-
         int option = -1;
         while (!(option == 0)) {
             displayMenu();

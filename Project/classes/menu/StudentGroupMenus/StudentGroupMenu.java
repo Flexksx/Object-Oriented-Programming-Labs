@@ -1,19 +1,19 @@
 package Project.classes.menu.StudentGroupMenus;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import Project.classes.mainclasses.Faculty;
-import Project.classes.mainclasses.StudentGroup;
 import Project.classes.managers.StudentGroup.StudentGroupManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
 public class StudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
+    private StudentGroupManager studentGroupManager;
 
     public StudentGroupMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
+        this.studentGroupManager = new StudentGroupManager(faculties);
+
     }
 
     @Override
@@ -28,7 +28,6 @@ public class StudentGroupMenu implements MenuInterface {
 
     @Override
     public void mainLoop() {
-        StudentGroupManager studentGroupManager = new StudentGroupManager(faculties);
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
@@ -38,8 +37,7 @@ public class StudentGroupMenu implements MenuInterface {
                     studentGroupManager.addNew();
                     break;
                 case 2:
-                    EditStudentGroupMenu editStudentGroupMenu = new EditStudentGroupMenu(faculties);
-                    editStudentGroupMenu.mainLoop();
+                    editStudentGroup();
                     break;
                 case 3:
                     studentGroupManager.printAll();
@@ -49,5 +47,10 @@ public class StudentGroupMenu implements MenuInterface {
                     System.err.println("Invalid option. Please choose a valid option.");
             }
         }
+    }
+
+    public void editStudentGroup() {
+        EditStudentGroupMenu editStudentGroupMenu = new EditStudentGroupMenu(faculties);
+        editStudentGroupMenu.mainLoop();
     }
 }
