@@ -1,4 +1,4 @@
-package Project.classes;
+package Project.classes.mainclasses;
 
 public enum StudyField {
     MECHANICAL_ENGINEERING("Mechanical Engineering"),

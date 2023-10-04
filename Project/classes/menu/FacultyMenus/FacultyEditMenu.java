@@ -3,19 +3,18 @@ package Project.classes.menu.FacultyMenus;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Project.classes.Faculty;
-import Project.classes.Status;
-import Project.classes.Student;
-import Project.classes.StudentGroup;
+import Project.classes.mainclasses.Faculty;
+import Project.classes.mainclasses.Status;
+import Project.classes.mainclasses.Student;
+import Project.classes.mainclasses.StudentGroup;
 import Project.classes.menu.MenuInterface;
+import Project.classes.utility.Reader;
 
 public class FacultyEditMenu implements MenuInterface {
     private Faculty faculty;
-    private Scanner scanner;
 
-    public FacultyEditMenu(Faculty faculty, Scanner scanner) {
+    public FacultyEditMenu(Faculty faculty) {
         this.faculty = faculty;
-        this.scanner = scanner;
     }
 
     @Override
@@ -65,7 +64,7 @@ public class FacultyEditMenu implements MenuInterface {
     public int safeSelect(int options) {
         int optionInt = -1;
         while (optionInt < 0 || optionInt > options) {
-            String option = this.scanner.nextLine();
+            String option = Reader.readln();
             try {
                 optionInt = Integer.parseInt(option);
             } catch (NumberFormatException e) {
@@ -79,26 +78,7 @@ public class FacultyEditMenu implements MenuInterface {
     }
 
     public void addNewStudentGroup() {
-        System.out.println("What is the number of the New Group?");
-        String number = this.scanner.nextLine();
-        if (this.faculty.getGroups().isEmpty()) {
-            this.faculty.addNewGroup(number);
-            System.out.println("..........................................");
-            System.out.println("Student group added successfully.");
-            return;
-        } else {
-            String groupName = this.faculty.getGroupNaming() + "-" + number;
-            for (StudentGroup group : this.faculty.getGroups()) {
-                if (group.getName().equals(groupName)) {
-                    System.out.println("..........................................");
-                    System.err.println("Group " + groupName + " already exists in this Faculty.");
-                    return;
-                }
-            }
-            this.faculty.addNewGroup(number);
-            System.out.println("..........................................");
-            System.out.println("Student group added successfully.");
-        }
+
     }
 
     public void addNewStudent() {
@@ -114,11 +94,11 @@ public class FacultyEditMenu implements MenuInterface {
             int option = safeSelect(options);
             StudentGroup choseStudentGroup = this.faculty.getGroups().get(option - 1);
             System.out.println("Student's Name: ");
-            String name = this.scanner.nextLine();
+            String name = Reader.readln();
             System.out.println("Student's Date of Birth: ");
-            String dob = this.scanner.nextLine();
+            String dob = Reader.readln();
             System.out.println("Student's Date of Enrollment: ");
-            String dateOfEnrollment = this.scanner.nextLine();
+            String dateOfEnrollment = Reader.readln();
             Status[] statuses = { Status.ACTIVE, Status.ENROLLED, Status.ERASMUS, Status.EXPELLED, Status.GRADUATED };
             for (int i = 0; i < statuses.length; i++) {
                 System.out.println(Integer.toString(i + 1) + ". " + statuses[i]);

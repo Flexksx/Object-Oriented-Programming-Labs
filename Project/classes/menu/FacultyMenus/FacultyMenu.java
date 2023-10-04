@@ -3,17 +3,18 @@ package Project.classes.menu.FacultyMenus;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Project.classes.Faculty;
-import Project.classes.StudyField;
+import Project.classes.mainclasses.Faculty;
+import Project.classes.managers.FacultyManager;
 import Project.classes.menu.MenuInterface;
+import Project.classes.utility.Reader;
 
 public class FacultyMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
-    private Scanner scanner;
+    private FacultyManager facultyManager;
 
-    public FacultyMenu(ArrayList<Faculty> faculties, Scanner scanner) {
+    public FacultyMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
-        this.scanner = scanner;
+        this.facultyManager = new FacultyManager(this.faculties);
     }
 
     public void displayMenu() {
@@ -32,13 +33,13 @@ public class FacultyMenu implements MenuInterface {
             option = safeSelect(4);
             switch (option) {
                 case 1:
-                    addNewFaculty();
+                    this.facultyManager.addNew();
                     break;
                 case 2:
                     editFaculty();
                     break;
                 case 3:
-                    printFaculties();
+                    this.facultyManager.printAll();
                     break;
                 case 0:
                     return;
@@ -46,27 +47,6 @@ public class FacultyMenu implements MenuInterface {
                     System.err.println("Invalid option. Please choose a valid option.");
             }
         }
-    }
-
-    private void addNewFaculty() {
-        System.out.println("Enter the Faculty full name: ");
-        String name = this.scanner.nextLine();
-        System.out.println("Enter the Group Naming for this Faculty (example Mechanical Engineering - ME): ");
-        String shortName = this.scanner.nextLine();
-        System.out.println("Choose the Study Field: ");
-        StudyField[] fields = { StudyField.FOOD_TECHNOLOGY,
-                StudyField.MECHANICAL_ENGINEERING,
-                StudyField.SOFTWARE_ENGINEERING,
-                StudyField.URBANISM_ARCHITECTURE,
-                StudyField.VETERINARY_MEDICINE };
-        for (int i = 0; i < fields.length; i++) {
-            System.out.println(Integer.toString(i + 1) + ". " + fields[i]);
-        }
-        int option = safeSelect(fields.length - 1);
-        StudyField field = fields[option - 1];
-        this.faculties.add(new Faculty(name, shortName, field));
-        System.out.println("..........................................");
-        System.out.println("Faculty added successfuly.");
     }
 
     private void editFaculty() {
@@ -80,26 +60,15 @@ public class FacultyMenu implements MenuInterface {
             }
             int option = safeSelect(this.faculties.size());
             Faculty chosenFaculty = this.faculties.get(option - 1);
-            FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty, scanner);
+            FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty);
             facEditMenu.mainLoop();
-        }
-    }
-
-    private void printFaculties() {
-        if (faculties.isEmpty()) {
-            System.err.println("There are no Faculties in the record");
-        } else {
-            for (Faculty faculty : faculties) {
-                System.out.println(faculty.getName() + ", " + "Shortname: " + faculty.getGroupNaming() + ", "
-                        + "Study Field: " + faculty.getStudyField());
-            }
         }
     }
 
     public int safeSelect(int options) {
         int optionInt = -1;
         while (optionInt < 0 || optionInt > options) {
-            String option = this.scanner.nextLine();
+            String option = Reader.readln();
             try {
                 optionInt = Integer.parseInt(option);
             } catch (NumberFormatException e) {

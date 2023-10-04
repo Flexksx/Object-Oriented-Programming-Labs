@@ -1,4 +1,4 @@
-package Project.classes;
+package Project.classes.mainclasses;
 
 public class Mark {
 

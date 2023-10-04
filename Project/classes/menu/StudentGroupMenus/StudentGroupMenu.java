@@ -3,17 +3,16 @@ package Project.classes.menu.StudentGroupMenus;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Project.classes.Faculty;
-import Project.classes.StudentGroup;
+import Project.classes.mainclasses.Faculty;
+import Project.classes.mainclasses.StudentGroup;
 import Project.classes.menu.MenuInterface;
+import Project.classes.utility.Reader;
 
 public class StudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
-    private Scanner scanner;
 
-    public StudentGroupMenu(ArrayList<Faculty> faculties, Scanner scanner) {
+    public StudentGroupMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
-        this.scanner = scanner;
     }
 
     @Override
@@ -34,11 +33,13 @@ public class StudentGroupMenu implements MenuInterface {
             option = safeSelect(4);
             switch (option) {
                 case 1:
+                    addNewGroup();
                     break;
                 case 2:
+                    EditStudentGroupMenu editStudentGroupMenu = new EditStudentGroupMenu(faculties, scanner);
                     break;
                 case 3:
-                    break;
+                    printStudentGroups();
                 case 0:
                     return;
                 default:
@@ -51,7 +52,7 @@ public class StudentGroupMenu implements MenuInterface {
     public int safeSelect(int options) {
         int optionInt = -1;
         while (optionInt < 0 || optionInt > options) {
-            String option = this.scanner.nextLine();
+            String option = Reader.readln();
             try {
                 optionInt = Integer.parseInt(option);
             } catch (NumberFormatException e) {
@@ -72,7 +73,7 @@ public class StudentGroupMenu implements MenuInterface {
         } else {
             for (Faculty faculty : this.faculties) {
                 System.out.println("Choose a Faculty to add this group to: ");
-                System.out.println(this.faculties.indexOf(faculty) + faculty.getName() + ", " + "Shortname: "
+                System.out.println((this.faculties.indexOf(faculty) + 1) + faculty.getName() + ", " + "Shortname: "
                         + faculty.getGroupNaming() + ", "
                         + "Study Field: " + faculty.getStudyField());
             }
@@ -81,15 +82,42 @@ public class StudentGroupMenu implements MenuInterface {
             Faculty chosenFaculty = this.faculties.get(option - 1);
             if (chosenFaculty.getGroups().isEmpty()) {
                 System.out.println("Please give the group number: ");
-                String number = this.scanner.nextLine();
+                String number = Reader.readln();
                 chosenFaculty.addNewGroup(number);
+                System.out.println("..........................................");
+                System.out.println("Student group added successfully.");
             } else {
                 System.out.println("Please give the group number: ");
-                String number = this.scanner.nextLine();
+                String number = Reader.readln();
                 for (StudentGroup group : chosenFaculty.getGroups()) {
+                    if (chosenFaculty.getGroupNaming() + "-" + number == group.getName()) {
+                        System.err.println("This group already exists in this Faculty.");
+                        return;
+                    }
+                }
+                chosenFaculty.addNewGroup(number);
+                System.out.println("..........................................");
+                System.out.println("Student group added successfully.");
+            }
+        }
+    }
 
+    public void printStudentGroups() {
+        if (this.faculties.isEmpty()) {
+            System.out.println("There are no Faculties or Student Groups.");
+        } else {
+            for (Faculty faculty : this.faculties) {
+                System.out.println("..........................................");
+                System.out.println("Faculty " + faculty.getName());
+                if (faculty.getGroups().isEmpty()) {
+                    System.out.print(" has no groups.");
+                } else {
+                    System.out.println(". . . . . . . . . . . . . . . . . . . . . ");
+                    for (StudentGroup studentGroup : faculty.getGroups()) {
+                        System.out.println(studentGroup.getName());
+                    }
                 }
-                }
+
             }
         }
     }

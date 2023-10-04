@@ -1,32 +1,27 @@
-package Project.classes.menu;
+package Project.classes.menu.StudentGroupMenus;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.menu.FacultyMenus.FacultyMenu;
-import Project.classes.menu.StudentGroupMenus.StudentGroupMenu;
-import Project.classes.utility.Reader;
+import Project.classes.menu.MenuInterface;
 
-public class MainMenu implements MenuInterface {
+public class EditStudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
+    private Scanner scanner;
 
-    public MainMenu(ArrayList<Faculty> faculties) {
+    public EditStudentGroupMenu(ArrayList<Faculty> faculties, Scanner scanner) {
         this.faculties = faculties;
+        this.scanner = scanner;
     }
 
-    public void navigateToPrevious() {
-        System.out.println("Goodbye!");
-    }
-
+    @Override
     public void displayMenu() {
-        System.out.println("1. Faculty Menu.");
-        System.out.println("2. Student Groups Menu");
-        System.out.println("3. Students Menu.");
-        System.out.println("0. Quit.");
-        System.out.println("==========================================");
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
     }
 
+    @Override
     public void mainLoop() {
         int option = -1;
         while (!(option == 0)) {
@@ -34,18 +29,12 @@ public class MainMenu implements MenuInterface {
             option = safeSelect(4);
             switch (option) {
                 case 1:
-                    FacultyMenu facultyMenu = new FacultyMenu(faculties);
-                    facultyMenu.mainLoop();
                     break;
                 case 2:
-                    StudentGroupMenu studentGroupMenu = new StudentGroupMenu(faculties);
-                    studentGroupMenu.mainLoop();
                     break;
                 case 3:
-                    System.out.println("WIP");
                     break;
                 case 0:
-                    navigateToPrevious();
                     return;
                 default:
                     System.err.println("Invalid option. Please choose a valid option.");
@@ -53,10 +42,11 @@ public class MainMenu implements MenuInterface {
         }
     }
 
+    @Override
     public int safeSelect(int options) {
         int optionInt = -1;
         while (optionInt < 0 || optionInt > options) {
-            String option = Reader.readln();
+            String option = this.scanner.nextLine();
             try {
                 optionInt = Integer.parseInt(option);
             } catch (NumberFormatException e) {
