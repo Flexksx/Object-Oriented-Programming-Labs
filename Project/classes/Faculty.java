@@ -113,7 +113,7 @@ public class Faculty {
                     System.err.println("There are no Students in this group");
                 } else {
                     for (Student student : group.getStudents()) {
-                        System.out.println(student.getStudentID());
+                        System.out.println(Integer.toString(student.getStudentID()));
                     }
                 }
             }

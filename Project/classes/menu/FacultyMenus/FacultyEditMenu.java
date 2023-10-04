@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.Faculty;
+import Project.classes.Status;
 import Project.classes.Student;
 import Project.classes.StudentGroup;
 import Project.classes.menu.MenuInterface;
@@ -50,6 +51,7 @@ public class FacultyEditMenu implements MenuInterface {
                     addNewStudentGroup();
                     break;
                 case 5:
+                    addNewStudent();
                     break;
                 case 0:
                     return;
@@ -81,21 +83,53 @@ public class FacultyEditMenu implements MenuInterface {
         String number = this.scanner.nextLine();
         if (this.faculty.getGroups().isEmpty()) {
             this.faculty.addNewGroup(number);
-            System.out.println(".................................");
+            System.out.println("..........................................");
             System.out.println("Student group added successfully.");
             return;
         } else {
             String groupName = this.faculty.getGroupNaming() + "-" + number;
-            for (StudentGroup group : this.faculty.getGroups()){
-                if(group.getName().equals(groupName)){
-                    System.err.println("...................................................");
-                    System.err.println("Group "+groupName+" already exists in this Faculty.");
+            for (StudentGroup group : this.faculty.getGroups()) {
+                if (group.getName().equals(groupName)) {
+                    System.out.println("..........................................");
+                    System.err.println("Group " + groupName + " already exists in this Faculty.");
                     return;
                 }
             }
             this.faculty.addNewGroup(number);
-            System.out.println(".................................");
+            System.out.println("..........................................");
             System.out.println("Student group added successfully.");
+        }
+    }
+
+    public void addNewStudent() {
+        if (this.faculty.getGroups().isEmpty()) {
+            System.err.println("There are no Groups to assign this student to.");
+            return;
+        } else {
+            System.out.println("Choose a Group to add this student to:");
+            for (int i = 0; i < this.faculty.getGroups().size(); i++) {
+                System.out.println(Integer.toString(i + 1) + ". " + this.faculty.getGroups().get(i).getName());
+            }
+            int options = this.faculty.getGroups().size();
+            int option = safeSelect(options);
+            StudentGroup choseStudentGroup = this.faculty.getGroups().get(option - 1);
+            System.out.println("Student's Name: ");
+            String name = this.scanner.nextLine();
+            System.out.println("Student's Date of Birth: ");
+            String dob = this.scanner.nextLine();
+            System.out.println("Student's Date of Enrollment: ");
+            String dateOfEnrollment = this.scanner.nextLine();
+            Status[] statuses = { Status.ACTIVE, Status.ENROLLED, Status.ERASMUS, Status.EXPELLED, Status.GRADUATED };
+            for (int i = 0; i < statuses.length; i++) {
+                System.out.println(Integer.toString(i + 1) + ". " + statuses[i]);
+            }
+            options = statuses.length;
+            option = safeSelect(options);
+            Status status = statuses[option - 1];
+            Student newStudent = new Student(name, dob, this.faculty, status, dateOfEnrollment);
+            choseStudentGroup.addStudent(newStudent);
+            System.out.println("..........................................");
+            System.out.println("Student added Successfully!");
         }
     }
 }

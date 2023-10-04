@@ -9,26 +9,20 @@ import Project.classes.menu.MenuInterface;
 
 public class FacultyMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
-    private MenuInterface previousMenu;
     private Scanner scanner;
 
-    public FacultyMenu(ArrayList<Faculty> faculties, MenuInterface previous, Scanner scanner) {
+    public FacultyMenu(ArrayList<Faculty> faculties, Scanner scanner) {
         this.faculties = faculties;
-        this.previousMenu = previous;
         this.scanner = scanner;
     }
 
-    public void navigateToPrevious() {
-        previousMenu.mainLoop();
-    }
-
     public void displayMenu() {
-        System.out.println("===========================");
+        System.out.println("==========================================");
         System.out.println("1. Add new Faculty.");
         System.out.println("2. Select existing Faculty.");
         System.out.println("3. Print existing Faculties.");
         System.out.println("0. Go back to the previous Menu.");
-        System.out.println("===========================");
+        System.out.println("==========================================");
     }
 
     public void mainLoop() {
@@ -71,9 +65,8 @@ public class FacultyMenu implements MenuInterface {
         int option = safeSelect(fields.length - 1);
         StudyField field = fields[option - 1];
         this.faculties.add(new Faculty(name, shortName, field));
-        System.out.println("---------------------------");
+        System.out.println("..........................................");
         System.out.println("Faculty added successfuly.");
-        System.out.println("---------------------------");
     }
 
     private void editFaculty() {
@@ -83,7 +76,7 @@ public class FacultyMenu implements MenuInterface {
         } else {
             System.out.println("Which one of the Faculties do you want to edit?");
             for (int i = 0; i < this.faculties.size(); i++) {
-                System.out.println(Integer.toString(i+1) + ". " + this.faculties.get(i).getName());
+                System.out.println(Integer.toString(i + 1) + ". " + this.faculties.get(i).getName());
             }
             int option = safeSelect(this.faculties.size());
             Faculty chosenFaculty = this.faculties.get(option - 1);

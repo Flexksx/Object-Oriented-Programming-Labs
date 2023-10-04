@@ -22,8 +22,8 @@ public class StudentGroup {
         this.students.add(student);
     }
 
-    public void addNewStudent(String studentid, String name, String dob, Status status, String doe) {
-        students.add(new Student(studentid, name, dob, this.getFaculty(), status, doe));
+    public void addNewStudent(String name, String dob, Status status, String doe) {
+        students.add(new Student(name, dob, this.getFaculty(), status, doe));
     }
 
     public String getName() {

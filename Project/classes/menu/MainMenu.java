@@ -24,10 +24,9 @@ public class MainMenu implements MenuInterface {
         System.out.println("2. Student Groups Menu");
         System.out.println("3. Students Menu.");
         System.out.println("0. Quit.");
-        System.err.println("===========================");
+        System.out.println("==========================================");
     }
 
-    // give a more descriptive name
     public void mainLoop() {
         int option = -1;
         while (!(option == 0)) {
@@ -35,8 +34,7 @@ public class MainMenu implements MenuInterface {
             option = safeSelect(4);
             switch (option) {
                 case 1:
-                    FacultyMenu facultyMenu = new FacultyMenu(faculties, this, scanner);
-                    // fix infinite recursion
+                    FacultyMenu facultyMenu = new FacultyMenu(faculties, scanner);
                     facultyMenu.mainLoop();
                     break;
                 case 2:

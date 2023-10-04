@@ -4,21 +4,23 @@ import java.util.ArrayList;
 
 public class Student {
 
-  private String studentID;
+  private int studentID;
   private String name;
   private String dateOfBirth;
   private Faculty faculty;
   private String dateOfEnrollment;
   private ArrayList<Mark> marks = new ArrayList<>();
   private Status status;
+  private static int ID = 1;
 
-  public Student(String id, String name, String dob, Faculty fac, Status status, String doe) {
-    this.studentID = id;
+
+  public Student(String name, String dob, Faculty fac, Status status, String doe) {
     this.name = name;
     this.dateOfBirth = dob;
     this.faculty = fac;
     this.status = status;
     this.dateOfEnrollment=doe;
+    this.studentID=ID++;
   }
 
   public void addMark(String date, float value) {
@@ -33,7 +35,7 @@ public class Student {
     this.dateOfBirth = dateOfBirth;
   }
 
-  public void setFaculty(String faculty) {
+  public void setFaculty(Faculty faculty) {
     this.faculty = faculty;
   }
 
@@ -41,7 +43,7 @@ public class Student {
     this.name = name;
   }
 
-  public void setStudentID(String studentID) {
+  public void setStudentID(int studentID) {
     this.studentID = studentID;
   }
 
@@ -49,7 +51,7 @@ public class Student {
     return this.dateOfBirth;
   }
 
-  public String getFaculty() {
+  public Faculty getFaculty() {
     return this.faculty;
   }
 
@@ -61,7 +63,7 @@ public class Student {
     return this.name;
   }
 
-  public String getStudentID() {
+  public int getStudentID() {
     return this.studentID;
   }
 
