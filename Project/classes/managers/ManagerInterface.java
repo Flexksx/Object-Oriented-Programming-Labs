@@ -1,6 +1,6 @@
 package Project.classes.managers;
 
-public interface ManagerAbstractClass {
+public interface ManagerInterface {
     void addNew();
 
     void printAll();

@@ -31,7 +31,7 @@ public class MainMenu implements MenuInterface {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
-            option = safeSelect(4);
+            option = Reader.safeSelect(4);
             switch (option) {
                 case 1:
                     FacultyMenu facultyMenu = new FacultyMenu(faculties);
@@ -53,20 +53,5 @@ public class MainMenu implements MenuInterface {
         }
     }
 
-    public int safeSelect(int options) {
-        int optionInt = -1;
-        while (optionInt < 0 || optionInt > options) {
-            String option = Reader.readln();
-            try {
-                optionInt = Integer.parseInt(option);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid integer.");
-            }
-            if (optionInt < 0 || optionInt > options) {
-                System.err.println("Invalid option. Please choose a valid option.");
-            }
-        }
-        return optionInt;
-    }
 
 }

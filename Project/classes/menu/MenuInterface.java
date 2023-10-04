@@ -6,6 +6,4 @@ public interface MenuInterface {
     void displayMenu();
 
     void mainLoop();
-
-    int safeSelect(int options);
 }

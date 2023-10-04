@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
-import Project.classes.managers.FacultyManager;
+import Project.classes.managers.Faculty.FacultyManager;
 import Project.classes.menu.MenuInterface;
 import Project.classes.utility.Reader;
 
@@ -30,7 +30,7 @@ public class FacultyMenu implements MenuInterface {
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
-            option = safeSelect(4);
+            option = Reader.safeSelect(4);
             switch (option) {
                 case 1:
                     this.facultyManager.addNew();
@@ -50,34 +50,7 @@ public class FacultyMenu implements MenuInterface {
     }
 
     private void editFaculty() {
-        if (faculties.isEmpty()) {
-            System.err.println("There are no Faculties in the record.");
-            return;
-        } else {
-            System.out.println("Which one of the Faculties do you want to edit?");
-            for (int i = 0; i < this.faculties.size(); i++) {
-                System.out.println(Integer.toString(i + 1) + ". " + this.faculties.get(i).getName());
-            }
-            int option = safeSelect(this.faculties.size());
-            Faculty chosenFaculty = this.faculties.get(option - 1);
-            FacultyEditMenu facEditMenu = new FacultyEditMenu(chosenFaculty);
-            facEditMenu.mainLoop();
-        }
-    }
-
-    public int safeSelect(int options) {
-        int optionInt = -1;
-        while (optionInt < 0 || optionInt > options) {
-            String option = Reader.readln();
-            try {
-                optionInt = Integer.parseInt(option);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid integer.");
-            }
-            if (optionInt < 0 || optionInt > options) {
-                System.err.println("Invalid option. Please choose a valid option.");
-            }
-        }
-        return optionInt;
+        FacultyEditMenu facEditMenu = new FacultyEditMenu(faculties);
+        facEditMenu.mainLoop();
     }
 }

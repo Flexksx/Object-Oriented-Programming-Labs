@@ -5,34 +5,42 @@ import java.util.Scanner;
 
 import Project.classes.mainclasses.Faculty;
 import Project.classes.menu.MenuInterface;
+import Project.classes.utility.Reader;
 
 public class EditStudentGroupMenu implements MenuInterface {
     private ArrayList<Faculty> faculties;
-    private Scanner scanner;
 
-    public EditStudentGroupMenu(ArrayList<Faculty> faculties, Scanner scanner) {
+    public EditStudentGroupMenu(ArrayList<Faculty> faculties) {
         this.faculties = faculties;
-        this.scanner = scanner;
     }
 
     @Override
     public void displayMenu() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
+        System.out.println("==========================================");
+        System.out.println("1. Print Students in this Group.");
+        System.out.println("2. Add Student to Group.");
+        System.out.println("3. Remove Student from Group.");
+        System.out.println("4. Select Student.");
+        System.out.println("0. Go back to the Previous Menu.");
+        System.out.println("==========================================");
+
     }
 
     @Override
     public void mainLoop() {
+
         int option = -1;
         while (!(option == 0)) {
             displayMenu();
-            option = safeSelect(4);
+            option = Reader.safeSelect(4);
             switch (option) {
                 case 1:
                     break;
                 case 2:
                     break;
                 case 3:
+                    break;
+                case 4:
                     break;
                 case 0:
                     return;
@@ -41,22 +49,4 @@ public class EditStudentGroupMenu implements MenuInterface {
             }
         }
     }
-
-    @Override
-    public int safeSelect(int options) {
-        int optionInt = -1;
-        while (optionInt < 0 || optionInt > options) {
-            String option = this.scanner.nextLine();
-            try {
-                optionInt = Integer.parseInt(option);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid integer.");
-            }
-            if (optionInt < 0 || optionInt > options) {
-                System.err.println("Invalid option. Please choose a valid option.");
-            }
-        }
-        return optionInt;
-    }
-
 }
