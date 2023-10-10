@@ -10,7 +10,7 @@ public class DataSerializer {
     public static void serialize(MainMenu manager) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Manager.ser"))) {
             oos.writeObject(manager);
-            System.out.println("Supervisor object serialized successfully.");
+            System.out.println("Object serialized successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
