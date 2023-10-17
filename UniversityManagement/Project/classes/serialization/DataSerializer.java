@@ -1,10 +1,10 @@
-package Labs2OOP.Project.classes.serialization;
+package UniversityManagement.Project.classes.serialization;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import Labs2OOP.Project.classes.menu.MainMenu;
+import UniversityManagement.Project.classes.menu.MainMenu;
 
 public class DataSerializer {
     public static void serialize(MainMenu manager) {
