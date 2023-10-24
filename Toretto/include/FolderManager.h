@@ -4,14 +4,14 @@
 #include <filesystem>
 #include <iostream>
 
-using namespace std;
+namespace fs = std::filesystem;
 
 class FolderManager {
 private:
-    string path;
+    fs::path path;
 public:
-    FolderManager(string _path);
-    void listAllFiles(string path, int depth); // Updated function signature
+    FolderManager(fs::path _path);
+    void listAllFiles(fs:: path, int depth); // Updated function signature
     void listAllFiles();
 };
 

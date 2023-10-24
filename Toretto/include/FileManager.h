@@ -4,15 +4,16 @@
 #include <filesystem>
 #include <iostream>
 
-using namespace std;
+namespace fs = std::filesystem;
 
-class FolderManager {
+class FileManager {
 private:
-    string path;
+  fs::path filePath;
+
 public:
-    FolderManager(string _path);
-    void listAllFiles(string path, int depth); // Updated function signature
-    void listAllFiles();
+  void lastTimeModified();
+  FileManager(fs::path filePath);
+  std::string getFileExtension();
 };
 
 #endif

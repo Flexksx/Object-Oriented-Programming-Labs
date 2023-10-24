@@ -4,9 +4,9 @@
 
 namespace fs = std::filesystem;
 
-FolderManager::FolderManager(string path) { this->path = path; }
+FolderManager::FolderManager(fs::path path) { this->path = path; }
 
-void FolderManager::listAllFiles(string path, int depth) {
+void FolderManager::listAllFiles(fs::path path, int depth) {
   if (!fs::exists(path)) {
     std::cout << "Path does not exist." << std::endl;
     return;
