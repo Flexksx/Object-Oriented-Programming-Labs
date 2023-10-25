@@ -1,6 +1,6 @@
-// #include "include/FileManager.h"
-#include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/FileManager.h"
 #include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/FolderManager.h"
+#include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/GenericFileManager.h"
+#include "include/GenericFileManager.h"
 #include <filesystem>
 #include <iostream>
 
@@ -11,13 +11,8 @@ int main(int argc, char *argv[]) {
     cerr << "Usage: " << argv[0] << " <path>" << endl;
     return 1;
   }
-
+  std::cout<<argv[0]<<endl;
   string path = argv[1];
   cout << "Path: " << path << endl;
-  FolderManager folderManager = FolderManager(path);
-  folderManager.listAllFiles();
-  FileManager fileManager = FileManager(path);
-  cout<<fileManager.getFileExtension();
-  fileManager.lastTimeModified();
   return 0;
 }

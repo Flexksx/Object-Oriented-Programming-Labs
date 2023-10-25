@@ -6,14 +6,15 @@
 
 namespace fs = std::filesystem;
 
-class FileManager {
+class GenericFileManager {
 private:
   fs::path filePath;
 
 public:
-  void lastTimeModified();
-  FileManager(fs::path filePath);
+  fs::file_time_type lastTimeModified();
+  GenericFileManager(std::string _filePath);
   std::string getFileExtension();
+  ~GenericFileManager();
 };
 
 #endif
