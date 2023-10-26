@@ -1,13 +1,8 @@
 #include "include/CodeFileManager.h"
 #include "include/GenericFileManager.h"
-#include <chrono>
-#include <ctime>
 #include <filesystem>
 #include <fstream>
-#include <iomanip>
 #include <iostream>
-
-namespace fs = std::filesystem;
 
 CodeFileManager::CodeFileManager(std::string _filePath, int *_date)
     : GenericFileManager(_filePath, _date) {
@@ -33,7 +28,7 @@ void CodeFileManager::showInfo() {
   }
   std::cout << std::endl;
   std::cout << "Nr of lines: " << getNrOfLines() << std::endl;
-  delete [] date;
+  delete[] date;
 }
 
 int CodeFileManager::getNrOfLines() {

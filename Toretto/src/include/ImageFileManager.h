@@ -11,10 +11,13 @@ class ImageFileManager : public GenericFileManager {
 private:
   fs::path filePath;
   std::string fileExtension;
+  int width;
+  int height;
+  bool GetImageSize(const char *fn, int *x, int *y);
 public:
   ImageFileManager(std::string _filePath, int* date);
   std::string getFileExtension();
-  int getNrOfLines();
+  void getSize();
   void showInfo();
 };
 

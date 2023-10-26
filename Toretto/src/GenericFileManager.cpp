@@ -12,15 +12,7 @@ GenericFileManager::GenericFileManager(std::string _filePath, int *_date) {
 }
 
 std::string GenericFileManager::getFileExtension() {
-  std::string extension = "";
-  std::string filePathString = this->filePath.string();
-  for (int i = filePathString.length() - 1; i >= 0; i--) {
-    if (filePathString[i] == '.') {
-      break;
-    }
-    extension = filePathString[i] + extension;
-  }
-  return extension;
+  return this->filePath.extension();
 }
 
 fs::file_time_type GenericFileManager::lastTimeModified() {
