@@ -1,18 +1,23 @@
-#include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/FolderManager.h"
-#include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/GenericFileManager.h"
-#include "include/GenericFileManager.h"
+#include "src/include/CodeFileManager.h"
+#include "src/include/FolderManager.h"
+#include "src/include/GenericFileManager.h"
+#include "src/include/GenericFileManager.h"
+#include "src/include/CodeFileManager.h"
 #include <filesystem>
 #include <iostream>
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  if (argc < 2) {
-    cerr << "Usage: " << argv[0] << " <path>" << endl;
-    return 1;
-  }
-  std::cout<<argv[0]<<endl;
-  string path = argv[1];
+  int* date = new int[5];
+  std::cout<<argv[1]<<endl;
+  string path = argv[2];
   cout << "Path: " << path << endl;
+  CodeFileManager cfm(path, date);
+  cfm.showInfo();
+
+
+
+  delete [] date;
   return 0;
 }

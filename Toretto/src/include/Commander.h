@@ -9,9 +9,10 @@ namespace fs = std::filesystem;
 class Commander {
 private:
   fs::path path;
+  int* date;
 
 public:
-  Commander(std::string _path);
+  Commander(std::string _path, int* date);
   void fileInfo();
   void handleCommand(std::string command);
 };

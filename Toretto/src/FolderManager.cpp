@@ -1,4 +1,4 @@
-#include "/home/cristi/Documents/GitHub/LabsOOP/Toretto/include/FolderManager.h"
+#include "include/FolderManager.h"
 #include <filesystem>
 #include <iostream>
 
