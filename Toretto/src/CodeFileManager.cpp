@@ -11,7 +11,7 @@ CodeFileManager::CodeFileManager(std::string _filePath, int *_date)
 }
 
 CodeFileManager::CodeFileManager(int *_date) : GenericFileManager(_date) {
-  this->date=_date;
+  this->date = _date;
 }
 
 void CodeFileManager::showInfo() {

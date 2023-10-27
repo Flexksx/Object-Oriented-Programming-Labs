@@ -25,7 +25,7 @@ ImageFileManager::ImageFileManager(std::string _filePath, int *date)
 }
 
 ImageFileManager::ImageFileManager(int *date) : GenericFileManager(date) {
-  this->getSize();
+  this->date = date;
 }
 
 void ImageFileManager::getSize() {
