@@ -21,7 +21,6 @@ ImageFileManager::ImageFileManager(std::string _filePath, int *date)
     : GenericFileManager(_filePath, date) {
   filePath = _filePath;
   fileExtension = filePath.extension();
-  this->getSize();
 }
 
 ImageFileManager::ImageFileManager(int *date) : GenericFileManager(date) {
@@ -43,6 +42,7 @@ void ImageFileManager::getSize() {
 void ImageFileManager::showInfo() {
   std::cout << "File extension: " << this->fileExtension << std::endl;
   this->showLastTimeModified();
+  this->getSize();
   std::cout << "Width: " << this->width << std::endl;
   std::cout << "Height: " << this->height << std::endl;
 }

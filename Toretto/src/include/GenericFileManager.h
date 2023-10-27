@@ -13,16 +13,16 @@ private:
 protected:
   int *date;
   int *getTimeFromEpoch();
-  void showLastTimeModified();
 
 public:
+  void showLastTimeModified();
   fs::file_time_type lastTimeModified();
   GenericFileManager(std::string _filePath, int *date);
   GenericFileManager(int *date);
   std::string getFileExtension();
   void selectManager();
   virtual void showInfo();
-  int* getDate();
+  int *getDate();
   void setPath(fs::path);
   fs::path getPath();
   ~GenericFileManager();
