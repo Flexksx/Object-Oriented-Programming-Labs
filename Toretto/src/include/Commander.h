@@ -19,12 +19,14 @@ private:
   FolderManager *fm;
   CodeFileManager *cfm;
   ImageFileManager *ifm;
+  GenericFileManager *gfm;
 
 public:
   Commander(std::string _cmd);
-  Commander(std::string _cmd, std::string _path, int *date, FolderManager *_fm,
+  Commander(std::string _cmd, std::string _path, int *date, FolderManager *_fm, GenericFileManager *_gfm,
             CodeFileManager *_cfm, ImageFileManager *_ifm);
   void run(std::string _cmd);
+  void giveCommand(std::string _cmd);
   void run();
 };
 

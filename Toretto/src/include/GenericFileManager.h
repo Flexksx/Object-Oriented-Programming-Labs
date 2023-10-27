@@ -22,6 +22,9 @@ public:
   std::string getFileExtension();
   void selectManager();
   virtual void showInfo();
+  int* getDate();
+  void setPath(fs::path);
+  fs::path getPath();
   ~GenericFileManager();
 };
 

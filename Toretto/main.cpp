@@ -15,18 +15,20 @@ int main(int argc, char *argv[]) {
   } else {
 
     int *date = new int[5];
-    std::cout << argv[1] << endl;
+    // std::cout << argv[1] << endl;
     string path = argv[2];
-    cout << "Path: " << path << endl;
-
+    // cout << "Path: " << path << endl;
+    string command = argv[1];
     FolderManager *fm = new FolderManager(path);
     GenericFileManager *gfm = new GenericFileManager(date);
     ImageFileManager *ifm = new ImageFileManager(date);
     CodeFileManager *cfm = new CodeFileManager(date);
-    Commander commander(argv[1], path, date, fm, cfm, ifm);
+    Commander commander(command, path, date, fm, gfm, cfm, ifm);
 
     commander.run();
-
+    while (cin >> command) {
+      commander.run(command);
+    }
     delete fm;
     delete ifm;
     delete cfm;

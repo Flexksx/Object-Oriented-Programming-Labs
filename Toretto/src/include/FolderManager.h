@@ -13,6 +13,7 @@ public:
     FolderManager(fs::path _path);
     void listAllFiles(fs:: path, int depth); // Updated function signature
     void listAllFiles();
+    fs::path getPath();
 };
 
 #endif

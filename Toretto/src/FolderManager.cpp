@@ -49,3 +49,6 @@ void FolderManager::listAllFiles() {
     }
   }
 }
+fs::path FolderManager::getPath(){
+  return this->path;
+}

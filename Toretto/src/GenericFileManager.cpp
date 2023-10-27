@@ -13,6 +13,8 @@ GenericFileManager::GenericFileManager(std::string _filePath, int *_date) {
 
 GenericFileManager::GenericFileManager(int *_date) { this->date = _date; }
 
+void GenericFileManager::setPath(fs::path _path) { this->filePath = _path; }
+
 std::string GenericFileManager::getFileExtension() {
   return this->filePath.extension();
 }
@@ -26,7 +28,7 @@ fs::file_time_type GenericFileManager::lastTimeModified() {
   return timePoint;
 }
 
-
+int *GenericFileManager::getDate() { return this->date; }
 
 int *GenericFileManager::getTimeFromEpoch() {
   int *date = new int[5];
@@ -45,6 +47,8 @@ int *GenericFileManager::getTimeFromEpoch() {
   date[4] = timeInfo->tm_min;
   return date;
 }
+
+fs::path GenericFileManager::getPath() { return this->filePath; }
 
 void GenericFileManager::showLastTimeModified() {
   int *date = this->getTimeFromEpoch();

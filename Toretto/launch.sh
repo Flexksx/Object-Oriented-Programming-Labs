@@ -1,4 +1,4 @@
-g++ -std=c++20 Toretto/main.cpp Toretto/src/*.cpp -I Toretto/src/include -o toretto
+g++ -std=c++20 main.cpp src/*.cpp -I src/include -o toretto
 # ./toretto info /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/BankAccount.java
 # ./toretto info /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP
-./toretto help
+./toretto init /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP
