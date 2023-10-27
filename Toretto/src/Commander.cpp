@@ -29,9 +29,10 @@ void Commander::run() { this->command(); }
 void Commander::command() {
   if (this->cmd == "help") {
     std::cout << "Commands: " << std::endl;
-    std::cout << "info    shows info about the file" << std::endl;
     std::cout << "help    shows this message" << std::endl;
+    std::cout << "info    shows info about the file or folder" << std::endl;
     std::cout << "exit    exits the program" << std::endl;
+    std::cout << "slct    selects a file or folder" << std::endl;
   }
 
   if (this->cmd == "exit") {
