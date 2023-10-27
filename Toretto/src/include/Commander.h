@@ -8,13 +8,15 @@ namespace fs = std::filesystem;
 
 class Commander {
 private:
+  std::string cmd;
   fs::path path;
-  int* date;
+  int *date;
+  void command();
 
 public:
-  Commander(std::string _path, int* date);
-  void fileInfo();
-  void handleCommand(std::string command);
+  Commander(std::string _cmd, std::string _path, int *date);
+  void run(std::string _cmd);
+  void run();
 };
 
 #endif

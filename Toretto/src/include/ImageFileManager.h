@@ -13,12 +13,15 @@ private:
   std::string fileExtension;
   int width;
   int height;
-  bool GetImageSize(const char *fn, int *x, int *y);
+  bool GetImageSize(fs::path filename, int &width, int &height);
+
 public:
-  ImageFileManager(std::string _filePath, int* date);
+  ImageFileManager(std::string _filePath, int *date);
+  ImageFileManager(int* date);
   std::string getFileExtension();
   void getSize();
-  void showInfo();
+  void showInfo() override;
+  ~ImageFileManager();
 };
 
 #endif

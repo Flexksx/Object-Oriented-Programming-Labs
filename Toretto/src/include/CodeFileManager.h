@@ -15,7 +15,8 @@ public:
   CodeFileManager(std::string _filePath, int* date);
   std::string getFileExtension();
   int getNrOfLines();
-  void showInfo();
+  void showInfo() override;
+  CodeFileManager(int* date);
 };
 
 #endif

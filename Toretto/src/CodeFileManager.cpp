@@ -10,25 +10,16 @@ CodeFileManager::CodeFileManager(std::string _filePath, int *_date)
   this->filePath = _filePath;
 }
 
+CodeFileManager::CodeFileManager(int *_date) : GenericFileManager(_date) {
+  this->date=_date;
+}
+
 void CodeFileManager::showInfo() {
   using namespace std::literals;
   std::string extension = GenericFileManager::getFileExtension();
-  int *date = GenericFileManager::getTimeFromEpoch();
   std::cout << "Extension: " << extension << std::endl;
-  std::cout << "Last time modified: ";
-  for (int i = 0; i < 5; i++) {
-    if (i < 2)
-      std::cout << date[i] << "-";
-    else if (i == 2)
-      std::cout << date[i] << " ";
-    else if (i > 2 && i < 4)
-      std::cout << date[i] << ":";
-    else
-      std::cout << date[i];
-  }
-  std::cout << std::endl;
+  this->showLastTimeModified();
   std::cout << "Nr of lines: " << getNrOfLines() << std::endl;
-  delete[] date;
 }
 
 int CodeFileManager::getNrOfLines() {

@@ -11,15 +11,22 @@ GenericFileManager::GenericFileManager(std::string _filePath, int *_date) {
   this->date = _date;
 }
 
+GenericFileManager::GenericFileManager(int *_date) { this->date = _date; }
+
 std::string GenericFileManager::getFileExtension() {
   return this->filePath.extension();
 }
-
+void GenericFileManager::showInfo() {
+  std::cout << "This method is used only to be inherited and overriden."
+            << std::endl;
+}
 fs::file_time_type GenericFileManager::lastTimeModified() {
   fs::file_time_type ftime = fs::last_write_time(this->filePath);
   std::chrono::time_point timePoint = ftime;
   return timePoint;
 }
+
+
 
 int *GenericFileManager::getTimeFromEpoch() {
   int *date = new int[5];
@@ -37,6 +44,23 @@ int *GenericFileManager::getTimeFromEpoch() {
   date[3] = timeInfo->tm_hour;
   date[4] = timeInfo->tm_min;
   return date;
+}
+
+void GenericFileManager::showLastTimeModified() {
+  int *date = this->getTimeFromEpoch();
+  std::cout << "Last time modified: ";
+  for (int i = 0; i < 5; i++) {
+    if (i < 2)
+      std::cout << date[i] << "-";
+    else if (i == 2)
+      std::cout << date[i] << " ";
+    else if (i > 2 && i < 4)
+      std::cout << date[i] << ":";
+    else
+      std::cout << date[i];
+  }
+  std::cout << std::endl;
+  delete[] date;
 }
 
 GenericFileManager::~GenericFileManager() {}

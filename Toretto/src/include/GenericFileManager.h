@@ -9,15 +9,19 @@ namespace fs = std::filesystem;
 class GenericFileManager {
 private:
   fs::path filePath;
-  int* date;
+
 protected:
-  int* getTimeFromEpoch();
+  int *date;
+  int *getTimeFromEpoch();
+  void showLastTimeModified();
 
 public:
   fs::file_time_type lastTimeModified();
-  GenericFileManager(std::string _filePath, int* date);
+  GenericFileManager(std::string _filePath, int *date);
+  GenericFileManager(int *date);
   std::string getFileExtension();
   void selectManager();
+  virtual void showInfo();
   ~GenericFileManager();
 };
 
