@@ -1,5 +1,5 @@
-#include "include/ImageFileManager.h"
-#include "include/GenericFileManager.h"
+#include "include/ImageFile.h"
+#include "include/GenericFile.h"
 #include <arpa/inet.h>
 #include <filesystem>
 #include <fstream>
@@ -17,17 +17,17 @@
 #error "Unsupported operating system"
 #endif
 
-ImageFileManager::ImageFileManager(std::string _filePath, int *date)
-    : GenericFileManager(_filePath, date) {
+ImageFile::ImageFile(std::string _filePath, int *date)
+    : GenericFile(_filePath, date) {
   filePath = _filePath;
   fileExtension = filePath.extension();
 }
 
-ImageFileManager::ImageFileManager(int *date) : GenericFileManager(date) {
+ImageFile::ImageFile(int *date) : GenericFile(date) {
   this->date = date;
 }
 
-void ImageFileManager::getSize() {
+void ImageFile::getSize() {
   bool hadRun = false;
   int _width = 0, _height = 0;
   hadRun = GetImageSize(filePath, _width, _height);
@@ -39,7 +39,7 @@ void ImageFileManager::getSize() {
   }
 }
 
-void ImageFileManager::showInfo() {
+void ImageFile::showInfo() {
   std::cout << "File extension: " << this->fileExtension << std::endl;
   this->showLastTimeModified();
   this->getSize();
@@ -47,7 +47,7 @@ void ImageFileManager::showInfo() {
   std::cout << "Height: " << this->height << std::endl;
 }
 
-bool ImageFileManager::GetImageSize(std::filesystem::path filename, int &width,
+bool ImageFile::GetImageSize(std::filesystem::path filename, int &width,
                                     int &height) {
   std::ifstream file(filename, std::ios::binary);
   if (!file) {
@@ -80,4 +80,4 @@ bool ImageFileManager::GetImageSize(std::filesystem::path filename, int &width,
   return true;
 }
 
-ImageFileManager::~ImageFileManager(){};
+ImageFile::~ImageFile(){};

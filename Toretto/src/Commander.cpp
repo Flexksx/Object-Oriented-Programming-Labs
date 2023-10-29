@@ -1,6 +1,7 @@
 #include "include/Commander.h"
-#include "include/FolderManager.h"
-#include "include/GenericFileManager.h"
+#include "include/CodeFile.h"
+#include "include/Folder.h"
+#include "include/GenericFile.h"
 #include <algorithm>
 #include <cstring>
 #include <filesystem>
@@ -9,8 +10,8 @@
 #include <vector>
 
 Commander::Commander(std::string _cmd, std::string _path, int *_date,
-                     FolderManager *_fm, GenericFileManager *_gfm,
-                     CodeFileManager *_cfm, ImageFileManager *_ifm) {
+                     Folder *_fm, GenericFile *_gfm,
+                     CodeFile *_cfm, ImageFile *_ifm) {
   this->path = _path;
   this->date = _date;
   this->cmd = _cmd;

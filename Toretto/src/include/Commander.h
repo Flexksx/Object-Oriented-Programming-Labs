@@ -1,10 +1,10 @@
 #ifndef COMMANDER_H
 #define COMMANDER_H
 
-#include "CodeFileManager.h"
-#include "FolderManager.h"
-#include "GenericFileManager.h"
-#include "ImageFileManager.h"
+#include "CodeFile.h"
+#include "Folder.h"
+#include "GenericFile.h"
+#include "ImageFile.h"
 #include <cstddef>
 #include <filesystem>
 #include <iostream>
@@ -29,15 +29,15 @@ private:
   I thought it would be interesting to implement them as unsigned chars
   and have some byte operations fun, but the deadline kills me.
   */
-  FolderManager *fm;
-  CodeFileManager *cfm;
-  ImageFileManager *ifm;
-  GenericFileManager *gfm;
+  Folder *fm;
+  CodeFile *cfm;
+  ImageFile *ifm;
+  GenericFile *gfm;
   void slCommand();
 public:
   Commander(std::string _cmd);
-  Commander(std::string _cmd, std::string _path, int *date, FolderManager *_fm, GenericFileManager *_gfm,
-            CodeFileManager *_cfm, ImageFileManager *_ifm);
+  Commander(std::string _cmd, std::string _path, int *date, Folder *_fm, GenericFile*_gfm,
+            CodeFile *_cfm, ImageFile *_ifm);
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);
   void run();

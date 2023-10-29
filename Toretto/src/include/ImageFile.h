@@ -1,13 +1,13 @@
 #ifndef IMG_FILE_MANAGER_H
 #define IMG_FILE_MANAGER_H
 
-#include "GenericFileManager.h"
+#include "GenericFile.h"
 #include <filesystem>
 #include <iostream>
 
 namespace fs = std::filesystem;
 
-class ImageFileManager : public GenericFileManager {
+class ImageFile : public GenericFile {
 private:
   fs::path filePath;
   std::string fileExtension;
@@ -16,12 +16,12 @@ private:
   bool GetImageSize(fs::path filename, int &width, int &height);
 
 public:
-  ImageFileManager(std::string _filePath, int *date);
-  ImageFileManager(int* date);
+  ImageFile(std::string _filePath, int *date);
+  ImageFile(int* date);
   std::string getFileExtension();
   void getSize();
   void showInfo() override;
-  ~ImageFileManager();
+  ~ImageFile();
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "include/GenericFileManager.h"
+#include "include/GenericFile.h"
 #include <chrono>
 #include <filesystem>
 #include <format>
@@ -6,34 +6,34 @@
 
 namespace fs = std::filesystem;
 
-GenericFileManager::GenericFileManager(std::string _filePath, int *_date) {
+GenericFile::GenericFile(std::string _filePath, int *_date) {
   this->filePath = _filePath;
   this->date = _date;
 }
 
-GenericFileManager::GenericFileManager(int *_date) { this->date = _date; }
+GenericFile::GenericFile(int *_date) { this->date = _date; }
 
-void GenericFileManager::setPath(fs::path _path) { this->filePath = _path; }
+void GenericFile::setPath(fs::path _path) { this->filePath = _path; }
 
-std::string GenericFileManager::getFileExtension() {
+std::string GenericFile::getFileExtension() {
   return this->filePath.extension();
 }
-void GenericFileManager::showInfo() {
+void GenericFile::showInfo() {
   std::cout << "This method is used only to be inherited and overriden."
             << std::endl;
 }
-fs::file_time_type GenericFileManager::lastTimeModified() {
+fs::file_time_type GenericFile::lastTimeModified() {
   fs::file_time_type ftime = fs::last_write_time(this->filePath);
   std::chrono::time_point timePoint = ftime;
   return timePoint;
 }
 
-int *GenericFileManager::getDate() { return this->date; }
+int *GenericFile::getDate() { return this->date; }
 
-int *GenericFileManager::getTimeFromEpoch() {
+int *GenericFile::getTimeFromEpoch() {
   int *date = new int[5];
   std::filesystem::file_time_type lastModified =
-      GenericFileManager::lastTimeModified();
+      GenericFile::lastTimeModified();
   auto systemTime =
       std::chrono::clock_cast<std::chrono::system_clock>(lastModified);
   std::time_t epochTime = std::chrono::system_clock::to_time_t(systemTime);
@@ -48,9 +48,9 @@ int *GenericFileManager::getTimeFromEpoch() {
   return date;
 }
 
-fs::path GenericFileManager::getPath() { return this->filePath; }
+fs::path GenericFile::getPath() { return this->filePath; }
 
-void GenericFileManager::showLastTimeModified() {
+void GenericFile::showLastTimeModified() {
   int *date = this->getTimeFromEpoch();
   std::cout << "Last time modified: ";
   for (int i = 0; i < 5; i++) {
@@ -67,4 +67,4 @@ void GenericFileManager::showLastTimeModified() {
   delete[] date;
 }
 
-GenericFileManager::~GenericFileManager() {}
+GenericFile::~GenericFile() {}

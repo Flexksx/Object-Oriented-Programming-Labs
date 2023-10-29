@@ -6,7 +6,7 @@
 
 namespace fs = std::filesystem;
 
-class GenericFileManager {
+class GenericFile {
 private:
   fs::path filePath;
 
@@ -17,15 +17,15 @@ protected:
 public:
   void showLastTimeModified();
   fs::file_time_type lastTimeModified();
-  GenericFileManager(std::string _filePath, int *date);
-  GenericFileManager(int *date);
+  GenericFile(std::string _filePath, int *date);
+  GenericFile(int *date);
   std::string getFileExtension();
   void selectManager();
   virtual void showInfo();
   int *getDate();
   void setPath(fs::path);
   fs::path getPath();
-  ~GenericFileManager();
+  ~GenericFile();
 };
 
 #endif

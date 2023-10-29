@@ -6,11 +6,11 @@
 
 namespace fs = std::filesystem;
 
-class FolderManager {
+class Folder {
 private:
     fs::path path;
 public:
-    FolderManager(fs::path _path);
+    Folder(fs::path _path);
     void listAllFiles(fs:: path, int depth); // Updated function signature
     void listAllFiles();
     fs::path getPath();

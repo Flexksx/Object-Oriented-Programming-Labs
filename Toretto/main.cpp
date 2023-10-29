@@ -1,8 +1,8 @@
-#include "src/include/CodeFileManager.h"
+#include "src/include/CodeFile.h"
 #include "src/include/Commander.h"
-#include "src/include/FolderManager.h"
-#include "src/include/GenericFileManager.h"
-#include "src/include/ImageFileManager.h"
+#include "src/include/Folder.h"
+#include "src/include/GenericFile.h"
+#include "src/include/ImageFile.h"
 #include <filesystem>
 #include <iostream>
 
@@ -23,10 +23,10 @@ int main(int argc, char *argv[]) {
     }
     // cout << "Path: " << path << endl;
     string command = argv[1];
-    FolderManager *fm = new FolderManager(path);
-    GenericFileManager *gfm = new GenericFileManager(date);
-    ImageFileManager *ifm = new ImageFileManager(date);
-    CodeFileManager *cfm = new CodeFileManager(date);
+    Folder *fm = new Folder(path);
+    GenericFile *gfm = new GenericFile(date);
+    ImageFile *ifm = new ImageFile(date);
+    CodeFile *cfm = new CodeFile(date);
     Commander commander(command, path, date, fm, gfm, cfm, ifm);
 
     commander.run();

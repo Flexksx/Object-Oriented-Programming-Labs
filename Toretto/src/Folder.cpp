@@ -1,14 +1,14 @@
-#include "include/FolderManager.h"
+#include "include/Folder.h"
 #include <filesystem>
 #include <iostream>
 
 namespace fs = std::filesystem;
 
-FolderManager::FolderManager(fs::path path) { this->path = path; }
+Folder::Folder(fs::path path) { this->path = path; }
 
-void FolderManager::setPath(fs::path _path) { this->path = _path; }
+void Folder::setPath(fs::path _path) { this->path = _path; }
 
-void FolderManager::listAllFiles(fs::path path, int depth) {
+void Folder::listAllFiles(fs::path path, int depth) {
   if (!fs::exists(path)) {
     std::cout << "Path does not exist." << std::endl;
     return;
@@ -38,7 +38,7 @@ void FolderManager::listAllFiles(fs::path path, int depth) {
   }
 }
 
-void FolderManager::listAllFiles() {
+void Folder::listAllFiles() {
   if (!fs::exists(this->path)) {
     std::cout << "Path does not exist." << std::endl;
     return;
@@ -58,4 +58,4 @@ void FolderManager::listAllFiles() {
   }
 }
 
-fs::path FolderManager::getPath() { return this->path; }
+fs::path Folder::getPath() { return this->path; }
