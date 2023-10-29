@@ -1,2 +1,5 @@
-g++ -std=c++17 Toretto/main.cpp Toretto/src/*.cpp -I Toretto/include -o toretto
-./toretto "/home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/BankAccount.java"
+g++ -std=c++20 main.cpp src/*.cpp -I src/include -o toretto
+# ./toretto info /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/BankAccount.java
+# ./toretto info /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP
+chmod +x toretto
+./toretto init /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP
