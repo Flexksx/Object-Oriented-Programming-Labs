@@ -52,9 +52,15 @@ void Commander::command() {
   }
 
   else if (this->cmd == "go") {
-    if (fs::exists(this->fm->getPath())) {
-      std::cout << "Now in: " << this->path.string() << "." << std::endl;
+    fs::path filePath;
+    std::cin>>filePath;
+    while (!fs::exists(filePath)) {
+      std::cout << "Path does not exist. Please enter a valid path: ";
+      std::cin >> filePath;
     }
+    this->path = filePath;
+    this->fm->setPath(filePath.string());
+    std::cout << "Moved to: " << this->path.string() << std::endl;
   }
 
   else if (this->cmd == "sl") {
