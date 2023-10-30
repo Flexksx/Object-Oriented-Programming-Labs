@@ -1,6 +1,6 @@
 #include "include/JavaFile.h"
 #include "include/CodeFile.h"
-
+#include <regex>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -13,12 +13,15 @@ JavaFile::JavaFile(fs::path _filePath, int *_date)
   this->date = _date;
 }
 
+
 int JavaFile::getNrOfClasses() {
   int nrOfClasses = 0;
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    if (line.find("class") != std::string::npos) {
+    // Using regular expressions to check for class declarations
+    std::regex classRegex(R"(^\s*(public|private)?\s*(abstract)?\s*class\s)");
+    if (std::regex_search(line, classRegex)) {
       nrOfClasses++;
     }
   }

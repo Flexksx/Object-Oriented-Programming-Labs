@@ -52,48 +52,14 @@ void Commander::command() {
   }
 
   else if (this->cmd == "go") {
-    fs::path filePath;
-    std::cin>>filePath;
-    while (!fs::exists(filePath)) {
-      std::cout << "Path does not exist. Please enter a valid path: ";
-      std::cin >> filePath;
-    }
-    this->path = filePath;
-    this->fm->setPath(filePath.string());
-    std::cout << "Moved to: " << this->path.string() << std::endl;
+    this->goCommand();
   }
 
   else if (this->cmd == "sl") {
     this->slCommand();
 
   } else if (this->cmd == "info") {
-    if (this->state == 0) {
-      if (fs::is_directory(this->path)) {
-        this->fm->listAllFiles();
-      }
-    } else if (this->state == 1) {
-      if (fs::exists(this->gfm->getPath())) {
-        std::cout << "Extension: " << this->gfm->getFileExtension()
-                  << std::endl;
-        std::cout << "Last time modified: ";
-        this->gfm->showLastTimeModified();
-        std::cout << std::endl;
-      } else {
-        std::cerr << "File does not exist or an error happened." << std::endl;
-      }
-    } else if (this->state == 2) {
-      if (fs::exists(this->cfm->getPath())) {
-        this->cfm->showInfo();
-      } else {
-        std::cerr << "File does not exist or an error happened." << std::endl;
-      }
-    } else if (this->state == 3) {
-      if (fs::exists(this->ifm->getPath())) {
-        this->ifm->showInfo();
-      } else {
-        std::cerr << "File does not exist or an error happened." << std::endl;
-      }
-    }
+    this->infoCommand();
   } else {
     std::cout << "Invalid command." << std::endl;
   }
@@ -147,6 +113,47 @@ void Commander::slCommand() {
             << "Unsupported file type. Selected with limited functionality."
             << std::endl;
       }
+    }
+  }
+}
+
+void Commander::goCommand() {
+  fs::path filePath;
+  std::cin >> filePath;
+  while (!fs::is_directory(filePath)) {
+    std::cout << "Path does not exist. Please enter a valid path: ";
+    std::cin >> filePath;
+  }
+  this->path = filePath;
+  this->fm->setPath(filePath.string());
+  std::cout << "Moved to: " << this->path.string() << std::endl;
+}
+
+void Commander::infoCommand() {
+  if (this->state == 0) {
+    if (fs::is_directory(this->path)) {
+      this->fm->listAllFiles();
+    }
+  } else if (this->state == 1) {
+    if (fs::exists(this->gfm->getPath())) {
+      std::cout << "Extension: " << this->gfm->getFileExtension() << std::endl;
+      std::cout << "Last time modified: ";
+      this->gfm->showLastTimeModified();
+      std::cout << std::endl;
+    } else {
+      std::cerr << "File does not exist or an error happened." << std::endl;
+    }
+  } else if (this->state == 2) {
+    if (fs::exists(this->cfm->getPath())) {
+      this->cfm->showInfo();
+    } else {
+      std::cerr << "File does not exist or an error happened." << std::endl;
+    }
+  } else if (this->state == 3) {
+    if (fs::exists(this->ifm->getPath())) {
+      this->ifm->showInfo();
+    } else {
+      std::cerr << "File does not exist or an error happened." << std::endl;
     }
   }
 }

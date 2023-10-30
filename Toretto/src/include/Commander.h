@@ -34,6 +34,8 @@ private:
   ImageFile *ifm;
   GenericFile *gfm;
   void slCommand();
+  void goCommand();
+  void infoCommand();
 public:
   Commander(std::string _cmd);
   Commander(std::string _cmd, std::string _path, int *date, Folder *_fm, GenericFile*_gfm,

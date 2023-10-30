@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     ImageFile *ifm = new ImageFile(date);
     CodeFile *cfm = new CodeFile(date);
     Commander commander(command, path, date, fm, gfm, cfm, ifm);
-
+    std::cout << "Hello!";
     commander.run();
     commander.run("help");
     while (cin >> command) {
@@ -43,7 +43,6 @@ int main(int argc, char *argv[]) {
     delete cfm;
     delete gfm;
     delete[] date;
-
   }
   return 0;
 }
