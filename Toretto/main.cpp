@@ -9,6 +9,10 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+  // int *date = new int[5];
+  // ImageFile *ifm = new
+  // ImageFile("/home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/dom.png", date);
+  // ifm->showInfo();
   if (argc == 2) {
     Commander cmd = Commander(argv[1]);
     cmd.run();
@@ -39,6 +43,7 @@ int main(int argc, char *argv[]) {
     delete cfm;
     delete gfm;
     delete[] date;
+
   }
   return 0;
 }

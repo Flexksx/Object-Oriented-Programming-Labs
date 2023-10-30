@@ -9,7 +9,6 @@ namespace fs = std::filesystem;
 
 class CodeFile : public GenericFile {
 private:
-  fs::path filePath;
   std::string fileExtension;
 public:
   CodeFile(std::string _filePath, int* date);

@@ -10,8 +10,8 @@
 #include <vector>
 
 Commander::Commander(std::string _cmd, std::string _path, int *_date,
-                     Folder *_fm, GenericFile *_gfm,
-                     CodeFile *_cfm, ImageFile *_ifm) {
+                     Folder *_fm, GenericFile *_gfm, CodeFile *_cfm,
+                     ImageFile *_ifm) {
   this->path = _path;
   this->date = _date;
   this->cmd = _cmd;
@@ -34,6 +34,7 @@ void Commander::run(std::string _cmd) {
 void Commander::run() { this->command(); }
 
 void Commander::command() {
+
   if (this->cmd == "help") {
     std::cout << "Commands: " << std::endl;
     std::cout << "go    initializes the program on the desired folder."
@@ -122,10 +123,9 @@ void Commander::slCommand() {
       // Select the file
       this->gfm->setPath(filePath);
       if (this->gfm->getFileExtension() == ".png") {
-        this->ifm->setPath(filePath);
+        this->ifm->GenericFile::setPath(filePath);
         std::cout << "Selected file: " << this->ifm->getPath().string()
                   << std::endl;
-        std::cout << this->ifm->getPath().string() << std::endl;
         this->path = ifm->getPath().parent_path();
         this->state = 3;
       } else if (std::find(programmingLanguages.begin(),

@@ -7,10 +7,9 @@
 namespace fs = std::filesystem;
 
 class GenericFile {
-private:
-  fs::path filePath;
 
 protected:
+  fs::path filePath;
   int *date;
   int *getTimeFromEpoch();
 
