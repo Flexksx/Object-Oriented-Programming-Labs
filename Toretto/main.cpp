@@ -22,11 +22,12 @@ int main(int argc, char *argv[]) {
     // std::cout << argv[1] << endl;
     string path = argv[2];
     while (!fs::exists(path)) {
-      cout << "Path does not exist. Please enter a valid path: ";
+      cout << "Path does not exist. Please enter a valid path: (Main)";
       cin >> path;
     }
-    // cout << "Path: " << path << endl;
+    // std::cout << "Path: " << path << endl;
     string command = argv[1];
+    // std::cout<<command;
     Folder *fm = new Folder(path);
     GenericFile *gfm = new GenericFile(date);
     ImageFile *ifm = new ImageFile(date);

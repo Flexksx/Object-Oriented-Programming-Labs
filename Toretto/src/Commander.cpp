@@ -118,14 +118,16 @@ void Commander::slCommand() {
 }
 
 void Commander::goCommand() {
-  fs::path filePath;
-  std::cin >> filePath;
+  std::string filePathString;
+  std::cin >> filePathString;
+  fs::path filePath = filePathString;
   while (!fs::is_directory(filePath)) {
-    std::cout << "Path does not exist. Please enter a valid path: ";
-    std::cin >> filePath;
+    std::cout << "Path does not exist. Please enter a valid path: (Commander)";
+    std::cin >> filePathString;
+    filePath = filePathString;
   }
   this->path = filePath;
-  this->fm->setPath(filePath.string());
+  this->fm->setPath(filePath);
   std::cout << "Moved to: " << this->path.string() << std::endl;
 }
 
