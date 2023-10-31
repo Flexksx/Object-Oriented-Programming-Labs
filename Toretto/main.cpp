@@ -7,32 +7,27 @@
 #include <iostream>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
-  // int *date = new int[5];
-  // ImageFile *ifm = new
-  // ImageFile("/home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/dom.png", date);
-  // ifm->showInfo();
+
   if (argc == 2) {
     Commander cmd = Commander(argv[1]);
     cmd.run();
   } else {
 
     int *date = new int[5];
-    // std::cout << argv[1] << endl;
     string path = argv[2];
     while (!fs::exists(path)) {
       cout << "Path does not exist. Please enter a valid path: (Main)";
       cin >> path;
     }
-    // std::cout << "Path: " << path << endl;
     string command = argv[1];
-    // std::cout<<command;
     Folder *fm = new Folder(path);
     GenericFile *gfm = new GenericFile(date);
     ImageFile *ifm = new ImageFile(date);
     CodeFile *cfm = new CodeFile(date);
-    Commander commander(command, path, date, fm, gfm, cfm, ifm);
+    Commander commander(command, date, fm, gfm, cfm, ifm);
     std::cout << "Hello!";
     commander.run();
     commander.run("help");

@@ -9,10 +9,8 @@
 #include <string>
 #include <vector>
 
-Commander::Commander(std::string _cmd, std::string _path, int *_date,
-                     Folder *_fm, GenericFile *_gfm, CodeFile *_cfm,
-                     ImageFile *_ifm) {
-  this->path = _path;
+Commander::Commander(std::string _cmd, int *_date, Folder *_fm,
+                     GenericFile *_gfm, CodeFile *_cfm, ImageFile *_ifm) {
   this->date = _date;
   this->cmd = _cmd;
   this->fm = _fm;
@@ -68,27 +66,25 @@ void Commander::command() {
 void Commander::slCommand() {
   std::vector<std::string> programmingLanguages = {".c", ".cpp", ".java",
                                                    ".py"};
-  std::string filePath;
+  fs::path filePath;
   std::cin >> filePath;
 
   if (filePath == "..") {
     // Move back one directory if ".." is entered
-    this->path = this->path.parent_path();
-    std::cout << "Moved to: " << this->path.string() << std::endl;
-    this->fm->setPath(this->path.string());
+    this->fm->setPath(filePath.parent_path());
+    std::cout << "Moved to: " << this->fm->getPath() << std::endl;
     this->state = 0;
   } else {
     // Concatenate the path with the file name
-    filePath = this->path.string() + "/" + filePath;
+    filePath = this->fm->getPath().string() + "/" + filePath.string();
 
     if (fs::is_directory(filePath)) {
       // Move to the selected directory
-      if (this->path == filePath) {
+      if (this->fm->getPath() == filePath) {
         std::cout << "Already in this directory." << std::endl;
       } else {
-        this->path = filePath;
         this->fm->setPath(filePath);
-        std::cout << "Moved to: " << this->path.string() << std::endl;
+        std::cout << "Moved to: " << this->fm->getPath().string() << std::endl;
         this->state = 0;
       }
     } else {
@@ -98,14 +94,14 @@ void Commander::slCommand() {
         this->ifm->GenericFile::setPath(filePath);
         std::cout << "Selected file: " << this->ifm->getPath().string()
                   << std::endl;
-        this->path = ifm->getPath().parent_path();
+        this->fm->setPath(ifm->getPath().parent_path());
         this->state = 3;
       } else if (std::find(programmingLanguages.begin(),
                            programmingLanguages.end(),
                            this->gfm->getFileExtension()) !=
                  programmingLanguages.end()) {
         this->cfm->setPath(filePath);
-        this->path = cfm->getPath().parent_path();
+        this->fm->setPath(cfm->getPath().parent_path());
         this->state = 2;
       } else {
         this->state = 1;
@@ -126,14 +122,14 @@ void Commander::goCommand() {
     std::cin >> filePathString;
     filePath = filePathString;
   }
-  this->path = filePath;
   this->fm->setPath(filePath);
-  std::cout << "Moved to: " << this->path.string() << std::endl;
+  this->fm->setPath(filePath);
+  std::cout << "Moved to: " << this->fm->getPath().string() << std::endl;
 }
 
 void Commander::infoCommand() {
   if (this->state == 0) {
-    if (fs::is_directory(this->path)) {
+    if (fs::is_directory(this->fm->getPath())) {
       this->fm->listAllFiles();
     }
   } else if (this->state == 1) {

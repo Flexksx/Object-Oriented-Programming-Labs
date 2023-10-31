@@ -14,7 +14,6 @@ namespace fs = std::filesystem;
 class Commander {
 private:
   std::string cmd;
-  fs::path path;
   int *date;
   void command();
   unsigned short int state;
@@ -36,9 +35,10 @@ private:
   void slCommand();
   void goCommand();
   void infoCommand();
+
 public:
   Commander(std::string _cmd);
-  Commander(std::string _cmd, std::string _path, int *date, Folder *_fm, GenericFile*_gfm,
+  Commander(std::string _cmd, int *date, Folder *_fm, GenericFile *_gfm,
             CodeFile *_cfm, ImageFile *_ifm);
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);

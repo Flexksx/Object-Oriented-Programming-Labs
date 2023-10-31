@@ -17,6 +17,7 @@ public:
   void showInfo() override;
   CodeFile(int* date);
   virtual int getNrOfClasses();
+  bool isCodeFileExtension();
 };
 
 #endif

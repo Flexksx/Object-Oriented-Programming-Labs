@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 CodeFile::CodeFile(std::string _filePath, int *_date)
     : GenericFile(_filePath, _date) {
@@ -22,7 +24,7 @@ void CodeFile::showInfo() {
   std::cout << "Extension: " << extension << std::endl;
   this->showLastTimeModified();
   std::cout << "Nr of lines: " << getNrOfLines() << std::endl;
-  std::cout<<"Nr of classess: " << this->getNrOfClasses() << std::endl;
+  std::cout << "Nr of classess: " << this->getNrOfClasses() << std::endl;
 }
 
 int CodeFile::getNrOfLines() {
@@ -39,11 +41,16 @@ int CodeFile::getNrOfClasses() {
   if (this->GenericFile::getFileExtension() == ".java") {
     JavaFile *javaFile = new JavaFile(this->filePath, this->date);
     return javaFile->getNrOfClasses();
-  }
-  else if(this->GenericFile::getFileExtension()==".py"){
+  } else if (this->GenericFile::getFileExtension() == ".py") {
     PyFile *pyFile = new PyFile(this->filePath, this->date);
     return pyFile->getNrOfClasses();
   }
 
   return 0;
+}
+
+bool CodeFile::isCodeFileExtension() {
+  std::vector<std::string> codeExtensions = {".c", ".cpp", ".java", ".py"};
+  return std::find(codeExtensions.begin(), codeExtensions.end(),
+                   this->filePath.extension()) != codeExtensions.end();
 }
