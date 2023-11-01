@@ -2,6 +2,7 @@
 #include "include/CodeFile.h"
 #include "include/Folder.h"
 #include "include/GenericFile.h"
+#include "include/Stater.h"
 #include <algorithm>
 #include <cstring>
 #include <filesystem>
@@ -9,8 +10,9 @@
 #include <string>
 #include <vector>
 
-Commander::Commander(std::string _cmd, int *_date, Folder *_fm,
+Commander::Commander(std::string _cmd, int *_date, Folder *_fm, Stater *_st,
                      GenericFile *_gfm, CodeFile *_cfm, ImageFile *_ifm) {
+  this->st = _st;
   this->date = _date;
   this->cmd = _cmd;
   this->fm = _fm;
@@ -42,14 +44,15 @@ void Commander::command() {
     std::cout << "exit    exits the program." << std::endl;
     std::cout << "sl    selects a file or folder." << std::endl;
     std::cout << "sl ..  goes back to the previous folder." << std::endl;
-  }
 
-  else if (this->cmd == "exit") {
-    std::cout << "Bye." << std::endl;
+  } else if (this->cmd == "commit") {
+    this->commitCommand();
+  } else if (this->cmd == "exit") {
+    std::cout << std::endl << "Bye." << std::endl;
     exit(0);
-  }
-
-  else if (this->cmd == "go") {
+  } else if (this->cmd == "init") {
+    this->initCommand();
+  } else if (this->cmd == "go") {
     this->goCommand();
   }
 
@@ -117,12 +120,13 @@ void Commander::goCommand() {
   std::string filePathString;
   std::cin >> filePathString;
   fs::path filePath = filePathString;
-  while (!fs::is_directory(filePath)) {
+
+  while (!fs::is_directory(filePath) || !fs::exists(filePath)) {
     std::cout << "Path does not exist. Please enter a valid path: (Commander)";
     std::cin >> filePathString;
     filePath = filePathString;
   }
-  this->fm->setPath(filePath);
+
   this->fm->setPath(filePath);
   std::cout << "Moved to: " << this->fm->getPath().string() << std::endl;
 }
@@ -155,3 +159,5 @@ void Commander::infoCommand() {
     }
   }
 }
+
+void Commander::initCommand() { this->st->writeInitLog(); }

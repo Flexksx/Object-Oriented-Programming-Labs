@@ -3,6 +3,7 @@
 #include "src/include/Folder.h"
 #include "src/include/GenericFile.h"
 #include "src/include/ImageFile.h"
+#include "src/include/Stater.h"
 #include <filesystem>
 #include <iostream>
 
@@ -17,18 +18,20 @@ int main(int argc, char *argv[]) {
   } else {
 
     int *date = new int[5];
-    string path = argv[2];
+    fs::path path = argv[2];
     while (!fs::exists(path)) {
       cout << "Path does not exist. Please enter a valid path: (Main)";
       cin >> path;
     }
     string command = argv[1];
+    fs::path logFile = "log.txt";
     Folder *fm = new Folder(path);
     GenericFile *gfm = new GenericFile(date);
     ImageFile *ifm = new ImageFile(date);
     CodeFile *cfm = new CodeFile(date);
-    Commander commander(command, date, fm, gfm, cfm, ifm);
-    std::cout << "Hello!";
+    Stater *stater = new Stater(date, logFile, gfm, ifm, cfm, fm);
+    Commander commander(command, date, fm, stater, gfm, cfm, ifm);
+    std::cout << "Hello, welcome to Toretto file state manager!" << std::endl;
     commander.run();
     commander.run("help");
     while (cin >> command) {
