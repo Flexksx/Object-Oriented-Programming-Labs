@@ -20,17 +20,17 @@ Stater::Stater(int *date, fs::path logFile, GenericFile *gfm, ImageFile *ifm,
 void Stater::writeLog() {}
 
 void Stater::writeInitLog() {
-  std::ifstream ilog;
-  ilog.open(this->logFile);
-  std::string checkPath;
-  while(std::getline(ilog, checkPath)) {
-    if(fs::exists(checkPath)) {
-      if(std::find(this->rettos.begin(), this->rettos.end(), checkPath) == this->rettos.end()) {
-        std::cout<<"This is already a Rettository." << std::endl;
-        return;
-      }
-    }
-  }
+  // std::ifstream ilog;
+  // ilog.open(this->logFile);
+  // std::string checkPath;
+  // while(std::getline(ilog, checkPath)) {
+  //   if(fs::exists(checkPath)) {
+  //     if(std::find(this->rettos.begin(), this->rettos.end(), checkPath) == this->rettos.end()) {
+  //       std::cout<<"This is already a Rettository." << std::endl;
+  //       return;
+  //     }
+  //   }
+  // }
   std::ofstream olog;
   olog.open(this->logFile, std::ios::app);
   olog << this->fm->getPath().string() << std::endl;
