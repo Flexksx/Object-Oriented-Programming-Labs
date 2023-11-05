@@ -18,9 +18,33 @@ Stater::Stater(int *date, fs::path logFile, GenericFile *gfm, ImageFile *ifm,
 void Stater::writeLog() {}
 
 void Stater::writeInitLog() {
-  this->fm->getPath();
   std::ofstream log;
   log.open(this->logFile, std::ios::app);
-  log << this->fm->getPath() << std::endl;
+  log << this->fm->getPath().string() << std::endl;
+  for (auto &p : fs::directory_iterator(this->fm->getPath())) {
+    if (fs::exists(p)) {
+      this->gfm->setPath(p);
+      log << this->gfm->getPath().string() << " ";
+      int *date = this->gfm->getTimeFromEpoch();
+      for (int i = 0; i < 5; i++) {
+        if (i <= 3)
+          log << date[i] << ".";
+        else
+          log << date[i];
+      }
+      log << std::endl;
+    }
+  }
+  log.close();
+}
+
+
+void Stater::readRettos(){
+  std::ifstream log;
+  log.open(this->logFile);
+  std::string line;
+  while (std::getline(log, line)) {
+    this->rettos.push_back(line);
+  }
   log.close();
 }

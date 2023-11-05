@@ -11,9 +11,9 @@ class GenericFile {
 protected:
   fs::path filePath;
   int *date;
-  int *getTimeFromEpoch();
 
 public:
+  int *getTimeFromEpoch();
   void showLastTimeModified();
   fs::file_time_type lastTimeModified();
   GenericFile(std::string _filePath, int *date);

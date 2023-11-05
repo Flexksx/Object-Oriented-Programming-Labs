@@ -46,7 +46,7 @@ void Commander::command() {
     std::cout << "sl ..  goes back to the previous folder." << std::endl;
 
   } else if (this->cmd == "commit") {
-    this->commitCommand();
+    this->initCommand();
   } else if (this->cmd == "exit") {
     std::cout << std::endl << "Bye." << std::endl;
     exit(0);
@@ -159,5 +159,7 @@ void Commander::infoCommand() {
     }
   }
 }
+
+void Commander::commitCommand(){std::cout<<"HI"<<std::endl;  }
 
 void Commander::initCommand() { this->st->writeInitLog(); }

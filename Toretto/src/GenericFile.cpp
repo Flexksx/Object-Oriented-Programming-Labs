@@ -32,8 +32,7 @@ int *GenericFile::getDate() { return this->date; }
 
 int *GenericFile::getTimeFromEpoch() {
   int *date = new int[5];
-  std::filesystem::file_time_type lastModified =
-      GenericFile::lastTimeModified();
+  std::filesystem::file_time_type lastModified = this->lastTimeModified();
   auto systemTime =
       std::chrono::clock_cast<std::chrono::system_clock>(lastModified);
   std::time_t epochTime = std::chrono::system_clock::to_time_t(systemTime);
