@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
     ImageFile *ifm = new ImageFile(date);
     CodeFile *cfm = new CodeFile(date);
     Stater *stater = new Stater(date, logFile, gfm, ifm, cfm, fm);
+    stater->readRettos();
     Commander commander(command, date, fm, stater, gfm, cfm, ifm);
     std::cout << "Hello, welcome to Toretto file state manager!" << std::endl;
     commander.run();

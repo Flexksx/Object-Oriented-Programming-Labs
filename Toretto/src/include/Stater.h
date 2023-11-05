@@ -22,19 +22,18 @@ private:
   Folder *fm;
   std::vector<fs::path> rettos;
 
-  void updateLog();
-  void deleteLog();
-  void readRettos();
-  void writeRettos();
-  void addRetto();
-  void deleteRetto();
-
 public:
   Stater(int *_date, fs::path _logFile, GenericFile *_gfm, ImageFile *_ifm,
          CodeFile *_cfm, Folder *_fm);
   void writeInitLog();
   void writeLog();
   void readLog();
+  void updateLog();
+  void deleteLog();
+  void readRettos();
+  void writeRettos();
+  void addRetto();
+  void deleteRetto();
 };
 
 #endif
