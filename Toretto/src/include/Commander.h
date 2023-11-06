@@ -34,18 +34,22 @@ private:
   CodeFile *cfm;
   ImageFile *ifm;
   GenericFile *gfm;
-  void slCommand();
-  void goCommand();
-  void infoCommand();
-  void commitCommand();
-  void initCommand();
+  void sl();
+  void go();
+  void info();
+  void commit();
+  void init();
+  void slRetto();
 public:
   Commander(std::string _cmd);
+  Commander( int *date, Folder *_fm,Stater *_st, GenericFile *_gfm,
+            CodeFile *_cfm, ImageFile *_ifm);
   Commander(std::string _cmd, int *date, Folder *_fm,Stater *_st, GenericFile *_gfm,
             CodeFile *_cfm, ImageFile *_ifm);
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);
   void run();
+
 };
 
 #endif

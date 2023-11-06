@@ -1,2 +1,2 @@
+bank
 /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/
-/home/cristi/Documents/GitHub/LabsOOP/UniversityManagement/Project/classes/mainclasses/ mainclasses

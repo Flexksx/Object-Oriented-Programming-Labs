@@ -22,6 +22,17 @@ Commander::Commander(std::string _cmd, int *_date, Folder *_fm, Stater *_st,
   this->state = 0;
 }
 
+Commander::Commander(int *date, Folder *_fm, Stater *_st, GenericFile *_gfm,
+                     CodeFile *_cfm, ImageFile *_ifm) {
+  this->date = date;
+  this->st = _st;
+  this->fm = _fm;
+  this->gfm = _gfm;
+  this->ifm = _ifm;
+  this->cfm = _cfm;
+  this->state=0;
+}
+
 Commander::Commander(std::string _cmd) { this->cmd = _cmd; }
 
 void Commander::giveCommand(std::string _cmd) { this->cmd = _cmd; }
@@ -46,27 +57,27 @@ void Commander::command() {
     std::cout << "sl ..  goes back to the previous folder." << std::endl;
 
   } else if (this->cmd == "commit") {
-    this->initCommand();
+    this->commit();
   } else if (this->cmd == "exit") {
     std::cout << std::endl << "Bye." << std::endl;
     exit(0);
   } else if (this->cmd == "init") {
-    this->initCommand();
+    this->init();
   } else if (this->cmd == "go") {
-    this->goCommand();
+    this->go();
   }
 
   else if (this->cmd == "sl") {
-    this->slCommand();
+    this->sl();
 
   } else if (this->cmd == "info") {
-    this->infoCommand();
+    this->info();
   } else {
     std::cout << "Invalid command." << std::endl;
   }
 }
 
-void Commander::slCommand() {
+void Commander::sl() {
   std::vector<std::string> programmingLanguages = {".c", ".cpp", ".java",
                                                    ".py"};
   fs::path filePath;
@@ -116,7 +127,7 @@ void Commander::slCommand() {
   }
 }
 
-void Commander::goCommand() {
+void Commander::go() {
   std::string filePathString;
   std::cin >> filePathString;
   fs::path filePath = filePathString;
@@ -131,7 +142,7 @@ void Commander::goCommand() {
   std::cout << "Moved to: " << this->fm->getPath().string() << std::endl;
 }
 
-void Commander::infoCommand() {
+void Commander::info() {
   if (this->state == 0) {
     if (fs::is_directory(this->fm->getPath())) {
       this->fm->listAllFiles();
@@ -160,6 +171,11 @@ void Commander::infoCommand() {
   }
 }
 
-void Commander::commitCommand() { this->st->commit(); }
+void Commander::commit() {
+  std::string rettoName;
+  std::cout << "Enter Retto name: ";
+  std::cin >> rettoName;
+  this->st->commit(rettoName);
+}
 
-void Commander::initCommand() { this->st->writeInitLog(); }
+void Commander::init() { this->st->writeInitLog(); }

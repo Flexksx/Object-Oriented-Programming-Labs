@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <vector>
 
 namespace fs = std::filesystem;
@@ -20,7 +21,8 @@ private:
   ImageFile *ifm;
   CodeFile *cfm;
   Folder *fm;
-  std::vector<fs::path> rettos;
+  std::vector<std::map<fs::path, std::string>>
+      rettos; // Change the type of rettos
 
 public:
   Stater(int *_date, fs::path _logFile, GenericFile *_gfm, ImageFile *_ifm,
@@ -32,9 +34,10 @@ public:
   void deleteLog();
   void readRettos();
   void writeRettos();
-  void addRetto();
-  void deleteRetto();
-  void commit();
+  void addRetto(fs::path filePath,
+                std::string name);
+  void deleteRetto(fs::path filePath);
+  void commit(std::string name);
 };
 
 #endif
