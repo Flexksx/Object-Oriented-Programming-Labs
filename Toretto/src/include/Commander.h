@@ -44,7 +44,7 @@ public:
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);
   void run();
-  void sl();
+  void sl(fs::path path);
   void go();
   void info();
   void init(std::string name);

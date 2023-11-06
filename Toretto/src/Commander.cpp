@@ -55,39 +55,25 @@ void Commander::command() {
     std::cout << "exit    exits the program." << std::endl;
     std::cout << "sl    selects a file or folder." << std::endl;
     std::cout << "sl ..  goes back to the previous folder." << std::endl;
-
-  } else if (this->cmd == "commit") {
-    this->commit();
-  } else if (this->cmd == "exit") {
-    std::cout << std::endl << "Bye." << std::endl;
-    exit(0);
-  } else if (this->cmd == "init") {
-    this->init();
-  } else if (this->cmd == "go") {
-    this->go();
   }
-
-  else if (this->cmd == "sl") {
-    this->sl();
-
-  } else if (this->cmd == "info") {
-    this->info();
-  } else {
-    std::cout << "Invalid command." << std::endl;
-  }
+  std::cout << "Invalid command." << std::endl;
 }
 
-void Commander::sl() {
+void Commander::sl(fs::path filePath) {
   std::vector<std::string> programmingLanguages = {".c", ".cpp", ".java",
                                                    ".py"};
-  fs::path filePath;
-  std::cin >> filePath;
 
   if (filePath == "..") {
     // Move back one directory if ".." is entered
-    this->fm->setPath(filePath.parent_path());
-    std::cout << "Moved to: " << this->fm->getPath() << std::endl;
-    this->state = 0;
+    if (fs::exists(this->fm->getPath().parent_path())) {
+      this->fm->setPath(filePath.parent_path());
+      std::cout << "Moved to: " << this->fm->getPath() << std::endl;
+      this->state = 0;
+    } else {
+      std::cout << "You are currently not in a directory. Use the 'go' command "
+                   "to choose one."
+                << std::endl;
+    }
   } else {
     // Concatenate the path with the file name
     filePath = this->fm->getPath().string() + "/" + filePath.string();
