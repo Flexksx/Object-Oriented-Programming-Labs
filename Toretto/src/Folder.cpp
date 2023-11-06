@@ -5,6 +5,7 @@
 namespace fs = std::filesystem;
 
 Folder::Folder(fs::path path) { this->path = path; }
+Folder::Folder(){}
 
 void Folder::setPath(fs::path _path) { this->path = _path; }
 

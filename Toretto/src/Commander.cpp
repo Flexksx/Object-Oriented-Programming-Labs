@@ -160,6 +160,6 @@ void Commander::infoCommand() {
   }
 }
 
-void Commander::commitCommand(){std::cout<<"HI"<<std::endl;  }
+void Commander::commitCommand() { this->st->commit(); }
 
 void Commander::initCommand() { this->st->writeInitLog(); }
