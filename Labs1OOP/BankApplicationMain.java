@@ -9,6 +9,6 @@ public class BankApplicationMain {
         ba1.transferFunds(ba2, 1000);
         ba2.blockAccount();
         ba1.transferFunds(ba2, 20);
-
     }
 }
+

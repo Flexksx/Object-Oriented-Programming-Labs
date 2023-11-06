@@ -30,7 +30,7 @@ Commander::Commander(int *date, Folder *_fm, Stater *_st, GenericFile *_gfm,
   this->gfm = _gfm;
   this->ifm = _ifm;
   this->cfm = _cfm;
-  this->state=0;
+  this->state = 0;
 }
 
 Commander::Commander(std::string _cmd) { this->cmd = _cmd; }
@@ -178,4 +178,14 @@ void Commander::commit() {
   this->st->commit(rettoName);
 }
 
-void Commander::init() { this->st->writeInitLog(); }
+void Commander::init() {
+  std::string name;
+  std::cout << "Give a name to this Rettository: ";
+  std::string rettoName;
+  std::cin >> rettoName;
+  this->st->writeInitLog(this->fm->getPath(), name);
+}
+
+void Commander::init(std::string name) {
+  this->st->writeInitLog(this->fm->getPath(), name);
+}

@@ -18,6 +18,17 @@ int main(int argc, char *argv[]) {
   CodeFile *cfm = new CodeFile(date);
   Stater *st = new Stater(date, "log.txt", gfm, ifm, cfm, fm);
   Commander *comm = new Commander(date, fm, st, gfm, cfm, ifm);
+  if (argc == 2) {
+    std::string command = argv[1];
+    comm->giveCommand(command);
+    comm->run();
+  } else if (argc == 3) {
+    std::string command = argv[1];
+    fs::path path = argv[2];
+    if (command == "sl") {
+
+    }
+  }
 }
 
 // {

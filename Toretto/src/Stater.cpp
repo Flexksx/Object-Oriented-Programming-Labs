@@ -20,7 +20,7 @@ Stater::Stater(int *date, fs::path logFile, GenericFile *gfm, ImageFile *ifm,
 
 void Stater::writeLog() {}
 
-void Stater::writeInitLog() {
+void Stater::writeInitLog(fs::path path, std::string name) {
   std::ifstream ilog;
   ilog.open(this->logFile);
   std::string checkPath;
@@ -35,13 +35,11 @@ void Stater::writeInitLog() {
   }
   std::ofstream olog;
   olog.open(this->logFile, std::ios::app);
-  std::cout << "Give a name to this Rettository: ";
-  std::string rettoName;
-  std::cin >> rettoName;
+
   std::map<fs::path, std::string> rettoEntry;
-  rettoEntry[this->fm->getPath()] = rettoName;
+  rettoEntry[this->fm->getPath()] = name;
   this->rettos.push_back(rettoEntry);
-  olog << rettoName << std::endl << this->fm->getPath().string() << std::endl;
+  olog << name << std::endl << this->fm->getPath().string() << std::endl;
   olog.close();
   writeRettos();
 }
@@ -57,12 +55,12 @@ void Stater::readRettos() {
   log.open(this->logFile);
   std::string line;
   while (std::getline(log, line)) {
-    std::string rettoName, pathString;
-    std::getline(log, rettoName);
+    std::string name, pathString;
+    std::getline(log, name);
     std::getline(log, pathString);
     fs::path filePath = pathString;
     std::map<fs::path, std::string> rettoEntry;
-    rettoEntry[filePath] = rettoName;
+    rettoEntry[filePath] = name;
     this->rettos.push_back(rettoEntry);
   }
   log.close();
@@ -158,11 +156,12 @@ void Stater::commit(std::string name) {
       }
     }
     if (modified) {
-      std::cout << fileName << " has been modified since the last commit." << std::endl;
+      std::cout << fileName << " has been modified since the last commit."
+                << std::endl;
     } else {
-      std::cout << fileName << " has not been modified since the last commit." << std::endl;
+      std::cout << fileName << " has not been modified since the last commit."
+                << std::endl;
     }
   }
   rettoLog.close();
 }
-

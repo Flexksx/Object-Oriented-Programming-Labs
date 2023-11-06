@@ -27,7 +27,7 @@ private:
 public:
   Stater(int *_date, fs::path _logFile, GenericFile *_gfm, ImageFile *_ifm,
          CodeFile *_cfm, Folder *_fm);
-  void writeInitLog();
+  void writeInitLog(fs::path path, std::string name);
   void writeLog();
   void readLog();
   void updateLog();
