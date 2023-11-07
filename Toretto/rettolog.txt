@@ -1,2 +1,1 @@
- /home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/
-/home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/ bank
+//home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/ 

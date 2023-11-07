@@ -31,6 +31,19 @@ int main(int argc, char *argv[]) {
     fs::path path = argv[2];
     if (command == "info") {
       comm->sl(path);
+      comm->info();
+    }
+    if (command == "init") {
+      comm->sl(path);
+      comm->init();
+    }
+  } else if (argc == 4) {
+    std::string command = argv[1];
+    std::string path = argv[2];
+    std::string name = argv[3];
+    if (command == "init") {
+      comm->sl(path);
+      comm->init(name);
     }
   }
 }

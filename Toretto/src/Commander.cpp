@@ -65,6 +65,8 @@ void Commander::command() {
     fs::path path;
     std::cin >> path;
     this->sl(path);
+  } else if(this->cmd=="info"){
+    this->info();
   }
   std::cout << "Invalid command." << std::endl;
 }
