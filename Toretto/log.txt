@@ -1,2 +1,0 @@
-bank
-/home/cristi/Documents/GitHub/LabsOOP/Labs1OOP/

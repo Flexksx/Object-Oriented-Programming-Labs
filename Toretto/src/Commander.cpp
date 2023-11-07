@@ -37,12 +37,16 @@ Commander::Commander(std::string _cmd) { this->cmd = _cmd; }
 
 void Commander::giveCommand(std::string _cmd) { this->cmd = _cmd; }
 
-void Commander::run(std::string _cmd) {
-  this->cmd = _cmd;
-  this->command();
-}
+void Commander::run(std::string _cmd) {}
 
-void Commander::run() { this->command(); }
+void Commander::run() {
+  while (this->cmd != "exit") {
+    std::string _cmd;
+    std::cin >> _cmd;
+    this->giveCommand(_cmd);
+    this->command();
+  }
+}
 
 void Commander::command() {
 
@@ -55,6 +59,12 @@ void Commander::command() {
     std::cout << "exit    exits the program." << std::endl;
     std::cout << "sl    selects a file or folder." << std::endl;
     std::cout << "sl ..  goes back to the previous folder." << std::endl;
+  } else if (this->cmd == "go") {
+    this->go();
+  } else if (this->cmd == "sl") {
+    fs::path path;
+    std::cin >> path;
+    this->sl(path);
   }
   std::cout << "Invalid command." << std::endl;
 }
