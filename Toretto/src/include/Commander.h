@@ -49,8 +49,7 @@ public:
   void info();
   void init(std::string name);
   void commit();
-  void init();
+  void commit(std::string name);
   void slRetto();
 };
-
 #endif

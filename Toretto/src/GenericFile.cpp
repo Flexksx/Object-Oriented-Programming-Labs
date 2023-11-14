@@ -28,7 +28,10 @@ fs::file_time_type GenericFile::lastTimeModified() {
   return timePoint;
 }
 
-int *GenericFile::getDate() { return this->date; }
+int *GenericFile::getDate() {
+  this->getTimeFromEpoch();
+  return this->date;
+}
 
 int *GenericFile::getTimeFromEpoch() {
   int *date = new int[5];

@@ -34,8 +34,16 @@ int main(int argc, char *argv[]) {
       comm->info();
     }
     if (command == "init") {
+      std::string name;
+      std::cout << "Give a name to this Rettository: ";
+      std::string rettoName;
+      std::cin >> rettoName;
       comm->sl(path);
-      comm->init();
+      comm->init(rettoName);
+    }
+    if (command == "commit") {
+      std::string rettoName = argv[2];
+      comm->commit(rettoName);
     }
   } else if (argc == 4) {
     std::string command = argv[1];

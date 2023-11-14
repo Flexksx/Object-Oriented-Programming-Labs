@@ -21,7 +21,7 @@ private:
   ImageFile *ifm;
   CodeFile *cfm;
   Folder *fm;
-  std::vector<std::map<fs::path, std::string>>
+  std::vector<std::pair<fs::path, std::string>>
       rettos; // Change the type of rettos
 
 public:
@@ -33,11 +33,11 @@ public:
   void updateLog();
   void deleteLog();
   void readRettos();
-  void writeRettos();
-  void addRetto(fs::path filePath,
-                std::string name);
+  void listRettos();
+  void addRetto(fs::path filePath, std::string name);
   void deleteRetto(fs::path filePath);
   void commit(std::string name);
+  void writeRettos();
 };
 
 #endif

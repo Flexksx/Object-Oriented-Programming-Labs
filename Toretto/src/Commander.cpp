@@ -176,14 +176,11 @@ void Commander::commit() {
   this->st->commit(rettoName);
 }
 
-void Commander::init() {
-  std::string name;
-  std::cout << "Give a name to this Rettository: ";
-  std::string rettoName;
-  std::cin >> rettoName;
-  this->st->writeInitLog(this->fm->getPath(), name);
-}
 
 void Commander::init(std::string name) {
   this->st->writeInitLog(this->fm->getPath(), name);
+}
+
+void Commander::commit(std::string name){
+  this->st->commit(name);
 }
