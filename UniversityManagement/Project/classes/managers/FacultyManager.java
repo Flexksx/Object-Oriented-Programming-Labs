@@ -10,6 +10,7 @@ import UniversityManagement.Project.classes.utility.Reader;
 
 public class FacultyManager implements ManagerInterface,Serializable {
     private ArrayList<Faculty> faculties;
+
     private Faculty faculty = null;
 
     public FacultyManager(ArrayList<Faculty> faculties) {

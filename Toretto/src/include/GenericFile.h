@@ -7,14 +7,14 @@
 namespace fs = std::filesystem;
 
 class GenericFile {
-private:
-  fs::path filePath;
 
 protected:
+  fs::path filePath;
   int *date;
-  int *getTimeFromEpoch();
 
 public:
+
+  int *getTimeFromEpoch();
   void showLastTimeModified();
   fs::file_time_type lastTimeModified();
   GenericFile(std::string _filePath, int *date);

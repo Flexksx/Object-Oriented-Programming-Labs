@@ -1,6 +1,5 @@
 #include "include/ImageFile.h"
 #include "include/GenericFile.h"
-#include <arpa/inet.h>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -10,27 +9,21 @@
 #elif __linux__
 // Linux specific includes
 #include <arpa/inet.h>
-#elif __APPLE__
-// macOS specific includes
-#include <some_macos_library.h>
 #else
 #error "Unsupported operating system"
 #endif
 
 ImageFile::ImageFile(std::string _filePath, int *date)
     : GenericFile(_filePath, date) {
-  filePath = _filePath;
-  fileExtension = filePath.extension();
+  fileExtension = GenericFile::filePath.extension();
 }
 
-ImageFile::ImageFile(int *date) : GenericFile(date) {
-  this->date = date;
-}
+ImageFile::ImageFile(int *date) : GenericFile(date) { this->date = date; }
 
 void ImageFile::getSize() {
   bool hadRun = false;
   int _width = 0, _height = 0;
-  hadRun = GetImageSize(filePath, _width, _height);
+  hadRun = GetImageSize(this->filePath, _width, _height);
   if (hadRun) {
     this->width = _width;
     this->height = _height;
@@ -40,7 +33,7 @@ void ImageFile::getSize() {
 }
 
 void ImageFile::showInfo() {
-  std::cout << "File extension: " << this->fileExtension << std::endl;
+  std::cout << "File extension: " << this->filePath.extension() << std::endl;
   this->showLastTimeModified();
   this->getSize();
   std::cout << "Width: " << this->width << std::endl;
@@ -48,7 +41,7 @@ void ImageFile::showInfo() {
 }
 
 bool ImageFile::GetImageSize(std::filesystem::path filename, int &width,
-                                    int &height) {
+                             int &height) {
   std::ifstream file(filename, std::ios::binary);
   if (!file) {
     std::cerr << "Error opening file." << std::endl;

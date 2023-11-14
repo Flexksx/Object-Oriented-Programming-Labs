@@ -8,8 +8,7 @@
 namespace fs = std::filesystem;
 
 class CodeFile : public GenericFile {
-private:
-  fs::path filePath;
+protected:
   std::string fileExtension;
 public:
   CodeFile(std::string _filePath, int* date);
@@ -17,6 +16,8 @@ public:
   int getNrOfLines();
   void showInfo() override;
   CodeFile(int* date);
+  virtual int getNrOfClasses();
+  bool isCodeFileExtension();
 };
 
 #endif

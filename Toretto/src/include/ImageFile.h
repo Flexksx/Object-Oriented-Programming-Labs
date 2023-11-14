@@ -9,7 +9,6 @@ namespace fs = std::filesystem;
 
 class ImageFile : public GenericFile {
 private:
-  fs::path filePath;
   std::string fileExtension;
   int width;
   int height;
