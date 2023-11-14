@@ -1,10 +1,11 @@
 #include "include/Stater.h"
+#include "include/Retto.h"
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
 #include <ios>
 #include <iostream>
-#include <istream>
+#include <map>
 #include <string>
 
 namespace fs = std::filesystem;
@@ -20,7 +21,7 @@ Stater::Stater(int *date, fs::path logFile, GenericFile *gfm, ImageFile *ifm,
   this->logFile = logFile;
 }
 
-void Stater::writeLog(fs::path path, string name) {
+void Stater::writeLog(fs::path path) {
   std::ofstream log;
   fs::path rettoLogPath = path / "rettolog.txt";
   log.open(rettoLogPath);
@@ -31,13 +32,14 @@ void Stater::writeLog(fs::path path, string name) {
     log << file.c_str() << " ";
     this->gfm->setPath(path / file);
     this->date = this->gfm->getTimeFromEpoch();
-    for (int i = 0; i < 5; i++)
-      log << this->date[i] << ((i != 4) ? '.' : ' ');
+    for (int i = 0; i < 6; i++)
+      log << this->date[i] << ((i != 5) ? '.' : ' ');
     log << endl;
   }
 }
 
 void Stater::listRettos() {
+  this->readRettos();
   for (auto &retto : this->rettos) {
     cout << retto.second << " " << retto.first.string() << endl;
   }
@@ -72,17 +74,24 @@ void Stater::commit(std::string name) {
     std::cout << "Committing changes for retto: " << name
               << " at path: " << rettoPath.string() << std::endl;
     this->commitChanges(rettoPath);
+    this->detectNewDeleted(rettoPath);
   } else {
     std::cerr << "Error: Retto '" << name << "' not found." << std::endl;
   }
 }
 
+void Stater::detectNewDeleted(fs::path rettopath){
+
+}
+
+
+
 void Stater::commitChanges(fs::path rettoPath) {
   std::ifstream rettolog;
   rettolog.open(rettoPath / "rettolog.txt");
-
   std::string fileName;
   std::string dateString;
+  std::vector<std::pair<string, string>> filesdates;
 
   while (rettolog >> fileName) {
     rettolog >> dateString;
@@ -90,21 +99,41 @@ void Stater::commitChanges(fs::path rettoPath) {
     std::vector<int> dateComponents;
     std::stringstream dateStream(dateString);
     std::string dateSegment;
+
     while (std::getline(dateStream, dateSegment, '.')) {
       dateComponents.push_back(std::stoi(dateSegment));
     }
+
     this->gfm->setPath(rettoPath / fileName);
     this->date = this->gfm->getTimeFromEpoch();
-    for (int i = 0; i < 5; i++) {
+
+    for (int i = 0; i < 6; i++) {
       if (dateComponents[i] != this->date[i]) {
         cout << " - File Changed." << endl;
         break;
-      } else if (i == 4) {
+      } else if (i == 5) {
         cout << " - File Not Changed." << endl;
       }
     }
+
+    dateString = "";
+    for (int i = 0; i < 6; i++) {
+      dateString += std::to_string(this->date[i]) + ((i != 5) ? "." : "");
+    }
+
+    filesdates.push_back({fileName, dateString});
     continue;
   }
+  rettolog.close();
+  std::ofstream clearRettolog(rettoPath / "rettolog.txt",
+                              std::ofstream::out | std::ofstream::trunc);
+  clearRettolog.close();
+  std::ofstream rettologOut(rettoPath / "rettolog.txt", std::ofstream::app);
+
+  for (const auto &fileDate : filesdates) {
+    rettologOut << fileDate.first << " " << fileDate.second << endl;
+  }
+  rettologOut.close();
 }
 
 void Stater::writeInitLog(fs::path path, string name) {
@@ -129,7 +158,7 @@ void Stater::writeInitLog(fs::path path, string name) {
 
   // Add the new entry to the vector
   this->addRetto(path, name);
-  this->writeLog(path, name);
+  this->writeLog(path);
   this->writeRettos();
 }
 

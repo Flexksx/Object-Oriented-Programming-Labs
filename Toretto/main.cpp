@@ -11,7 +11,7 @@ using namespace std;
 namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
-  int *date = new int[5];
+  int *date = new int[6];
   Folder *fm = new Folder();
   GenericFile *gfm = new GenericFile(date);
   ImageFile *ifm = new ImageFile(date);
@@ -22,23 +22,29 @@ int main(int argc, char *argv[]) {
     std::string command = argv[1];
     if (command == "run") {
       comm->run();
+    } else if (command == "listall") {
+      st->listRettos();
     } else {
       comm->giveCommand(command);
       comm->run(command);
     }
   } else if (argc == 3) {
     std::string command = argv[1];
-    fs::path path = argv[2];
     if (command == "info") {
-      comm->sl(path);
-      comm->info();
+      if (fs::exists(argv[2])) {
+        comm->sl(argv[2]);
+        comm->info();
+      } else {
+        std::cout << "Path does not exist." << std::endl;
+        // TODO: make function for retto info
+      }
     }
     if (command == "init") {
       std::string name;
       std::cout << "Give a name to this Rettository: ";
       std::string rettoName;
       std::cin >> rettoName;
-      comm->sl(path);
+      comm->sl(argv[2]);
       comm->init(rettoName);
     }
     if (command == "commit") {
