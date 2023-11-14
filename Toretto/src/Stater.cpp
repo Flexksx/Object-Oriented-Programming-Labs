@@ -80,11 +80,26 @@ void Stater::commit(std::string name) {
   }
 }
 
-void Stater::detectNewDeleted(fs::path rettopath){
-
+void Stater::detectNewDeleted(fs::path rettopath) {
+  std::ifstream rettolog;
+  rettolog.open(rettopath / "rettolog.txt");
+  std::string fileName;
+  std::vector<string> fileNamesLog;
+  while (rettolog >> fileName) {
+    fileNamesLog.push_back(fileName);
+    continue;
+  }
+  std::vector<string> existingFileNames;
+  for (const auto &entry : fs::directory_iterator(rettopath)) {
+    existingFileNames.push_back(entry.path().filename().string());
+  }
+  for (int i = 0; i < existingFileNames.size() - 1; i++) {
+    if (!std::any_of(fileNamesLog.begin(), fileNamesLog.end(),
+                     existingFileNames[i])) {
+      std::cout<<existingFileNames[i];
+    }
+  }
 }
-
-
 
 void Stater::commitChanges(fs::path rettoPath) {
   std::ifstream rettolog;
