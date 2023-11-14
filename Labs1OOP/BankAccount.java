@@ -24,7 +24,6 @@ public class BankAccount {
             System.err.println("Reciever cannot recieve transfers.");
         }
     }
-
     public void deposit(float amount) {
         float current = getBalance();
         setBalance(current + amount);
@@ -69,15 +68,12 @@ public class BankAccount {
     public void setBalance(float balance) {
         this.Balance = balance;
     }
-
     public void setOwnerName(String ownerName) {
         this.OwnerName = ownerName;
     }
-
     public void setCanTransfer(boolean canTransfer) {
         this.CanTransfer = canTransfer;
     }
-
     public boolean getCanTransfer(){
         return this.CanTransfer;
     }
@@ -85,11 +81,9 @@ public class BankAccount {
     public void blockAccount() {
         this.CanTransfer =false;
     }
-
     public void unlockAccount(){
         this.CanTransfer=true;
     }
-
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.OwnerPhoneNumber = ownerPhoneNumber;
     }
