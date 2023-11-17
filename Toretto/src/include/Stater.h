@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <string>
 #include <vector>
 
 namespace fs = std::filesystem;
@@ -28,7 +29,7 @@ public:
   Stater(int *_date, fs::path _logFile, GenericFile *_gfm, ImageFile *_ifm,
          CodeFile *_cfm, Folder *_fm);
   void writeInitLog(fs::path path, std::string name);
-  void writeLog();
+  void writeLog(fs::path path);
   void readLog();
   void updateLog();
   void deleteLog();
@@ -38,6 +39,8 @@ public:
   void deleteRetto(fs::path filePath);
   void commit(std::string name);
   void writeRettos();
+  void commitChanges(fs::path rettoPath);
+  void detectNewDeleted(fs::path rettoPath);
 };
 
 #endif
