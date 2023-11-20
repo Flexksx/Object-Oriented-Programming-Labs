@@ -7,6 +7,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace fs = std::filesystem;
 using std::string, std::cout, std::endl;
@@ -22,19 +23,27 @@ Stater::Stater(int *date, fs::path logFile, GenericFile *gfm, ImageFile *ifm,
 }
 
 void Stater::writeLog(fs::path path) {
-  std::ofstream log;
-  fs::path rettoLogPath = path / "rettolog.txt";
-  log.open(rettoLogPath);
+  // Create the .retto directory if it doesn't exist
+  fs::path rettoDir = path / ".retto";
+  if (!fs::exists(rettoDir)) {
+    fs::create_directory(rettoDir);
+  }
+
+  // Open the rettolog.txt file
+  std::ofstream log(rettoDir / "rettolog.txt");
+
+  // Write file names and dates to rettolog.txt
   for (const auto &entry : fs::directory_iterator(path)) {
     if (entry.is_directory())
       continue;
+
     fs::path file = entry.path().filename();
     log << file.c_str() << " ";
     this->gfm->setPath(path / file);
     this->date = this->gfm->getTimeFromEpoch();
     for (int i = 0; i < 6; i++)
       log << this->date[i] << ((i != 5) ? '.' : ' ');
-    log << endl;
+    log << std::endl;
   }
 }
 
@@ -55,14 +64,28 @@ void Stater::deleteLog() {
   logFile.close();
 }
 
-void Stater::deleteRetto(fs::path filePath) {
-  this->rettos.erase(
-      std::remove_if(this->rettos.begin(), this->rettos.end(),
-                     [&](const std::pair<fs::path, string> &entry) {
-                       return entry.first == filePath;
-                     }),
-      this->rettos.end());
+void Stater::deleteRetto(std::string name) {
+    this->readRettos();
+    auto rettoEntry = std::find_if(
+        this->rettos.begin(), this->rettos.end(),
+        [&](const auto &entry) { return entry.second == name; });
+
+    if (rettoEntry != this->rettos.end()) {
+        fs::path rettoPath = rettoEntry->first;
+
+        // Remove the .retto folder
+        fs::remove_all(rettoPath / ".retto");
+
+        // Erase the retto entry from the vector
+        this->rettos.erase(rettoEntry);
+
+        // Update the rettos logfile
+        this->writeRettos();
+    } else {
+        std::cerr << "Error: Retto '" << name << "' not found." << std::endl;
+    }
 }
+
 
 void Stater::commit(std::string name) {
   this->readRettos();
@@ -74,91 +97,28 @@ void Stater::commit(std::string name) {
     std::cout << "Committing changes for retto: " << name
               << " at path: " << rettoPath.string() << std::endl;
     this->commitChanges(rettoPath);
-    this->detectNewDeleted(rettoPath);
+    // this->detectNewDeleted(rettoPath);
   } else {
     std::cerr << "Error: Retto '" << name << "' not found." << std::endl;
   }
 }
 
-void Stater::detectNewDeleted(fs::path rettopath) {
-  // Load existing file names from the previous log
-  std::vector<string> existingFileNames;
-  if (fs::exists(rettopath / "previous_log.txt")) {
-    std::ifstream previousLog;
-    previousLog.open(rettopath / "previous_log.txt");
-    std::string fileName;
-    while (previousLog >> fileName) {
-      existingFileNames.push_back(fileName);
-    }
-    previousLog.close();
-  }
-
-  // Get the current list of file names
-  std::vector<string> currentFileNames;
-  for (const auto &entry : fs::directory_iterator(rettopath)) {
-    currentFileNames.push_back(entry.path().filename().string());
-  }
-
-  // Identify deleted files
-  std::vector<string> deletedFiles;
-  for (const auto &fileName : existingFileNames) {
-    if (!std::any_of(currentFileNames.begin(), currentFileNames.end(),
-                     [fileName](const std::string &currentFileName) {
-                       return currentFileName == fileName;
-                     })) {
-      deletedFiles.push_back(fileName);
-    }
-  }
-
-  // Identify new files
-  std::vector<string> newFiles;
-  for (const auto &fileName : currentFileNames) {
-    if (!std::any_of(existingFileNames.begin(), existingFileNames.end(),
-                     [fileName](const std::string &existingFileName) {
-                       return existingFileName == fileName;
-                     })) {
-      newFiles.push_back(fileName);
-    }
-  }
-
-  // Update the previous log file for the next comparison
-  std::ofstream previousLog;
-  previousLog.open(rettopath / "previous_log.txt");
-  for (const auto &fileName : currentFileNames) {
-    previousLog << fileName << std::endl;
-  }
-  previousLog.close();
-
-  // Print detected changes
-  if (!deletedFiles.empty()) {
-    std::cout << "Deleted files:" << std::endl;
-    for (const auto &fileName : deletedFiles) {
-      std::cout << " - " << fileName << std::endl;
-    }
-  } else {
-    std::cout << "No deleted files found." << std::endl;
-  }
-
-  if (!newFiles.empty()) {
-    std::cout << "New files:" << std::endl;
-    for (const auto &fileName : newFiles) {
-      std::cout << " - " << fileName << std::endl;
-    }
-  } else {
-    std::cout << "No new files found." << std::endl;
-  }
-}
-
 void Stater::commitChanges(fs::path rettoPath) {
   std::ifstream rettolog;
-  rettolog.open(rettoPath / "rettolog.txt");
+  rettolog.open(rettoPath / ".retto/rettolog.txt");
   std::string fileName;
   std::string dateString;
   std::vector<std::pair<string, string>> filesdates;
 
   while (rettolog >> fileName) {
     rettolog >> dateString;
-    cout << fileName;
+
+    // Skip directories
+    fs::path filePath = rettoPath / fileName;
+    if (fs::is_directory(filePath)) {
+      continue;
+    }
+
     std::vector<int> dateComponents;
     std::stringstream dateStream(dateString);
     std::string dateSegment;
@@ -166,32 +126,96 @@ void Stater::commitChanges(fs::path rettoPath) {
     while (std::getline(dateStream, dateSegment, '.')) {
       dateComponents.push_back(std::stoi(dateSegment));
     }
+    if (fs::exists(filePath)) {
+      this->gfm->setPath(filePath);
+      this->date = this->gfm->getTimeFromEpoch();
+      for (int i = 0; i < 6; i++) {
+        if (dateComponents[i] != this->date[i]) {
+          cout << fileName << " - File Changed." << endl;
+          break;
+        } else if (i == 5) {
+          cout << fileName << " - File Not Changed." << endl;
+        }
+      }
 
-    this->gfm->setPath(rettoPath / fileName);
-    this->date = this->gfm->getTimeFromEpoch();
+      dateString = "";
+      for (int i = 0; i < 6; i++) {
+        dateString += std::to_string(this->date[i]) + ((i != 5) ? "." : "");
+      }
 
-    for (int i = 0; i < 6; i++) {
-      if (dateComponents[i] != this->date[i]) {
-        cout << " - File Changed." << endl;
-        break;
-      } else if (i == 5) {
-        cout << " - File Not Changed." << endl;
+      filesdates.push_back({fileName, dateString});
+      continue;
+    }
+  }
+
+  // Detect new and deleted files
+  std::vector<string> existingFileNames;
+  for (const auto &entry : fs::directory_iterator(rettoPath)) {
+    // Skip directories
+    if (fs::is_directory(entry)) {
+      continue;
+    }
+    existingFileNames.push_back(entry.path().filename().string());
+  }
+
+  std::vector<string> loggedFileNames;
+  for (const auto &fileName : filesdates) {
+    loggedFileNames.push_back(fileName.first);
+  }
+
+  // Identify deleted files
+  std::vector<string> deletedFiles;
+  for (const auto &logFileName : loggedFileNames) {
+    if (std::find(existingFileNames.begin(), existingFileNames.end(),
+                  logFileName) == existingFileNames.end()) {
+      deletedFiles.push_back(logFileName);
+    }
+  }
+
+  // Identify new files
+  std::vector<string> newFiles;
+  for (const auto &exFileName : existingFileNames) {
+    if (std::find(loggedFileNames.begin(), loggedFileNames.end(), exFileName) ==
+        loggedFileNames.end()) {
+      newFiles.push_back(exFileName);
+    }
+  }
+
+  // Print detected changes
+  if (!deletedFiles.empty()) {
+    std::cout << "Deleted files:" << std::endl;
+    for (const auto &fileName : deletedFiles) {
+      std::cout << " - " << fileName << std::endl;
+    }
+  }
+
+  if (!newFiles.empty()) {
+    std::cout << "New files:" << std::endl;
+    for (const auto &fileName : newFiles) {
+      std::cout << " - " << fileName << std::endl;
+    }
+    for (const auto &fileName : newFiles) {
+      if (fs::exists(rettoPath / fileName)) {
+        std::vector<int> dateComponents;
+        this->gfm->setPath(rettoPath / fileName);
+        this->date = this->gfm->getTimeFromEpoch();
+
+        dateString = "";
+        for (int i = 0; i < 6; i++) {
+          dateString += std::to_string(this->date[i]) + ((i != 5) ? "." : "");
+        }
+
+        filesdates.push_back({fileName, dateString});
+        continue;
       }
     }
-
-    dateString = "";
-    for (int i = 0; i < 6; i++) {
-      dateString += std::to_string(this->date[i]) + ((i != 5) ? "." : "");
-    }
-
-    filesdates.push_back({fileName, dateString});
-    continue;
   }
   rettolog.close();
-  std::ofstream clearRettolog(rettoPath / "rettolog.txt",
+  std::ofstream clearRettolog(rettoPath / ".retto/rettolog.txt",
                               std::ofstream::out | std::ofstream::trunc);
   clearRettolog.close();
-  std::ofstream rettologOut(rettoPath / "rettolog.txt", std::ofstream::app);
+  std::ofstream rettologOut(rettoPath / ".retto/rettolog.txt",
+                            std::ofstream::app);
 
   for (const auto &fileDate : filesdates) {
     rettologOut << fileDate.first << " " << fileDate.second << endl;
@@ -257,11 +281,10 @@ void Stater::readRettos() {
   log.close();
 }
 
-// Write rettos to the log file
 void Stater::writeRettos() {
-  this->listRettos(); // Optionally print the rettos for debugging
+  // this->listRettos(); // Optionally print the rettos for debugging
 
-  this->deleteLog(); // Optionally delete the log file for debugging
+  // this->deleteLog(); // Optionally delete the log file for debugging
 
   std::ofstream log(this->logFile);
   if (!log.is_open()) {
@@ -274,4 +297,36 @@ void Stater::writeRettos() {
   }
 
   log.close();
+}
+
+void Stater::rettoInfo(std::string rettoName) {
+  this->readRettos();
+  auto rettoEntry = std::find_if(
+      this->rettos.begin(), this->rettos.end(),
+      [&](const auto &entry) { return entry.second == rettoName; });
+  if (rettoEntry != this->rettos.end()) {
+    fs::path rettoPath = rettoEntry->first;
+    std::cout << "Retto: " << rettoName << std::endl;
+    std::cout << "Path: " << rettoPath.string() << std::endl;
+    std::cout << "Files:" << std::endl;
+    for (const auto &entry : fs::directory_iterator(rettoPath)) {
+      std::cout << " - " << entry.path().filename().string() << std::endl;
+    }
+  } else {
+    std::cerr << "Error: Retto '" << rettoName << "' not found." << std::endl;
+  }
+}
+
+fs::path Stater::getRettoPath(std::string rettoName) {
+  this->readRettos();
+  auto rettoEntry = std::find_if(
+      this->rettos.begin(), this->rettos.end(),
+      [&](const auto &entry) { return entry.second == rettoName; });
+  if (rettoEntry != this->rettos.end()) {
+    fs::path rettoPath = rettoEntry->first;
+    return rettoPath;
+  } else {
+    std::cerr << "Error: Retto '" << rettoName << "' not found." << std::endl;
+    return "";
+  }
 }

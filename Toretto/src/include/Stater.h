@@ -36,11 +36,12 @@ public:
   void readRettos();
   void listRettos();
   void addRetto(fs::path filePath, std::string name);
-  void deleteRetto(fs::path filePath);
+  void deleteRetto(std::string name);
   void commit(std::string name);
   void writeRettos();
   void commitChanges(fs::path rettoPath);
-  void detectNewDeleted(fs::path rettoPath);
+  void rettoInfo(std::string rettoName);
+  fs::path getRettoPath(std::string rettoName);
 };
 
 #endif

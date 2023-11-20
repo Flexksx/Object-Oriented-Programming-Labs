@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+using std::string, std::cout, std::cin, std::endl;
+
 Commander::Commander(std::string _cmd, int *_date, Folder *_fm, Stater *_st,
                      GenericFile *_gfm, CodeFile *_cfm, ImageFile *_ifm) {
   this->st = _st;
@@ -39,38 +41,107 @@ void Commander::giveCommand(std::string _cmd) { this->cmd = _cmd; }
 
 void Commander::run(std::string _cmd) {}
 
-void Commander::run() {
-  while (this->cmd != "exit") {
-    std::string _cmd;
-    std::cin >> _cmd;
-    this->giveCommand(_cmd);
-    this->command();
+void Commander::run() { cout << "hi" << endl; }
+
+void Commander::cli(int argc, char *argv[]) {
+  if (argc == 1) {
+    this->run();
+  } else {
+    string command = argv[1];
+    if (command == "init") {
+      if (argc == 3) {
+        this->sl(argv[2]);
+        string name;
+        cout << "Give a name to the Rettository: ";
+        cin >> name;
+        this->init(name);
+      } else if (argc == 4) {
+        this->sl(argv[2]);
+        this->init(argv[3]);
+      } else {
+        cout << "Invalid number of arguments." << endl;
+        cout << "Usage: toretto init <path> <name>" << endl;
+      }
+    } else if (command == "commit") {
+      if (argc == 3) {
+        this->commit(argv[2]);
+      } else {
+        cout << "Invalid number of arguments." << endl;
+        cout << "Usage: toretto commit <name>" << endl;
+      }
+    } else if (argc == 2) {
+      if (command == "listall") {
+        this->st->listRettos();
+      } else if (command == "help") {
+        cout << "Hello! This is" << endl;
+        string toretto = R"(
+  *   )                   )    )
+` )  /(     (      (   ( /( ( /(
+ ( )(_))(   )(    ))\  )\()))\()) (
+(_(_()) )\ (()\  /((_)(_))/(_))/  )\
+|_   _|((_) ((_)(_))  | |_ | |_  ((_)
+  | | / _ \| '_|/ -_) |  _||  _|/ _ \
+  |_| \___/|_|  \___|  \__| \__|\___/
+                                                                              )";
+        cout << toretto << endl;
+        cout << "A simple version control system for your files." << endl;
+        cout << "Usage: toretto <command> <path> <name>" << endl;
+        cout << "Commands:" << endl;
+        cout << "  init <path> <name>  Initializes a Rettository in the given "
+                "path. (You may not specify the name in the command. You will "
+                "have to name it however.)"
+             << endl;
+        cout << "  commit <name>       Commits the changes to the given "
+                "Rettository."
+             << endl;
+        cout << "  listall             Lists all the Rettositories." << endl;
+        cout << "  help                Shows this message." << endl;
+        cout << "Run the command without arguments to enter the interactive "
+                "mode."
+             << endl;
+      }
+    } else if (command == "info") {
+      if (argc == 3) {
+        if (fs::is_directory(argv[2]) || fs::is_regular_file(argv[2])) {
+          this->sl(argv[2]);
+          this->info();
+        } else {
+          this->st->rettoInfo(argv[2]);
+        }
+      } else if (argc == 4) {
+        this->sl(this->st->getRettoPath(argv[2]) / argv[3]);
+        this->info();
+      } else {
+        cout << "Invalid number of arguments." << endl;
+        cout << "Usage: toretto info <directory path>     Lists all files and "
+                "subdirectories of that path."
+             << endl;
+        cout << "       toretto info <file path>          Shows info about "
+                "the file."
+             << endl;
+        cout << "toretto info <retto name>         Shows info about the retto."
+             << endl;
+        cout << "toretto info <retto name> <file> Shows info about the file in "
+                "the retto."
+             << endl;
+      }
+    }else if (command == "rm"){
+      if (argc == 3){
+        this->st->deleteRetto(argv[2]);
+      }else if (argc == 4){
+        this->sl(this->st->getRettoPath(argv[2]) / argv[3]);
+        fs::remove(this->fm->getPath());
+      }else{
+        cout << "Invalid number of arguments." << endl;
+        cout << "Usage: toretto rm <retto name>         Deletes the retto."
+             << endl;
+        cout << "       toretto rm <retto name> <file>  Deletes the file in "
+                "the retto."
+             << endl;
+      }
+    }
   }
 }
-
-void Commander::command() {
-
-  if (this->cmd == "help") {
-    std::cout << "Commands: " << std::endl;
-    std::cout << "go    initializes the program on the desired folder."
-              << std::endl;
-    std::cout << "help    shows this message." << std::endl;
-    std::cout << "info    shows info about the file or folder." << std::endl;
-    std::cout << "exit    exits the program." << std::endl;
-    std::cout << "sl    selects a file or folder." << std::endl;
-    std::cout << "sl ..  goes back to the previous folder." << std::endl;
-  } else if (this->cmd == "go") {
-    this->go();
-  } else if (this->cmd == "sl") {
-    fs::path path;
-    std::cin >> path;
-    this->sl(path);
-  } else if(this->cmd=="info"){
-    this->info();
-  }
-  std::cout << "Invalid command." << std::endl;
-}
-
 void Commander::sl(fs::path filePath) {
   std::vector<std::string> programmingLanguages = {".c", ".cpp", ".java",
                                                    ".py"};
@@ -176,11 +247,8 @@ void Commander::commit() {
   this->st->commit(rettoName);
 }
 
-
 void Commander::init(std::string name) {
   this->st->writeInitLog(this->fm->getPath(), name);
 }
 
-void Commander::commit(std::string name){
-  this->st->commit(name);
-}
+void Commander::commit(std::string name) { this->st->commit(name); }

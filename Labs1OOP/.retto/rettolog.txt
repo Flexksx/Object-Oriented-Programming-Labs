@@ -1,4 +1,3 @@
 dom.png 2023.10.29.13.15.12
 BankAccount.java 2023.11.20.21.23.26
 BankApplicationMain.java 2023.11.20.20.42.31
-rettolog.txt 2023.11.20.21.23.30

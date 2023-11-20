@@ -16,7 +16,6 @@ class Commander {
 private:
   std::string cmd;
   int *date;
-  void command();
   unsigned short int state;
   /*
   There are 4 states:
@@ -41,6 +40,7 @@ public:
             CodeFile *_cfm, ImageFile *_ifm);
   Commander(std::string _cmd, int *date, Folder *_fm, Stater *_st,
             GenericFile *_gfm, CodeFile *_cfm, ImageFile *_ifm);
+  void cli(int argc, char *argv[]);
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);
   void run();
