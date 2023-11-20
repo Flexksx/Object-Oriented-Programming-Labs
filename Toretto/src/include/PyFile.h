@@ -12,6 +12,7 @@ class PyFile : public CodeFile {
 public:
   PyFile(fs::path _filePath, int* date);
   int getNrOfClasses() override;
+  int getNrOfMethods() override;
 };
 
 #endif

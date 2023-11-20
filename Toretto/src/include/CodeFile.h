@@ -12,11 +12,11 @@ protected:
   std::string fileExtension;
 public:
   CodeFile(std::string _filePath, int* date);
-  std::string getFileExtension();
   int getNrOfLines();
   void showInfo() override;
   CodeFile(int* date);
   virtual int getNrOfClasses();
+  virtual int getNrOfMethods();
   bool isCodeFileExtension();
 };
 

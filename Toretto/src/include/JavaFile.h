@@ -11,6 +11,7 @@ class JavaFile : public CodeFile {
 public:
   JavaFile(fs::path _filePath, int *date);
   int getNrOfClasses() override;
+  int getNrOfMethods() override;
 };
 
 #endif

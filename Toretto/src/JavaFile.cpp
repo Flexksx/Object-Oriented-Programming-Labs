@@ -1,9 +1,9 @@
 #include "include/JavaFile.h"
 #include "include/CodeFile.h"
-#include <regex>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <regex>
 
 namespace fs = std::filesystem;
 
@@ -12,7 +12,6 @@ JavaFile::JavaFile(fs::path _filePath, int *_date)
   this->filePath = _filePath;
   this->date = _date;
 }
-
 
 int JavaFile::getNrOfClasses() {
   int nrOfClasses = 0;
@@ -26,4 +25,19 @@ int JavaFile::getNrOfClasses() {
     }
   }
   return nrOfClasses;
+}
+
+int JavaFile::getNrOfMethods() {
+  int nrOfMethods = 0;
+  std::ifstream file(this->filePath);
+  std::string line;
+  while (std::getline(file, line)) {
+    // Using regular expressions to check for method declarations
+    std::regex methodRegex(
+        R"(^\s*(public|private|protected)?\s*(\w+)\s*\((.*?)\)\s*\{)");
+    if (std::regex_search(line, methodRegex)) {
+      nrOfMethods++;
+    }
+  }
+  return nrOfMethods;
 }

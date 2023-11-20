@@ -81,23 +81,71 @@ void Stater::commit(std::string name) {
 }
 
 void Stater::detectNewDeleted(fs::path rettopath) {
-  std::ifstream rettolog;
-  rettolog.open(rettopath / "rettolog.txt");
-  std::string fileName;
-  std::vector<string> fileNamesLog;
-  while (rettolog >> fileName) {
-    fileNamesLog.push_back(fileName);
-    continue;
-  }
+  // Load existing file names from the previous log
   std::vector<string> existingFileNames;
-  for (const auto &entry : fs::directory_iterator(rettopath)) {
-    existingFileNames.push_back(entry.path().filename().string());
-  }
-  for (int i = 0; i < existingFileNames.size() - 1; i++) {
-    if (!std::any_of(fileNamesLog.begin(), fileNamesLog.end(),
-                     existingFileNames[i])) {
-      std::cout<<existingFileNames[i];
+  if (fs::exists(rettopath / "previous_log.txt")) {
+    std::ifstream previousLog;
+    previousLog.open(rettopath / "previous_log.txt");
+    std::string fileName;
+    while (previousLog >> fileName) {
+      existingFileNames.push_back(fileName);
     }
+    previousLog.close();
+  }
+
+  // Get the current list of file names
+  std::vector<string> currentFileNames;
+  for (const auto &entry : fs::directory_iterator(rettopath)) {
+    currentFileNames.push_back(entry.path().filename().string());
+  }
+
+  // Identify deleted files
+  std::vector<string> deletedFiles;
+  for (const auto &fileName : existingFileNames) {
+    if (!std::any_of(currentFileNames.begin(), currentFileNames.end(),
+                     [fileName](const std::string &currentFileName) {
+                       return currentFileName == fileName;
+                     })) {
+      deletedFiles.push_back(fileName);
+    }
+  }
+
+  // Identify new files
+  std::vector<string> newFiles;
+  for (const auto &fileName : currentFileNames) {
+    if (!std::any_of(existingFileNames.begin(), existingFileNames.end(),
+                     [fileName](const std::string &existingFileName) {
+                       return existingFileName == fileName;
+                     })) {
+      newFiles.push_back(fileName);
+    }
+  }
+
+  // Update the previous log file for the next comparison
+  std::ofstream previousLog;
+  previousLog.open(rettopath / "previous_log.txt");
+  for (const auto &fileName : currentFileNames) {
+    previousLog << fileName << std::endl;
+  }
+  previousLog.close();
+
+  // Print detected changes
+  if (!deletedFiles.empty()) {
+    std::cout << "Deleted files:" << std::endl;
+    for (const auto &fileName : deletedFiles) {
+      std::cout << " - " << fileName << std::endl;
+    }
+  } else {
+    std::cout << "No deleted files found." << std::endl;
+  }
+
+  if (!newFiles.empty()) {
+    std::cout << "New files:" << std::endl;
+    for (const auto &fileName : newFiles) {
+      std::cout << " - " << fileName << std::endl;
+    }
+  } else {
+    std::cout << "No new files found." << std::endl;
   }
 }
 

@@ -2,13 +2,13 @@
 #include "include/GenericFile.h"
 #include "include/JavaFile.h"
 #include "include/PyFile.h"
+#include <algorithm>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 CodeFile::CodeFile(std::string _filePath, int *_date)
     : GenericFile(_filePath, _date) {
@@ -38,15 +38,35 @@ int CodeFile::getNrOfLines() {
 }
 
 int CodeFile::getNrOfClasses() {
-  if (this->GenericFile::getFileExtension() == ".java") {
+  if (this->getFileExtension() == ".java") {
     JavaFile *javaFile = new JavaFile(this->filePath, this->date);
-    return javaFile->getNrOfClasses();
-  } else if (this->GenericFile::getFileExtension() == ".py") {
+    int nr = javaFile->getNrOfClasses();
+    delete javaFile;
+    return nr;
+  } else if (this->getFileExtension() == ".py") {
     PyFile *pyFile = new PyFile(this->filePath, this->date);
-    return pyFile->getNrOfClasses();
+    int nr = pyFile->getNrOfClasses();
+    delete pyFile;
+    return nr;
   }
 
   return 0;
+}
+
+int CodeFile::getNrOfMethods() {
+  if (this->getFileExtension() == ".java") {
+    JavaFile *javaFile = new JavaFile(this->filePath, this->date);
+    int nr = javaFile->getNrOfMethods();
+    delete javaFile;
+    return nr;
+  } else if (this->getFileExtension() == ".py") {
+    PyFile *pyFile = new PyFile(this->filePath, this->date);
+    int nr = pyFile->getNrOfMethods();
+    delete pyFile;
+    return nr;
+  } else {
+    return 0;
+  }
 }
 
 bool CodeFile::isCodeFileExtension() {

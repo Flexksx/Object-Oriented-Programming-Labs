@@ -23,3 +23,30 @@ int PyFile::getNrOfClasses() {
   }
   return nrOfClasses;
 }
+
+int PyFile::getNrOfMethods() {
+  int nrOfMethods = 0;
+  bool inClassDeclaration = false;
+  std::ifstream file(this->filePath);
+  std::string line;
+  while (std::getline(file, line)) {
+    // Check if the line is a class declaration
+    if (line.find("class") == 0) {
+      inClassDeclaration = true;
+      continue;
+    }
+
+    // Check if the line is a method definition
+    if (inClassDeclaration && line.find("def") == 0 &&
+        (line.find("\t") == 0 || line.find("    ") == 0 ||
+         line.find("  ") == 0)) {
+      nrOfMethods++;
+      inClassDeclaration = false;
+      continue;
+    }
+
+    // Reset the flag if the line is not part of a class declaration
+    inClassDeclaration = false;
+  }
+  return nrOfMethods;
+}
