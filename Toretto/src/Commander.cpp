@@ -4,10 +4,13 @@
 #include "include/GenericFile.h"
 #include "include/Stater.h"
 #include <algorithm>
+#include <atomic>
+#include <chrono>
 #include <cstring>
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include <thread>
 #include <vector>
 
 using std::string, std::cout, std::cin, std::endl;
@@ -39,13 +42,95 @@ Commander::Commander(std::string _cmd) { this->cmd = _cmd; }
 
 void Commander::giveCommand(std::string _cmd) { this->cmd = _cmd; }
 
-void Commander::run(std::string _cmd) {}
+void Commander::mainloop() {
+  std::string command;
+  fs::path selectedRetto;
+  std::map<std::string, std::thread> guardThreads;
 
-void Commander::run() { cout << "hi" << endl; }
+  while (true) {
+    std::cout << "> Enter a command: ";
+    std::cin >> command;
+
+    if (command == "exit") {
+      // Stop all guard threads if running
+      for (auto &thread : guardThreads) {
+        if (thread.second.joinable()) {
+          thread.second.join();
+        }
+      }
+      break;
+    } else if (command == "go") {
+      this->go();
+    } else if (command == "info") {
+      this->info();
+    } else if (command == "commit") {
+      this->commit();
+    } else if (command == "sl") {
+      std::string filePathString;
+      cout<<"Enter a path: ";
+      cin>>filePathString;
+      this->sl(filePathString);
+    } else if (command == "help") {
+      this->help();
+    } else if (command == "init") {
+      std::string name;
+      std::cout << "Give a name to the Rettository: ";
+      std::cin >> name;
+      this->init(name);
+    } else if (command == "listall") {
+      this->st->listRettos();
+    } else if (command == "rm") {
+      std::string rettoName;
+      std::cout << "Enter Retto name: ";
+      std::cin >> rettoName;
+      this->st->deleteRetto(rettoName);
+    } else if (command == "guard") {
+      std::string rettoName;
+      std::cout << "Enter Retto name to guard: ";
+      std::cin >> rettoName;
+
+      // Stop the existing guard thread if running
+      if (guardThreads.find(rettoName) != guardThreads.end() &&
+          guardThreads[rettoName].joinable()) {
+        guardThreads[rettoName].join();
+        std::cout << "Guarding stopped for Retto: " << rettoName << std::endl;
+      }
+
+      // Start a new guard thread
+      guardThreads[rettoName] =
+          std::thread([this, rettoName]() { this->st->guardRetto(rettoName); });
+
+      std::cout << "Guarding started for Retto: " << rettoName << std::endl;
+
+    } else if (command == "unguard") {
+      std::string rettoName;
+      std::cout << "Enter Retto name to unguard: ";
+      std::cin >> rettoName;
+
+      // Stop the guard thread if running
+      auto it = guardThreads.find(rettoName);
+      if (it != guardThreads.end()) {
+        if (it->second.joinable()) {
+          it->second.join();
+          std::cout << "Guarding stopped for Retto: " << rettoName << std::endl;
+        } else {
+          std::cout << "No active guard for Retto: " << rettoName << std::endl;
+        }
+        guardThreads.erase(it);
+
+        // Optionally, start a new thread for guarding
+        // guardThreads[rettoName] = std::thread([this, rettoName]() {
+        // this->st->guardRetto(rettoName); });
+      } else {
+        std::cout << "No active guard for Retto: " << rettoName << std::endl;
+      }
+    }
+  }
+}
 
 void Commander::cli(int argc, char *argv[]) {
   if (argc == 1) {
-    this->run();
+    this->mainloop();
   } else {
     string command = argv[1];
     if (command == "init") {
@@ -73,32 +158,7 @@ void Commander::cli(int argc, char *argv[]) {
       if (command == "listall") {
         this->st->listRettos();
       } else if (command == "help") {
-        cout << "Hello! This is" << endl;
-        string toretto = R"(
-  *   )                   )    )
-` )  /(     (      (   ( /( ( /(
- ( )(_))(   )(    ))\  )\()))\()) (
-(_(_()) )\ (()\  /((_)(_))/(_))/  )\
-|_   _|((_) ((_)(_))  | |_ | |_  ((_)
-  | | / _ \| '_|/ -_) |  _||  _|/ _ \
-  |_| \___/|_|  \___|  \__| \__|\___/
-                                                                              )";
-        cout << toretto << endl;
-        cout << "A simple version control system for your files." << endl;
-        cout << "Usage: toretto <command> <path> <name>" << endl;
-        cout << "Commands:" << endl;
-        cout << "  init <path> <name>  Initializes a Rettository in the given "
-                "path. (You may not specify the name in the command. You will "
-                "have to name it however.)"
-             << endl;
-        cout << "  commit <name>       Commits the changes to the given "
-                "Rettository."
-             << endl;
-        cout << "  listall             Lists all the Rettositories." << endl;
-        cout << "  help                Shows this message." << endl;
-        cout << "Run the command without arguments to enter the interactive "
-                "mode."
-             << endl;
+        this->help();
       }
     } else if (command == "info") {
       if (argc == 3) {
@@ -125,13 +185,13 @@ void Commander::cli(int argc, char *argv[]) {
                 "the retto."
              << endl;
       }
-    }else if (command == "rm"){
-      if (argc == 3){
+    } else if (command == "rm") {
+      if (argc == 3) {
         this->st->deleteRetto(argv[2]);
-      }else if (argc == 4){
+      } else if (argc == 4) {
         this->sl(this->st->getRettoPath(argv[2]) / argv[3]);
         fs::remove(this->fm->getPath());
-      }else{
+      } else {
         cout << "Invalid number of arguments." << endl;
         cout << "Usage: toretto rm <retto name>         Deletes the retto."
              << endl;
@@ -197,12 +257,13 @@ void Commander::sl(fs::path filePath) {
 }
 
 void Commander::go() {
+  std::cout << "Enter a path:";
   std::string filePathString;
   std::cin >> filePathString;
   fs::path filePath = filePathString;
 
   while (!fs::is_directory(filePath) || !fs::exists(filePath)) {
-    std::cout << "Path does not exist. Please enter a valid path: (Commander)";
+    std::cout << "Path does not exist. Please enter a valid path: ";
     std::cin >> filePathString;
     filePath = filePathString;
   }
@@ -252,3 +313,40 @@ void Commander::init(std::string name) {
 }
 
 void Commander::commit(std::string name) { this->st->commit(name); }
+
+void Commander::help() {
+  cout << R"(
+  *   )                   )    )
+` )  /(     (      (   ( /( ( /(
+ ( )(_))(   )(    ))\  )\()))\()) (
+(_(_()) )\ (()\  /((_)(_))/(_))/  )\
+|_   _|((_) ((_)(_))  | |_ | |_  ((_)
+  | | / _ \| '_|/ -_) |  _||  _|/ _ \
+  |_| \___/|_|  \___|  \__| \__|\___/
+                                                                              )";
+
+  cout << "A simple version control system for your files." << endl;
+  cout << "Usage: toretto <command> <path> <name>" << endl;
+  cout << "Commands:" << endl;
+  cout << "  init <path> <name>  Initializes a Rettository in the given path. "
+          "(You may not specify the name in the command. You will have to name "
+          "it however.)"
+       << endl;
+  cout << "  commit <name>       Commits the changes to the given Rettository."
+       << endl;
+  cout << "  listall             Lists all the Rettositories." << endl;
+  cout << "  help                Shows this message." << endl;
+  cout << "  info <directory path>            Lists all files and "
+          "subdirectories of that path."
+       << endl;
+  cout << "  info <file path>                 Shows info about the file."
+       << endl;
+  cout << "  info <retto name>                Shows info about the retto."
+       << endl;
+  cout << "  info <retto name> <file>         Shows info about the file in the "
+          "retto."
+       << endl;
+  cout << "  rm <retto name>                  Deletes the retto." << endl;
+  cout << "  rm <retto name> <file>           Deletes the file in the retto."
+       << endl;
+}

@@ -6,9 +6,11 @@
 #include "GenericFile.h"
 #include "ImageFile.h"
 #include "Stater.h"
+#include <atomic>
 #include <cstddef>
 #include <filesystem>
 #include <iostream>
+#include <thread>
 
 namespace fs = std::filesystem;
 
@@ -33,7 +35,11 @@ private:
   CodeFile *cfm;
   ImageFile *ifm;
   GenericFile *gfm;
-
+  std::vector<std::thread>
+      guardThreads; // Store threads for each guarded Rettository
+  std::atomic<bool> guarding{true}; // Atomic flag to control the guarding loop
+  std::vector<std::string>
+      selectedRettos; // Keep track of currently selected Rettositories
 public:
   Commander(std::string _cmd);
   Commander(int *date, Folder *_fm, Stater *_st, GenericFile *_gfm,
@@ -43,7 +49,6 @@ public:
   void cli(int argc, char *argv[]);
   void run(std::string _cmd);
   void giveCommand(std::string _cmd);
-  void run();
   void sl(fs::path path);
   void go();
   void info();
@@ -51,5 +56,7 @@ public:
   void commit();
   void commit(std::string name);
   void slRetto();
+  void help();
+  void mainloop();
 };
 #endif
