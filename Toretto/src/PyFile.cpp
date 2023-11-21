@@ -1,8 +1,5 @@
 #include "include/PyFile.h"
-#include "include/CodeFile.h"
-#include <filesystem>
-#include <fstream>
-#include <iostream>
+
 
 namespace fs = std::filesystem;
 

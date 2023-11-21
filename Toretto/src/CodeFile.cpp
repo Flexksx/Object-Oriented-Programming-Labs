@@ -1,14 +1,6 @@
 #include "include/CodeFile.h"
-#include "include/GenericFile.h"
 #include "include/JavaFile.h"
 #include "include/PyFile.h"
-#include <algorithm>
-#include <cstring>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
 
 CodeFile::CodeFile(std::string _filePath, int *_date)
     : GenericFile(_filePath, _date) {

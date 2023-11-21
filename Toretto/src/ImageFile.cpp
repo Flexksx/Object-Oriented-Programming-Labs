@@ -1,17 +1,5 @@
 #include "include/ImageFile.h"
-#include "include/GenericFile.h"
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#ifdef _WIN32
-// Windows specific includes
-#include <windows.h>
-#elif __linux__
-// Linux specific includes
-#include <arpa/inet.h>
-#else
-#error "Unsupported operating system"
-#endif
+
 
 ImageFile::ImageFile(std::string _filePath, int *date)
     : GenericFile(_filePath, date) {

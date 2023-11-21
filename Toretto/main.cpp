@@ -8,7 +8,6 @@
 #include <iostream>
 
 using std::string, std::cout, std::cin;
-namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
   int *date = new int[6];

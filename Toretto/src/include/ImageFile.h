@@ -3,7 +3,17 @@
 
 #include "GenericFile.h"
 #include <filesystem>
+#include <fstream>
 #include <iostream>
+#ifdef _WIN32
+// Windows specific includes
+#include <windows.h>
+#elif __linux__
+// Linux specific includes
+#include <arpa/inet.h>
+#else
+#error "Unsupported operating system"
+#endif
 
 namespace fs = std::filesystem;
 
@@ -16,7 +26,7 @@ private:
 
 public:
   ImageFile(std::string _filePath, int *date);
-  ImageFile(int* date);
+  ImageFile(int *date);
   std::string getFileExtension();
   void getSize();
   void showInfo() override;

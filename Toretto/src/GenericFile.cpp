@@ -1,8 +1,5 @@
 #include "include/GenericFile.h"
-#include <chrono>
-#include <filesystem>
-#include <format>
-#include <iostream>
+
 
 namespace fs = std::filesystem;
 

@@ -1,5 +1,4 @@
 #include "include/Stater.h"
-#include "include/Retto.h"
 
 namespace fs = std::filesystem;
 using std::string, std::cout, std::endl;

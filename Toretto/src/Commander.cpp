@@ -1,17 +1,4 @@
 #include "include/Commander.h"
-#include "include/CodeFile.h"
-#include "include/Folder.h"
-#include "include/GenericFile.h"
-#include "include/Stater.h"
-#include <algorithm>
-#include <atomic>
-#include <chrono>
-#include <cstring>
-#include <filesystem>
-#include <iostream>
-#include <string>
-#include <thread>
-#include <vector>
 
 using std::string, std::cout, std::cin, std::endl;
 
@@ -67,8 +54,8 @@ void Commander::mainloop() {
       this->commit();
     } else if (command == "sl") {
       std::string filePathString;
-      cout<<"Enter a path: ";
-      cin>>filePathString;
+      cout << "Enter a path: ";
+      cin >> filePathString;
       this->sl(filePathString);
     } else if (command == "help") {
       this->help();

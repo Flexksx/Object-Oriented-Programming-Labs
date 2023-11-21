@@ -3,8 +3,9 @@
 
 #include "CodeFile.h"
 #include <filesystem>
+#include <fstream>
 #include <iostream>
-
+#include <regex>
 namespace fs = std::filesystem;
 
 class JavaFile : public CodeFile {

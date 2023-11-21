@@ -6,11 +6,16 @@
 #include "GenericFile.h"
 #include "ImageFile.h"
 #include "Stater.h"
+#include <algorithm>
 #include <atomic>
+#include <chrono>
 #include <cstddef>
+#include <cstring>
 #include <filesystem>
 #include <iostream>
+#include <string>
 #include <thread>
+#include <vector>
 
 namespace fs = std::filesystem;
 
