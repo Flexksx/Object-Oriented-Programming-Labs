@@ -1,5 +1,0 @@
-dom.png
-BankAccount.java
-BankApplicationMain.java
-pula.txt
-.retto
