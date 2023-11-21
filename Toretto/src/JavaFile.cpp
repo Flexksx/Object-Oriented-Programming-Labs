@@ -14,7 +14,6 @@ int JavaFile::getNrOfClasses() {
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    // Using regular expressions to check for class declarations
     std::regex classRegex(R"(^\s*(public|private)?\s*(abstract)?\s*class\s)");
     if (std::regex_search(line, classRegex)) {
       nrOfClasses++;
@@ -28,7 +27,6 @@ int JavaFile::getNrOfMethods() {
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    // Using regular expressions to check for method declarations
     std::regex methodRegex(
         R"(^\s*(public|private|protected)?\s*(\w+)\s*\((.*?)\)\s*\{)");
     if (std::regex_search(line, methodRegex)) {

@@ -13,7 +13,6 @@ int PyFile::getNrOfClasses() {
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    // Check if the line begins with "class"
     if (line.find("class") == 0) {
       nrOfClasses++;
     }
@@ -27,13 +26,11 @@ int PyFile::getNrOfMethods() {
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    // Check if the line is a class declaration
     if (line.find("class") == 0) {
       inClassDeclaration = true;
       continue;
     }
 
-    // Check if the line is a method definition
     if (inClassDeclaration && line.find("def") == 0 &&
         (line.find("\t") == 0 || line.find("    ") == 0 ||
          line.find("  ") == 0)) {
@@ -41,8 +38,6 @@ int PyFile::getNrOfMethods() {
       inClassDeclaration = false;
       continue;
     }
-
-    // Reset the flag if the line is not part of a class declaration
     inClassDeclaration = false;
   }
   return nrOfMethods;
