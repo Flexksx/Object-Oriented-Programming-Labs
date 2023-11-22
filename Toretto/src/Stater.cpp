@@ -357,7 +357,7 @@ void Stater::guardRetto(std::string rettoName) {
         this->detectDeleted(loggedFileNames, existingFileNames, deletedFiles);
         this->detectNew(loggedFileNames, existingFileNames, newFiles);
         this->detectMod(rettoPath, filesdates);
-        this->updateLog(rettoPath, deletedFiles, newFiles, filesdates);
+        // this->updateLog(rettoPath, deletedFiles, newFiles, filesdates);
         if (!deletedFiles.empty() || !newFiles.empty()) {
           std::cout << "Changes detected in retto: " << rettoName << std::endl;
           std::cout << "Deleted files:" << std::endl;

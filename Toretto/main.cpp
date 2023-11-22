@@ -7,8 +7,6 @@
 #include <filesystem>
 #include <iostream>
 
-using std::string, std::cout, std::cin;
-
 int main(int argc, char *argv[]) {
   int *date = new int[6];
   Folder *fm = new Folder();
