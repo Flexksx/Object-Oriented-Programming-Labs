@@ -1,5 +1,5 @@
 public class BankAccount {
-    private float Balance;
+    private float   Balance;
     private String AccountNumber;
     private String OwnerName;
     private String OwnerPhoneNumber;

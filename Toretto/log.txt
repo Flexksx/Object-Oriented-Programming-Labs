@@ -1,2 +1,2 @@
-stacks
-//home/cristi/Documents/GitHub/LabsOOP/StackQueueLab/
+banklab /home///cristi///Documents///GitHub/LabsOOP/Labs1OOP
+stacks /home//cristi/Documents///GitHub/LabsOOP///StackQueueLab/

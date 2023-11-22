@@ -1,8 +1,5 @@
 #include "include/PyFile.h"
-#include "include/CodeFile.h"
-#include <filesystem>
-#include <fstream>
-#include <iostream>
+
 
 namespace fs = std::filesystem;
 
@@ -16,10 +13,32 @@ int PyFile::getNrOfClasses() {
   std::ifstream file(this->filePath);
   std::string line;
   while (std::getline(file, line)) {
-    // Check if the line begins with "class"
     if (line.find("class") == 0) {
       nrOfClasses++;
     }
   }
   return nrOfClasses;
+}
+
+int PyFile::getNrOfMethods() {
+  int nrOfMethods = 0;
+  bool inClassDeclaration = false;
+  std::ifstream file(this->filePath);
+  std::string line;
+  while (std::getline(file, line)) {
+    if (line.find("class") == 0) {
+      inClassDeclaration = true;
+      continue;
+    }
+
+    if (inClassDeclaration && line.find("def") == 0 &&
+        (line.find("\t") == 0 || line.find("    ") == 0 ||
+         line.find("  ") == 0)) {
+      nrOfMethods++;
+      inClassDeclaration = false;
+      continue;
+    }
+    inClassDeclaration = false;
+  }
+  return nrOfMethods;
 }

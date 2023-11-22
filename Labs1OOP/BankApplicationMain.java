@@ -5,7 +5,7 @@ public class BankApplicationMain {
         //Since I did not put them in any data structure, i just passed the transaction method an object.
         ba1.deposit(100);
         ba1.showBalance();
-        ba2.deposit(50);
+        ba2.deposit(70);
         ba1.transferFunds(ba2, 1000);
         ba2.blockAccount();
         ba1.transferFunds(ba2, 20);

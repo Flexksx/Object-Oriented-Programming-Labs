@@ -1,8 +1,5 @@
 #include "include/GenericFile.h"
-#include <chrono>
-#include <filesystem>
-#include <format>
-#include <iostream>
+
 
 namespace fs = std::filesystem;
 
@@ -47,6 +44,7 @@ int *GenericFile::getTimeFromEpoch() {
   date[2] = timeInfo->tm_mday;
   date[3] = timeInfo->tm_hour;
   date[4] = timeInfo->tm_min;
+  date[5] = timeInfo->tm_sec;
   return date;
 }
 

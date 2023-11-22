@@ -1,0 +1,1 @@
+g++ -std=c++20 main.cpp src/*.cpp -I src/include -o stacks
