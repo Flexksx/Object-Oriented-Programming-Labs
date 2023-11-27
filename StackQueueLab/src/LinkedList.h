@@ -133,6 +133,30 @@ public:
     }
     return current->getData();
   };
+  int indexOf(T data) {
+    Node<T> *current = this->head;
+    int index = 0;
+    while (current != nullptr) {
+      if (current->getData() == data) {
+        return index;
+      }
+      current = current->getNext();
+      ++index;
+    }
+    return -1;
+  };
+  void removeAll(T data) {
+    Node<T> *current = this->head;
+    while (current != nullptr) {
+      if (current->getData() == data) {
+        Node<T> *nodeToRemove = current;
+        current = current->getNext();
+        this->removeAt(this->indexOf(nodeToRemove->getData()));
+        continue;
+      }
+      current = current->getNext();
+    }
+  };
 };
 
 #endif

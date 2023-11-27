@@ -1,10 +1,10 @@
 #include "src/Array.h"
-#include "src/Queue.h"
-#include "src/LinkedQueue.h"
 #include "src/Dog.h"
-#include "src/LinkedStack.h"
-#include "src/Stack.h"
 #include "src/LinkedList.h"
+#include "src/LinkedQueue.h"
+#include "src/LinkedStack.h"
+#include "src/Queue.h"
+#include "src/Stack.h"
 #include <iostream>
 #include <vector>
 using std::string, std::cout, std::cin;
@@ -113,9 +113,11 @@ int main() {
   linkedQueue.enqueue(Bruno);
   linkedQueue.enqueue(Jesy);
   linkedQueue.enqueue(Max);
-  //You can peek at different indexes
+  // You can peek at different indexes
   cout << "Peek at index 1: " << linkedQueue.peekAt(1).getName() << "\n";
   // Jesy
+  linkedQueue.clear();
+  simpleQueue.clear();
 
   // Create 2 stacks, a simple one and one using Linked List Nodes
   Stack<Dog> simpleStack = Stack<Dog>();
@@ -129,20 +131,73 @@ int main() {
   linkedStack.push(Max);
   linkedStack.push(Rex);
   cout << "Simple Stack: \n";
+  int index = 0;
   while (!simpleStack.isEmpty()) {
-    cout << simpleStack.pop().getName() << "\n";
+
+    cout<<index++ <<". "<< simpleStack.pop().getName() << "\n";
     // Rex
     // Max
     // Jesy
     // Bruno
   }
   cout << "Linked Stack: \n";
+  index =0;
   while (!linkedStack.isEmpty()) {
-    cout << linkedStack.pop().getName() << "\n";
+    cout <<index++<<". "<< linkedStack.pop().getName() << "\n";
     // Rex
     // Max
     // Jesy
     // Bruno
   }
+  linkedStack.push(Bruno);
+  linkedStack.push(Jesy);
+  linkedStack.push(Max);
+  // You can peek at different indexes
+  cout << "Peek at index 1: " << linkedStack.peekAt(1).getName() << "\n";
+  linkedStack.clear();
+  simpleStack.clear();
 
+  // Create a LinkedList
+  LinkedList<Dog> linkedList = LinkedList<Dog>();
+  linkedList.add(Bruno);
+  linkedList.add(Jesy);
+  linkedList.add(Max);
+  linkedList.add(Rex);
+  cout << "Linked List: \n";
+  for (int i = 0; i < linkedList.getSize(); i++) {
+    cout << i<<". "<<linkedList.get(i).getName() << "\n";
+    // Bruno
+    // Jesy
+    // Max
+    // Rex
+  }
+  linkedList.removeAt(0);
+  cout << "Linked List after removing Bruno: \n";
+  for (int i = 0; i < linkedList.getSize(); i++) {
+    cout <<i<<". "<< linkedList.get(i).getName() << "\n";
+    // Jesy
+    // Max
+    // Rex
+  }
+  linkedList.add(Bruno);
+  linkedList.add(Bruno);
+  cout << "Linked List after adding 2 identical dogs: \n";
+  for (int i = 0; i < linkedList.getSize(); i++) {
+    cout << i << ". " << linkedList.get(i).getName() << "\n";
+    // Jesy
+    // Max
+    // Rex
+    // Bruno
+    // Bruno
+  }
+  linkedList.removeAll(Bruno);
+  cout << "Linked List after removing all Bruno: \n";
+  for (int i = 0; i < linkedList.getSize(); i++) {
+    cout << i << ". " << linkedList.get(i).getName() << "\n";
+    // Jesy
+    // Max
+    // Rex
+  }
+  linkedList.clear();
+  return 0;
 };
