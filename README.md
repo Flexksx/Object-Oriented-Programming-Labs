@@ -8,6 +8,11 @@ The extra files in it ```dom.png``` and ```.retto``` are files that I needed for
 # [Challenges](https://github.com/Flexksx/LabsOOP/tree/main/Challenges)
 This lab work involved solving different coding challenges using Java or other OOP Language, aimed to accomodate solving the problems in a OOP way.
 
+# [University Management Project](https://github.com/Flexksx/LabsOOP/tree/main/UniversityManagement/Project)
+This lab was about creting a system that would allow the management of a University, including faculties, each having multiple student groups and each student group having multiple students.
+The task was to make it work errorless and to mantain a good logic of the programm, involving multiple objects communicating between each other.
+It also has a serializer, so that each time you launch the programm, it deserializes the data and uses it to work from where you left.
+
 # [Toretto](https://github.com/Flexksx/LabsOOP/tree/main/Toretto)
 Toretto was about creating a similar to git system, where you can initalize different Rettositories on your PC locally and track if some files were changed, deleted or added.
 It stores the logs in the .retto file in the directory it was initialized in.
