@@ -1,13 +1,9 @@
 #include "Array.h"
 #include "Dog.h"
-#include "DynamicQueue.h"
-#include "DynamicStack.h"
 #include "LinkedList.h"
-#include "LinkedQueue.h"
-#include "LinkedStack.h"
-#include "StaticQueue.h"
-#include "StaticStack.h"
+#include "Stacks/Stacks.h"
 #include "printDataStructures.cpp"
+#include "Queues/Queues.h"
 #include <iostream>
 
 using std::cout;

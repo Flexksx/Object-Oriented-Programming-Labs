@@ -1,8 +1,8 @@
 #ifndef LINKED_STACK_H
 #define LINKED_STACK_H
 
+#include "/home/cristi/Documents/GitHub/LabsOOP/StackQueueLab/src/Node.h"
 #include "IStack.h"
-#include "Node.h"
 
 template <typename T> class LinkedStack : public IStack<T> {
 private:

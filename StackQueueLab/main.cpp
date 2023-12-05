@@ -1,12 +1,7 @@
 #include "src/Array.h"
 #include "src/Dog.h"
-#include "src/DynamicQueue.h"
-#include "src/DynamicStack.h"
 #include "src/LinkedList.h"
-#include "src/LinkedQueue.h"
-#include "src/LinkedStack.h"
-#include "src/StaticQueue.h"
-#include "src/StaticStack.h"
+#include "src/Queues/Queues.h"
 #include "src/printDemos.cpp"
 #include <iostream>
 
@@ -16,16 +11,7 @@ using std::cout;
 
 using std::cout;
 
-int main() {
-  /*
-  The Dog class is simple, having just 2 attributes
-  with a pair of get/set methods.
-  No dogs were harmed in the proccess.
-  */
-  Dog Bruno = Dog("Bruno", 5);
-  Dog Jesy = Dog("Jesy", 3);
-  Dog Max = Dog("Max", 7);
-  Dog Rex = Dog("Rex", 2);
+void demoForLab() {
   cout << "Hello World! This laboratory was about implementing different Data "
           "Structures using abstraction as a pillar of OOP.\n";
   cout << "The Data Structures implemented were:\n";
@@ -80,5 +66,9 @@ int main() {
     cin >> option;
     break;
   }
+}
+
+int main() {
+  demoForLab();
   return 0;
 }

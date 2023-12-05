@@ -1,8 +1,8 @@
 #ifndef LINKED_QUEUE_H
 #define LINKED_QUEUE_H
 
+#include "/home/cristi/Documents/GitHub/LabsOOP/StackQueueLab/src/Node.h"
 #include "IQueue.h"
-#include "Node.h"
 
 template <typename T> class LinkedQueue : public IQueue<T> {
 private:

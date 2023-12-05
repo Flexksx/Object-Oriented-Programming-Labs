@@ -1,11 +1,7 @@
 #include "Array.h"
-#include "DynamicQueue.h"
-#include "DynamicStack.h"
+#include "Stacks/Stacks.h"
 #include "LinkedList.h"
-#include "LinkedQueue.h"
-#include "LinkedStack.h"
-#include "StaticQueue.h"
-#include "StaticStack.h"
+#include "Queues/Queues.h"
 #include <iostream>
 
 using std::cout;
