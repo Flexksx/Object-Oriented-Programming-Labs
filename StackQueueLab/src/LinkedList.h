@@ -77,17 +77,30 @@ public:
       this->head = this->head->getNext();
       delete current;
       --this->size;
+      if (this->head == nullptr) {
+        // List is now empty, update tail as well
+        this->tail = nullptr;
+      }
       return;
     }
     Node<T> *current = this->head;
-    for (int i = 0; i < index - 1; ++i) {
+    for (int i = 0; i < index - 1 && current != nullptr; ++i) {
       current = current->getNext();
+    }
+    if (current == nullptr || current->getNext() == nullptr) {
+      // Invalid index or next node is null
+      return;
     }
     Node<T> *nodeToRemove = current->getNext();
     current->setNext(nodeToRemove->getNext());
     delete nodeToRemove;
     --this->size;
+    if (current->getNext() == nullptr) {
+      // Updated tail if the last node was removed
+      this->tail = current;
+    }
   };
+
   T get(int index) {
     if (index < 0 || index >= this->size) {
       return T();

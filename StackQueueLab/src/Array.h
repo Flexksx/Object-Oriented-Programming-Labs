@@ -67,12 +67,6 @@ public:
   int getSize() { return this->size; };
 
   T &operator[](int index) { return this->head[index]; };
-  void print() {
-    for (int i = 0; i < this->size; i++) {
-      std::cout << i + 1 << "." << this->head[i].getName() << ", "
-                << this->head[i].getAge() << "\n";
-    }
-  }
 };
 
 #endif // ARRAY_H

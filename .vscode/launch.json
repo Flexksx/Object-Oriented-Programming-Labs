@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Midterm",
+            "request": "launch",
+            "mainClass": "Midterm.Midterm",
+            "projectName": "LabsOOP_cb13ea95"
+        },
+        {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
@@ -28,6 +35,5 @@
                 }
             ]
         }
-
     ]
 }
