@@ -1,7 +1,7 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-#include <cstddef>
+#include <iostream>
 
 template <typename T> class Array {
 private:
@@ -27,13 +27,13 @@ public:
     ++this->size;
   };
   void remove(T data) {
-  for (int i = 0; i < this->size; i++) {
-    if (this->head[i] == data) {
-      this->removeAt(i);
-      break;
+    for (int i = 0; i < this->size; i++) {
+      if (this->head[i] == data) {
+        this->removeAt(i);
+        break;
+      }
     }
-  }
-};
+  };
 
   void removeAt(int index) {
     if (index < 0 || index >= this->size) {
@@ -48,12 +48,11 @@ public:
   }
   void removeAll(T data) {
     for (int i = static_cast<int>(this->size) - 1; i >= 0; --i) {
-        if (this->head[i] == data) {
-            this->removeAt(i);
-        }
+      if (this->head[i] == data) {
+        this->removeAt(i);
+      }
     }
-};
-
+  };
 
   T get(int index) { return this->head[index]; };
   void set(T data, int index) { this->head[index] = data; };
@@ -65,9 +64,15 @@ public:
     }
     return -1;
   }
-  int len() { return this->size; };
+  int getSize() { return this->size; };
 
   T &operator[](int index) { return this->head[index]; };
+  void print() {
+    for (int i = 0; i < this->size; i++) {
+      std::cout << i + 1 << "." << this->head[i].getName() << ", "
+                << this->head[i].getAge() << "\n";
+    }
+  }
 };
 
 #endif // ARRAY_H

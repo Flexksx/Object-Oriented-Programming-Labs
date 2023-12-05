@@ -1,28 +1,31 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
-#include "IStack.h"
+#include "IQueue.h"
 
-template <typename T> class Stack : public IStack<T> {
+template <typename T> class DynamicQueue : public IQueue<T> {
 private:
   T *head;
   T *tail;
   int size;
 
 public:
-  Stack<T>() {
+  DynamicQueue<T>() {
     this->head = nullptr;
     this->tail = nullptr;
     this->size = 0;
-  };
-  Stack<T>(T data) {
+  }
+
+  DynamicQueue<T>(T data) {
     this->head = new T[1];
     this->head[0] = data;
     this->tail = this->head;
     this->size = 1;
-  };
-  ~Stack<T>() { delete[] this->head; };
-  void push(T data) override {
+  }
+
+  ~DynamicQueue<T>() { delete[] this->head; }
+
+  void enqueue(T data) override {
     T *newHead = new T[this->size + 1];
     for (int i = 0; i < this->size; ++i) {
       newHead[i] = this->head[i];
@@ -33,7 +36,8 @@ public:
     this->tail = &(this->head[this->size]);
     ++this->size;
   };
-  T pop() override {
+
+  T dequeue() override {
     if (isEmpty()) {
       return T();
     }
@@ -48,6 +52,7 @@ public:
     --this->size;
     return data;
   };
+
   T peek() override { return this->head[0]; };
   bool isEmpty() override { return this->size == 0; };
   int getSize() override { return this->size; };

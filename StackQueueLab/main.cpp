@@ -1,23 +1,83 @@
 #include "src/Array.h"
 #include "src/Dog.h"
+#include "src/DynamicQueue.h"
+#include "src/DynamicStack.h"
 #include "src/LinkedList.h"
 #include "src/LinkedQueue.h"
 #include "src/LinkedStack.h"
-#include "src/Queue.h"
-#include "src/Stack.h"
+#include "src/StaticQueue.h"
+#include "src/StaticStack.h"
 #include <iostream>
-#include <vector>
+
 using std::string, std::cout, std::cin;
-/*
-This laboratory work will demonstrate my implementation of different Data
-Structures. These are:
-1. Array
-2. LinkedList
-3. Queue using simple pointers
-4. Queue using LinkedList Nodes
-5. Stack using simple pointers
-6. Stack using LinkedList Nodes
-*/
+
+void arrayDemo() {
+  cout << "Array Demo\n";
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "Creating an array of 4 dogs\n";
+  Array<Dog> dogs = Array<Dog>();
+  cout << "Array<Dog> dogs = Array<Dog>();\n";
+  cout << "Adding dogs to the array\n";
+  Dog Bruno = Dog("Bruno", 5);
+  Dog Jesy = Dog("Jesy", 3);
+  Dog Max = Dog("Max", 7);
+  Dog Rex = Dog("Rex", 2);
+  dogs.add(Bruno);
+  dogs.add(Jesy);
+  dogs.add(Max);
+  dogs.add(Rex);
+  cout << "Printing the array\n";
+  dogs.print();
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "You can remove dogs at certain indexes\n";
+  cout << "dogs.removeAt(2);\n";
+  dogs.removeAt(2);
+  dogs.print();
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "You can remove dogs by their name\n";
+  cout << "dogs.remove(Jesy);\n";
+  dogs.remove(Jesy);
+  dogs.print();
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "You can remove all dogs by their name\n";
+  cout << "dogs.add(Bruno);\n";
+  dogs.add(Bruno);
+  cout << "dogs.add(Bruno);\n";
+  dogs.add(Bruno);
+  dogs.print();
+  cout << "dogs.removeAll(Bruno);\n";
+  cout << "Removing all dogs named Bruno\n";
+  dogs.removeAll(Bruno);
+  dogs.print();
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "You can address the array as if it were a normal array\n";
+  cout << "dogs[0].getName() = " << dogs[0].getName() << "\n";
+  cout << "dogs[0].getAge() = " << dogs[0].getAge() << "\n";
+  cout << "Or using the get method\n";
+  cout << "dogs.get(0).getName() = " << dogs.get(0).getName() << "\n";
+  cout << "dogs.get(0).getAge() = " << dogs.get(0).getAge() << "\n";
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "That's it about the array. Launch the program again to test another "
+          "data structure\n";
+}
+
+void linkedListDemo() {}
+
+void dynamicQueueDemo() {}
+
+void linkedQueueDemo() {}
+
+void staticQueueDemo() {}
+void dynamicStackDemo() {}
+void linkedStackDemo() {}
+void staticStackDemo() {}
+
 int main() {
   /*
   The Dog class is simple, having just 2 attributes
@@ -28,176 +88,63 @@ int main() {
   Dog Jesy = Dog("Jesy", 3);
   Dog Max = Dog("Max", 7);
   Dog Rex = Dog("Rex", 2);
-
+  cout << "Hello World! This laboratory was about implementing different Data "
+          "Structures using abstraction as a pillar of OOP.\n";
+  cout << "The Data Structures implemented were:\n";
+  cout << "1. Array\n";
+  cout << "2. LinkedList\n";
+  cout << "3. Dynamic Queue using simple pointers\n";
+  cout << "4. Dynamic Queue using LinkedList Nodes\n";
+  cout << "5. Static Queue using simple pointers\n";
+  cout << "6. Dynamic Stack using simple pointers\n";
+  cout << "7. Dynamic Stack using LinkedList Nodes\n";
+  cout << "8. Static Stack using simple pointers\n";
+  cout << "The Dog class is simple, having just 2 attributes with a pair of "
+          "get/set methods.\n";
+  cout << "No dogs were harmed in the proccess.\n";
   // Array of my dawgs
-  Array<Dog> dogs;
-  dogs.add(Bruno);
-  dogs.add(Jesy);
-  dogs.add(Max);
-  dogs.add(Rex);
-
-  // Print the dogs
-  cout << "My dogs are: \n";
-  for (int i = 0; i < dogs.len(); i++) {
-    // There is also a get(int index) method,
-    // but i have overriden the [] operator
-    cout << i << ". " << dogs[i].getName() << "\n";
-    // 0. Bruno
-    // 1. Jesy
-    // 2. Max
-    // 3. Rex
+  cout << "These are the dogs that will be used in the examples:\n";
+  cout << "1." << Bruno.getName() << ", " << Bruno.getAge() << "\n";
+  cout << "2." << Jesy.getName() << ", " << Jesy.getAge() << "\n";
+  cout << "3." << Max.getName() << ", " << Max.getAge() << "\n";
+  cout << "4." << Rex.getName() << ", " << Rex.getAge() << "\n";
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  cout << "Select a Data Structure to test. Write the number from the menu "
+          "before:\n";
+  cout << "--------------------------------------------------------------------"
+          "----\n";
+  int option;
+  cin >> option;
+  switch (option) {
+  case 1:
+    arrayDemo();
+    break;
+  case 2:
+    linkedListDemo();
+    break;
+  case 3:
+    dynamicQueueDemo();
+    break;
+  case 4:
+    linkedQueueDemo();
+    break;
+  case 5:
+    staticQueueDemo();
+    break;
+  case 6:
+    dynamicStackDemo();
+    break;
+  case 7:
+    linkedStackDemo();
+    break;
+  case 8:
+    staticStackDemo();
+    break;
+  default:
+    cout << "Invalid option. Please try again.\n";
+    cin >> option;
+    break;
   }
-  /* Remove Bruno
-     In order to remove a Dog object, you have to override the == operator
-     Otherwise, you can just remove the object at a given index with
-     array.removeAt(int index)*/
-  dogs.remove(Bruno);
-
-  // Print the dogs
-  cout << "My dogs after removing Bruno are: \n";
-  for (int i = 0; i < dogs.len(); i++) {
-    cout << i << ". " << dogs[i].getName() << "\n";
-    // 0. Jesy
-    // 1. Max
-    // 2. Rex
-  }
-  // If you add 2 identycal dawgs
-  dogs.add(Bruno);
-  dogs.add(Bruno);
-  cout << "My dogs after adding 2 identical dogs are: \n";
-  for (int i = 0; i < dogs.len(); i++) {
-    cout << i << ". " << dogs[i].getName() << "\n";
-    // 0. Jesy
-    // 1. Max
-    // 2. Rex
-    // 3. Bruno
-    // 4. Bruno
-  }
-  // You can remove them all at once
-  dogs.removeAll(Bruno);
-  cout << "My dogs after removing all Bruno are: \n";
-  for (int i = 0; i < dogs.len(); i++) {
-    cout << i << ". " << dogs[i].getName() << "\n";
-    // 0. Jesy
-    // 1. Max
-    // 2. Rex
-  }
-
-  // Create 2 queues, a simple one and one using Linked List Nodes
-  Queue<Dog> simpleQueue = Queue<Dog>();
-  LinkedQueue<Dog> linkedQueue = LinkedQueue<Dog>();
-  simpleQueue.enqueue(Bruno);
-  simpleQueue.enqueue(Jesy);
-  simpleQueue.enqueue(Max);
-  simpleQueue.enqueue(Rex);
-  linkedQueue.enqueue(Bruno);
-  linkedQueue.enqueue(Jesy);
-  linkedQueue.enqueue(Max);
-  linkedQueue.enqueue(Rex);
-  cout << "Simple Queue: \n";
-  while (!simpleQueue.isEmpty()) {
-    cout << simpleQueue.dequeue().getName() << "\n";
-    // Bruno
-    // Jesy
-    // Max
-    // Rex
-  }
-  cout << "Linked Queue: \n";
-  while (!linkedQueue.isEmpty()) {
-    cout << linkedQueue.dequeue().getName() << "\n";
-    // Bruno
-    // Jesy
-    // Max
-    // Rex
-  }
-  linkedQueue.enqueue(Bruno);
-  linkedQueue.enqueue(Jesy);
-  linkedQueue.enqueue(Max);
-  // You can peek at different indexes
-  cout << "Peek at index 1: " << linkedQueue.peekAt(1).getName() << "\n";
-  // Jesy
-  linkedQueue.clear();
-  simpleQueue.clear();
-
-  // Create 2 stacks, a simple one and one using Linked List Nodes
-  Stack<Dog> simpleStack = Stack<Dog>();
-  LinkedStack<Dog> linkedStack = LinkedStack<Dog>();
-  simpleStack.push(Bruno);
-  simpleStack.push(Jesy);
-  simpleStack.push(Max);
-  simpleStack.push(Rex);
-  linkedStack.push(Bruno);
-  linkedStack.push(Jesy);
-  linkedStack.push(Max);
-  linkedStack.push(Rex);
-  cout << "Simple Stack: \n";
-  int index = 0;
-  while (!simpleStack.isEmpty()) {
-
-    cout<<index++ <<". "<< simpleStack.pop().getName() << "\n";
-    // Rex
-    // Max
-    // Jesy
-    // Bruno
-  }
-  cout << "Linked Stack: \n";
-  index =0;
-  while (!linkedStack.isEmpty()) {
-    cout <<index++<<". "<< linkedStack.pop().getName() << "\n";
-    // Rex
-    // Max
-    // Jesy
-    // Bruno
-  }
-  linkedStack.push(Bruno);
-  linkedStack.push(Jesy);
-  linkedStack.push(Max);
-  // You can peek at different indexes
-  cout << "Peek at index 1: " << linkedStack.peekAt(1).getName() << "\n";
-  linkedStack.clear();
-  simpleStack.clear();
-
-  // Create a LinkedList
-  LinkedList<Dog> linkedList = LinkedList<Dog>();
-  linkedList.add(Bruno);
-  linkedList.add(Jesy);
-  linkedList.add(Max);
-  linkedList.add(Rex);
-  cout << "Linked List: \n";
-  for (int i = 0; i < linkedList.getSize(); i++) {
-    cout << i<<". "<<linkedList.get(i).getName() << "\n";
-    // Bruno
-    // Jesy
-    // Max
-    // Rex
-  }
-  linkedList.removeAt(0);
-  cout << "Linked List after removing Bruno: \n";
-  for (int i = 0; i < linkedList.getSize(); i++) {
-    cout <<i<<". "<< linkedList.get(i).getName() << "\n";
-    // Jesy
-    // Max
-    // Rex
-  }
-  linkedList.add(Bruno);
-  linkedList.add(Bruno);
-  cout << "Linked List after adding 2 identical dogs: \n";
-  for (int i = 0; i < linkedList.getSize(); i++) {
-    cout << i << ". " << linkedList.get(i).getName() << "\n";
-    // Jesy
-    // Max
-    // Rex
-    // Bruno
-    // Bruno
-  }
-  linkedList.removeAll(Bruno);
-  cout << "Linked List after removing all Bruno: \n";
-  for (int i = 0; i < linkedList.getSize(); i++) {
-    cout << i << ". " << linkedList.get(i).getName() << "\n";
-    // Jesy
-    // Max
-    // Rex
-  }
-  linkedList.clear();
   return 0;
-};
+}
