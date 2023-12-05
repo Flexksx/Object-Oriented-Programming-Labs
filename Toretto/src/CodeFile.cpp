@@ -1,4 +1,5 @@
 #include "include/CodeFile.h"
+#include "include/GenericFile.h"
 #include "include/JavaFile.h"
 #include "include/PyFile.h"
 

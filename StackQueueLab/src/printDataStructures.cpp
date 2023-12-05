@@ -9,7 +9,7 @@
 #include <iostream>
 
 using std::cout;
-template <typename T> void printArray(Array<T> array) {
+template <typename T> void printArray(Array<T> &array) {
   cout << "[";
   for (int i = 0; i < array.getSize(); ++i) {
     cout << "{";
@@ -23,7 +23,7 @@ template <typename T> void printArray(Array<T> array) {
   }
   cout << "]\n";
 }
-template <typename T> void printLinkedList(LinkedList<T> linkedlist) {
+template <typename T> void printLinkedList(LinkedList<T> &linkedlist) {
   cout << "[";
   for (int i = 0; i < linkedlist.getSize(); ++i) {
     cout << "{";
@@ -38,7 +38,7 @@ template <typename T> void printLinkedList(LinkedList<T> linkedlist) {
   cout << "]\n";
 }
 
-template <typename T> void printQueue(DynamicQueue<T> queue) {
+template <typename T> void printQueue(DynamicQueue<T> &queue) {
   cout << "[";
   for (int i = 0; i < queue.getSize(); ++i) {
     cout << "{";
@@ -53,7 +53,7 @@ template <typename T> void printQueue(DynamicQueue<T> queue) {
   cout << "]\n";
 }
 
-template <typename T> void printQueue(StaticQueue<T> queue) {
+template <typename T> void printQueue(StaticQueue<T> &queue) {
   cout << "[";
   for (int i = 0; i < queue.getSize(); ++i) {
     cout << "{";
@@ -68,7 +68,7 @@ template <typename T> void printQueue(StaticQueue<T> queue) {
   cout << "]\n";
 }
 
-template <typename T> void printQueue(LinkedQueue<T> queue) {
+template <typename T> void printQueue(LinkedQueue<T> &queue) {
   cout << "[";
   for (int i = 0; i < queue.getSize(); ++i) {
     cout << "{";
@@ -83,7 +83,7 @@ template <typename T> void printQueue(LinkedQueue<T> queue) {
   cout << "]\n";
 }
 
-template <typename T> void printStack(DynamicStack<T> stack) {
+template <typename T> void printStack(DynamicStack<T> &stack) {
   cout << "[";
   for (int i = 0; i < stack.getSize(); ++i) {
     cout << "{";
@@ -98,7 +98,7 @@ template <typename T> void printStack(DynamicStack<T> stack) {
   cout << "]\n";
 }
 
-template <typename T> void printStack(StaticStack<T> stack) {
+template <typename T> void printStack(StaticStack<T> &stack) {
   cout << "[";
   for (int i = 0; i < stack.getSize(); ++i) {
     cout << "{";
@@ -113,7 +113,7 @@ template <typename T> void printStack(StaticStack<T> stack) {
   cout << "]\n";
 }
 
-template <typename T> void printStack(LinkedStack<T> stack) {
+template <typename T> void printStack(LinkedStack<T> &stack) {
   cout << "[";
   for (int i = 0; i < stack.getSize(); ++i) {
     cout << "{";

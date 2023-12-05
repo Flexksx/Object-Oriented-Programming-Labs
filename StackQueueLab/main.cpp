@@ -12,6 +12,10 @@
 
 using std::string, std::cout, std::cin;
 
+using std::cout;
+
+using std::cout;
+
 int main() {
   /*
   The Dog class is simple, having just 2 attributes
